@@ -8,13 +8,19 @@ import {
 import { Button } from "@/components/ui/button.tsx";
 import { ArrowLeft, ArrowRight, RefreshCcw } from "lucide-react";
 import { $api } from "@/lib/api/client.ts";
+import { useNavigate } from "react-router-dom";
 
 const Navigation = ({ slug }: { slug: string }) => {
   const { data } = $api.useSuspenseQuery("get", "/training");
+  const navigate = useNavigate();
+
+  function updateChapter(chapterSlug: string) {
+    navigate(`/chapter/${chapterSlug}`);
+  }
 
   return (
     <div className="flex gap-1 px-4">
-      <Select value={slug}>
+      <Select value={slug} onValueChange={updateChapter}>
         <SelectTrigger className="w-[70%]">
           <SelectValue placeholder="Pick a chapter" />
         </SelectTrigger>

@@ -1,7 +1,7 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 import importlib
-
+import capellambse
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -57,7 +57,8 @@ def run_chapter_checks(chapter_slug: str) -> list[TaskResult]:
         raise FileNotFoundError("tasks.py not found")
 
     tasks_module = importlib.import_module(f"training.{chapter_slug}.tasks")
-    return tasks_module.tasks.check_tasks()
+    model = capellambse.MelodyModel("./training/02-first-tests/model/PVMT_Demo.aird")
+    return tasks_module.tasks.check_tasks(model)
 
 
 def get_training_chapter(chapter_slug: str, meta_only: bool) -> Chapter | ChapterMeta:
