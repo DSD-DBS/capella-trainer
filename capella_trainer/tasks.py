@@ -21,7 +21,7 @@ class TaskList:
     def __init__(self, tasks: list[TaskDefinition]):
         self.tasks = tasks
 
-    def check_tasks(self) -> list[TaskResult]:
+    def check_tasks(self, *args) -> list[TaskResult]:
         results = []
         has_failed = False
         for task in self.tasks:
@@ -37,7 +37,7 @@ class TaskList:
                 continue
 
             try:
-                task.validator()
+                task.validator(*args)
                 results.append(
                     TaskResult(
                         description=task.description,

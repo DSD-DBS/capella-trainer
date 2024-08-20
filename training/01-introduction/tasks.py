@@ -25,5 +25,3 @@ tasks = TaskList(
         ),
     ]
 )
-
-print(tasks.check_tasks())
