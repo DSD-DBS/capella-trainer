@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 class TaskDefinition(BaseModel):
     description: str
-    validator: Callable[[capellambse.model.MelodyModel], None]
+    validator: Callable
 
 
 class TaskResult(BaseModel):
@@ -55,5 +55,6 @@ class TaskList:
                         message=str(e),
                     )
                 )
+                has_failed = True
 
         return results
