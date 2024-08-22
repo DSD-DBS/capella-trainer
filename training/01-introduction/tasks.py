@@ -3,16 +3,16 @@ import random
 from capella_trainer.tasks import TaskList, TaskDefinition
 
 
-def check():
+def check(model):
     assert 1 + 1 == 2, "This should not get triggered"
 
 
-def random_check():
+def random_check(model):
     number = random.randint(1, 10)
     assert number >= 5, f"Random number was {number}, expected at least 5"
 
 
-def never_check():
+def never_check(model):
     assert False, "This should never be completed"
 
 

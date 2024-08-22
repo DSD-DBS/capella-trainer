@@ -18,7 +18,7 @@ const Tasks = ({ slug }: { slug: string }) => {
       },
     },
     {
-      refetchInterval: 10 * 1000,
+      refetchInterval: 3 * 1000,
     },
   );
 
