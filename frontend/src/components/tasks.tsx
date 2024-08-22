@@ -86,7 +86,7 @@ const Tasks = ({ path }: { path: string }) => {
           ))}
 
         <AnimatePresence>
-          {activeIndex !== -1 && (
+          {activeIndex && activeIndex > 0 && (
             <motion.div
               layout
               className="absolute -z-10 h-full w-full rounded-md bg-gray-200"

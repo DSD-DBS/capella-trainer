@@ -68,6 +68,9 @@ importers:
       react-router-dom:
         specifier: ^6.26.1
         version: 6.26.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      rehype-mdx-import-media:
+        specifier: ^1.2.0
+        version: 1.2.0
       remark-gfm:
         specifier: ^4.0.0
         version: 4.0.0
@@ -1593,6 +1596,9 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
+  hast-util-properties-to-mdx-jsx-attributes@1.0.0:
+    resolution: {integrity: sha512-MZEdAYiXC8wDBfntAc7syyWHbcg/X1h03DQ7IQ6MKagMttpYhnKqOZR/nia0657Dt2v2vuXB8YuKNExw0Fljew==}
+
   hast-util-to-estree@3.1.0:
     resolution: {integrity: sha512-lfX5g6hqVh9kjS/B9E2gSkvHH4SZNiQFiqWS0x9fENzEl+8W12RqdRxX6d/Cwxi30tPQs3bIO+aolQJNp1bIyw==}
 
@@ -2109,6 +2115,9 @@ packages:
     resolution: {integrity: sha512-rum1bPifK5SSar35Z6EKZuYPJx85pkNaFrxBK3mwdfSJ1/WKbYrjoW/zTPSjRRamfmVX1ACBIdFAO0VRErW/EA==}
     engines: {node: '>=18'}
 
+  parse-srcset@1.0.2:
+    resolution: {integrity: sha512-/2qh0lav6CmI15FzA3i/2Bzk2zCgQhGMkvhOhKNcBVQ1ldgpbfiNTVslmooUmWJcADi1f1kIeynbDRVzNlfR6Q==}
+
   path-exists@2.1.0:
     resolution: {integrity: sha512-yTltuKuhtNeFJKa1PiRzfLAU5182q1y4Eb4XCJ3PBqyzEDkAZRzBrKKBct682ls9reBVHf9udYLN5Nd+K1B9BQ==}
     engines: {node: '>=0.10.0'}
@@ -2362,6 +2371,9 @@ packages:
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
+  rehype-mdx-import-media@1.2.0:
+    resolution: {integrity: sha512-rf+2qnPv3LTqLtCr8GjhHUja2TEbmwWtD1o4jigrmGWbVDggOMxyNeqJhGpC4E3vtH+sY+a+u9WPSEaskEWPFA==}
+
   remark-frontmatter@5.0.0:
     resolution: {integrity: sha512-XTFYvNASMe5iPN0719nPrdItC9aU0ssC4v14mH1BCi1u0n1gAocqcujWUrByftZTbLhRtiKRyjYTSIOcr69UVQ==}
 
@@ -2507,6 +2519,9 @@ packages:
   strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
+
+  style-to-js@1.1.12:
+    resolution: {integrity: sha512-tv+/FkgNYHI2fvCoBMsqPHh5xovwiw+C3X0Gfnss/Syau0Nr3IqGOJ9XiOYXoPnToHVbllKFf5qCNFJGwFg5mg==}
 
   style-to-object@0.4.4:
     resolution: {integrity: sha512-HYNoHZa2GorYNyqiCaBgsxvcJIn7OHq6inEga+E6Ke3m5JkoqpQbnFssk4jwe+K7AhGa2fcha4wSOf1Kn01dMg==}
@@ -4097,6 +4112,19 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
+  hast-util-properties-to-mdx-jsx-attributes@1.0.0:
+    dependencies:
+      '@types/estree': 1.0.5
+      '@types/hast': 3.0.4
+      comma-separated-tokens: 2.0.3
+      estree-util-value-to-estree: 3.1.2
+      mdast-util-mdx-jsx: 3.1.2
+      property-information: 6.5.0
+      space-separated-tokens: 2.0.2
+      style-to-js: 1.1.12
+    transitivePeerDependencies:
+      - supports-color
+
   hast-util-to-estree@3.1.0:
     dependencies:
       '@types/estree': 1.0.5
@@ -4915,6 +4943,8 @@ snapshots:
       index-to-position: 0.1.2
       type-fest: 4.25.0
 
+  parse-srcset@1.0.2: {}
+
   path-exists@2.1.0:
     dependencies:
       pinkie-promise: 2.0.1
@@ -5093,6 +5123,16 @@ snapshots:
       strip-indent: 1.0.1
 
   regenerator-runtime@0.14.1: {}
+
+  rehype-mdx-import-media@1.2.0:
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-properties-to-mdx-jsx-attributes: 1.0.0
+      parse-srcset: 1.0.2
+      unified: 11.0.5
+      unist-util-visit: 5.0.0
+    transitivePeerDependencies:
+      - supports-color
 
   remark-frontmatter@5.0.0:
     dependencies:
@@ -5278,6 +5318,10 @@ snapshots:
       get-stdin: 4.0.1
 
   strip-json-comments@3.1.1: {}
+
+  style-to-js@1.1.12:
+    dependencies:
+      style-to-object: 1.0.6
 
   style-to-object@0.4.4:
     dependencies:

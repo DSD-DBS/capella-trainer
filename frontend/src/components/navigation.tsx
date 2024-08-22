@@ -53,8 +53,6 @@ const Navigation = ({ path }: { path: string }) => {
       ? flattenedLessons[lessonIndex + 1].path.join("/")
       : null;
 
-  console.log(lessonIndex);
-
   return (
     <div className="flex gap-1 px-4">
       <Select value={path} onValueChange={updateLesson}>
