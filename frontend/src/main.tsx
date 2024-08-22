@@ -2,7 +2,7 @@ import { StrictMode, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import "./index.css";
-import Chapter from "@/routes/chapter.tsx";
+import Lesson from "@/routes/lesson.tsx";
 import { createRoot } from "react-dom/client";
 
 createRoot(document.getElementById("root")!).render(
@@ -10,7 +10,7 @@ createRoot(document.getElementById("root")!).render(
     <Suspense>
       <Router>
         <Routes>
-          <Route path="/chapter/:slug" element={<Chapter />} />
+          <Route path="/lesson/*" element={<Lesson />} />
         </Routes>
       </Router>
     </Suspense>

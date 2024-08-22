@@ -4,20 +4,20 @@ import Content from "@/components/content.tsx";
 import Tasks from "@/components/tasks.tsx";
 import { useParams } from "react-router-dom";
 
-const Chapter = () => {
-  const { slug } = useParams();
-  if (!slug) {
+const Lesson = () => {
+  const { "*": path } = useParams();
+  if (!path) {
     return null;
   }
   return (
     <Layout>
       <div className="flex h-screen max-w-md flex-col justify-between gap-2 border-r-2 py-4">
-        <Navigation slug={slug} />
-        <Content slug={slug} />
-        <Tasks slug={slug} />
+        <Navigation path={path} />
+        <Content path={path} />
+        <Tasks path={path} />
       </div>
     </Layout>
   );
 };
 
-export default Chapter;
+export default Lesson;

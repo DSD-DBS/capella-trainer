@@ -1,25 +1,30 @@
 import { $api } from "@/lib/api/client.ts";
 import { cn } from "@/lib/utils.ts";
 import { CircleXIcon, CircleCheckIcon, Loader2Icon } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
-const Tasks = ({ slug }: { slug: string }) => {
+const Tasks = ({ path }: { path: string }) => {
   const {
     data: checks,
     isPending,
     isRefetching,
   } = $api.useQuery(
     "post",
-    "/training/chapter/{chapter_slug}/checks",
+    "/training/lesson/{lesson_path}/checks",
     {
       params: {
         path: {
-          chapter_slug: slug,
+          lesson_path: path,
         },
       },
     },
     {
       refetchInterval: 3 * 1000,
     },
+  );
+
+  const activeIndex = checks?.findIndex(
+    (check) => !check.success && check.was_executed,
   );
 
   return (
@@ -32,40 +37,69 @@ const Tasks = ({ slug }: { slug: string }) => {
           )}
         </div>
       </div>
-      <ol>
+
+      <ol className="relative grid">
         {checks &&
           checks.map((check, i) => (
-            <li
+            <motion.li
               key={check.description}
-              className={cn(
-                "flex items-center rounded-md px-3",
-                !check.success && check.was_executed
-                  ? "bg-gray-200 py-1"
-                  : "py-2",
-              )}
+              layoutId={check.description}
+              layout
+              layoutRoot
+              className={cn("relative flex items-center rounded-md px-3 py-2")}
             >
               <div className="grow">
-                <p
-                  className={
+                <motion.p
+                  layout="position"
+                  className={cn(
                     !check.success && check.was_executed
                       ? "font-bold"
-                      : "font-medium"
-                  }
+                      : "font-medium",
+                  )}
                 >
                   {i + 1}. {check.description}
-                </p>
+                </motion.p>
                 {check.was_executed && check.message && (
-                  <p>HINT: {check.message}</p>
+                  <motion.p
+                    layout="position"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    HINT: {check.message}
+                  </motion.p>
                 )}
               </div>
-              {check.success && (
-                <CircleCheckIcon className="p-0.5 text-green-700" />
-              )}
-              {!check.success && check.was_executed && (
-                <CircleXIcon className="p-0.5 text-red-700" />
-              )}
-            </li>
+
+              <motion.div
+                layout="position"
+                className={cn(
+                  check.success ? "text-green-700" : "text-red-700",
+                  "transition-colors",
+                )}
+              >
+                {check.success && <CircleCheckIcon className="p-0.5" />}
+                {!check.success && check.was_executed && (
+                  <CircleXIcon className="p-0.5" />
+                )}
+              </motion.div>
+            </motion.li>
           ))}
+
+        <AnimatePresence>
+          {activeIndex !== -1 && (
+            <motion.div
+              layout
+              className="absolute -z-10 h-full w-full rounded-md bg-gray-200"
+              style={{
+                gridRowStart: activeIndex + 1,
+                gridRowEnd: activeIndex + 1,
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            ></motion.div>
+          )}
+        </AnimatePresence>
       </ol>
     </div>
   );
