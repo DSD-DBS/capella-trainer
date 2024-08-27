@@ -3,10 +3,10 @@ import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import { evaluate } from "@mdx-js/mdx";
 
 import type { FC, ReactNode } from "react";
-import { Button } from "@/components/ui/button.tsx";
 import { MDXProps } from "mdx/types";
 import remarkGfm from "remark-gfm";
 import rehypeMdxImportMedia from "rehype-mdx-import-media";
+import Admonition from "@/components/admonition.tsx";
 
 type ReactMDXContent = (props: MDXProps) => ReactNode;
 
@@ -26,5 +26,5 @@ export const Preview: FC<{ source?: string }> = ({ source = "" }) => {
     }).then((r) => setMdxContent(() => r.default));
   }, [source]);
 
-  return <MdxContent components={{ Button }} />;
+  return <MdxContent components={{ Admonition }} />;
 };
