@@ -20,7 +20,8 @@ export const Preview: FC<{ source?: string }> = ({ source = "" }) => {
       jsx,
       jsxs,
       Fragment,
-      remarkPlugins: [rehypeMdxImportMedia, remarkGfm],
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypeMdxImportMedia],
       baseUrl: "http://localhost:8000/static-training/02-first-tests/",
     }).then((r) => setMdxContent(() => r.default));
   }, [source]);
