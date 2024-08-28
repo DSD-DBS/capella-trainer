@@ -5,10 +5,10 @@ import { cva, VariantProps } from "class-variance-authority";
 const admonition = cva("border-l-2", {
   variants: {
     variant: {
-      info: "bg-blue-100 border-blue-500 text-blue-700",
-      warning: "bg-yellow-100 border-yellow-500 text-yellow-700",
-      danger: "bg-red-100 border-red-500 text-red-700",
-      success: "bg-green-100 border-green-500 text-green-700",
+      info: "bg-blue-100/50 border-blue-500 text-blue-700",
+      warning: "bg-yellow-100/50 border-yellow-500 text-yellow-700",
+      danger: "bg-red-100/50 border-red-500 text-red-700",
+      success: "bg-green-100/50 border-green-500 text-green-700",
     },
   },
 });
@@ -22,7 +22,7 @@ const Admonition = ({
 }) => {
   return (
     <div className={admonition({ variant })}>
-      <div className="p-4">
+      <div className="px-4">
         <div className="flex items-center">
           {variant === "info" && <Info size={24} />}
           {variant === "warning" && <TriangleAlert size={24} />}

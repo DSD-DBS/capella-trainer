@@ -15,8 +15,8 @@ const Content = ({ path }: { path: string }) => {
   );
 
   return (
-    <div className="prose grow overflow-y-scroll pl-4 prose-headings:m-0 prose-h1:text-3xl prose-h1:font-bold prose-p:m-0">
-      <Preview source={data.content} />
+    <div className="prose grow overflow-y-scroll pl-4 prose-h1:text-3xl prose-h1:font-bold">
+      <Preview source={data.content} path={path} />
     </div>
   );
 };
