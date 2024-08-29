@@ -21,23 +21,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/training/lesson/{lesson_path}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Training Lesson */
-        get: operations["training_lesson_training_lesson__lesson_path__get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/training/lesson/{lesson_path}/checks": {
         parameters: {
             query?: never;
@@ -49,6 +32,40 @@ export interface paths {
         put?: never;
         /** Run Training Lesson Checks */
         post: operations["run_training_lesson_checks_training_lesson__lesson_path__checks_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/training/lesson/{lesson_path}/quiz": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Quiz */
+        get: operations["get_quiz_training_lesson__lesson_path__quiz_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/training/lesson/{lesson_path}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Training Lesson */
+        get: operations["get_training_lesson_training_lesson__lesson_path__get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -128,6 +145,12 @@ export interface components {
              */
             has_tasks: boolean;
             /**
+             * Has Quiz
+             * @description Whether the lesson has a quiz.
+             * @default false
+             */
+            has_quiz: boolean;
+            /**
              * Has Start Model
              * @description Whether the lesson has a start model.
              * @default false
@@ -139,6 +162,84 @@ export interface components {
              * @default false
              */
             has_end_model: boolean;
+        };
+        /** MultipleChoiceQuestion */
+        MultipleChoiceQuestion: {
+            /**
+             * Text
+             * @description The text of the question
+             */
+            text: string;
+            /**
+             * Explanation
+             * @description Explanation of the answer
+             */
+            explanation: string;
+            /**
+             * Question Type
+             * @description Type of the question
+             * @constant
+             * @enum {string}
+             */
+            question_type: "multiple_choice";
+            /**
+             * Id
+             * @description ID of the question
+             */
+            id: number;
+            /**
+             * Options
+             * @description List of possible answers
+             */
+            options: string[];
+            /**
+             * Correct Options
+             * @description List of correct choice indices
+             */
+            correct_options: number[];
+        };
+        /** Quiz */
+        Quiz: {
+            /**
+             * Questions
+             * @description List of questions
+             */
+            questions: (components["schemas"]["MultipleChoiceQuestion"] | components["schemas"]["SingleChoiceQuestion"])[];
+        };
+        /** SingleChoiceQuestion */
+        SingleChoiceQuestion: {
+            /**
+             * Text
+             * @description The text of the question
+             */
+            text: string;
+            /**
+             * Explanation
+             * @description Explanation of the answer
+             */
+            explanation: string;
+            /**
+             * Question Type
+             * @description Type of the question
+             * @constant
+             * @enum {string}
+             */
+            question_type: "single_choice";
+            /**
+             * Id
+             * @description ID of the question
+             */
+            id: number;
+            /**
+             * Options
+             * @description List of possible answers
+             */
+            options: string[];
+            /**
+             * Correct Option
+             * @description Index of the correct choice
+             */
+            correct_option: number;
         };
         /** TaskResult */
         TaskResult: {
@@ -204,37 +305,6 @@ export interface operations {
             };
         };
     };
-    training_lesson_training_lesson__lesson_path__get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                lesson_path: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Lesson"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
     run_training_lesson_checks_training_lesson__lesson_path__checks_post: {
         parameters: {
             query?: never;
@@ -253,6 +323,68 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TaskResult"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_quiz_training_lesson__lesson_path__quiz_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                lesson_path: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Quiz"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_training_lesson_training_lesson__lesson_path__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                lesson_path: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Lesson"];
                 };
             };
             /** @description Validation Error */

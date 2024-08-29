@@ -1,7 +1,7 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 import importlib
-from typing import Self
+import typing as t
 
 import capellambse
 from fastapi import FastAPI
@@ -34,10 +34,67 @@ class Element(BaseModel):
     type: str = Field(description="Type of the element.")
 
 
+class BaseQuestion(BaseModel):
+    text: str = Field(description="The text of the question")
+    explanation: str = Field(description="Explanation of the answer")
+    question_type: str = Field(description="Type of the question")
+    id: int = Field(description="ID of the question")
+
+
+class MultipleChoiceQuestion(BaseQuestion):
+    options: list[str] = Field(description="List of possible answers")
+    correct_options: list[int] = Field(description="List of correct choice indices")
+    question_type: t.Literal["multiple_choice"] = Field(
+        description="Type of the question"
+    )
+
+
+class SingleChoiceQuestion(BaseQuestion):
+    options: list[str] = Field(description="List of possible answers")
+    correct_option: int = Field(description="Index of the correct choice")
+    question_type: t.Literal["single_choice"] = Field(
+        description="Type of the question"
+    )
+
+
+class Quiz(BaseModel):
+    questions: list[MultipleChoiceQuestion | SingleChoiceQuestion] = Field(
+        description="List of questions"
+    )
+
+    @staticmethod
+    def from_path(path_name: list[str]):
+        """
+        Read the quiz content
+        :param path_name: quiz name
+        """
+        lesson = Lesson.from_path(path_name)
+        quiz_file_system_path = os.path.join(TRAINING_DIR, *path_name, "quiz.yaml")
+
+        if not os.path.exists(quiz_file_system_path):
+            raise FileNotFoundError("Quiz not found")
+
+        with open(quiz_file_system_path) as f:
+            quiz = yaml.safe_load(f)
+            questions = []
+            for question in quiz["questions"]:
+                if question["question_type"] == "multiple_choice":
+                    questions.append(MultipleChoiceQuestion(**question))
+                elif question["question_type"] == "single_choice":
+                    questions.append(SingleChoiceQuestion(**question))
+                else:
+                    raise ValueError(
+                        f"Unknown question type {question['question_type']}"
+                    )
+            print(questions)
+            return Quiz(questions=questions)
+
+
 class Lesson(Element):
     content: str = Field(description="Markdown content")
     # TODO: temporary fields for testing
     has_tasks: bool = Field(default=False, description="Whether the lesson has tasks.")
+    has_quiz: bool = Field(default=False, description="Whether the lesson has a quiz.")
     has_start_model: bool = Field(
         default=False, description="Whether the lesson has a start model."
     )
@@ -69,6 +126,7 @@ class Lesson(Element):
                 slug = path_name[-1]
 
                 has_tasks = os.path.exists(os.path.join(file_system_path, "tasks.py"))
+                has_quiz = os.path.exists(os.path.join(file_system_path, "quiz.yaml"))
                 has_start_model = os.path.exists(
                     os.path.join(file_system_path, ".start_model")
                 )
@@ -81,6 +139,7 @@ class Lesson(Element):
                     path=path_name,
                     slug=slug,
                     has_tasks=has_tasks,
+                    has_quiz=has_quiz,
                     has_start_model=has_start_model,
                     has_end_model=has_end_model,
                 )
@@ -108,7 +167,7 @@ class Lesson(Element):
 
 
 class Folder(Element):
-    children: list[Self | Lesson] = Field(description="List of lessons and folders.")
+    children: list[t.Self | Lesson] = Field(description="List of lessons and folders.")
     type: str = Field(default="folder", description="Type of the element.")
 
     @staticmethod
@@ -151,7 +210,7 @@ class Folder(Element):
 
         return Folder(name=name, path=path_name, children=children, slug=slug)
 
-    def get_child(self, path: list[str]) -> Self | Lesson:
+    def get_child(self, path: list[str]) -> t.Self | Lesson:
         """
         Get the child folder or lesson by path
         :param path: path to the child
@@ -218,12 +277,17 @@ async def get_training() -> Training:
     return training
 
 
-@app.get("/training/lesson/{lesson_path:path}")
-async def training_lesson(lesson_path: str) -> Lesson:
-    return training.root.get_child(lesson_path.split("/"))
-
-
 @app.post("/training/lesson/{lesson_path:path}/checks")
 async def run_training_lesson_checks(lesson_path: str) -> list[TaskResult]:
     lesson = training.root.get_child(lesson_path.split("/"))
     return lesson.run_checks()
+
+
+@app.get("/training/lesson/{lesson_path:path}/quiz")
+async def get_quiz(lesson_path: str) -> Quiz:
+    return Quiz.from_path(lesson_path.split("/"))
+
+
+@app.get("/training/lesson/{lesson_path:path}")
+async def get_training_lesson(lesson_path: str) -> Lesson:
+    return training.root.get_child(lesson_path.split("/"))

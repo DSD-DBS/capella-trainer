@@ -1,0 +1,22 @@
+questions:
+  - text: Which ICE is the best?
+    options:
+      - ICE 1
+      - ICE 2
+      - ICE 3
+      - ICE 4
+      - ICE 3neo
+      - ICE T
+    correct_option: 4
+    question_type: single_choice
+    explanation: This is debatable though
+    id: 1
+  - text: What is the meaning of life?
+    options:
+      - "42"
+      - "43"
+      - "44"
+    correct_options: [0]
+    question_type: multiple_choice
+    explanation: 42 is the answer to everything
+    id: 2
