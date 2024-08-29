@@ -1,16 +1,94 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select.tsx";
-import { Button, buttonVariants } from "@/components/ui/button.tsx";
-import { ArrowLeft, ArrowRight, RefreshCcw } from "lucide-react";
-import { $api } from "@/lib/api/client.ts";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+import {
+  ArrowLeft,
+  ArrowRight,
+  Book,
+  ChevronDown,
+  ChevronRight,
+  RefreshCcw,
+} from "lucide-react";
+import { $api } from "@/lib/api/client.ts";
 import { cn } from "@/lib/utils.ts";
 import { components } from "@/lib/api/v1";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button, buttonVariants } from "@/components/ui/button";
+
+function FolderNode({
+  node,
+  path,
+}: {
+  node: components["schemas"]["Folder"];
+  path: string;
+}) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <li>
+      <div
+        className="flex cursor-pointer items-center rounded px-2 py-1 hover:bg-secondary"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
+        {isExpanded ? (
+          <ChevronDown className="mr-1 h-4 w-4 shrink-0" />
+        ) : (
+          <ChevronRight className="mr-1 h-4 w-4 shrink-0" />
+        )}
+        <span className="font-medium">{node.name}</span>
+      </div>
+      {isExpanded && node.children && (
+        <ul className="ml-4">
+          {node.children.map((child, index) =>
+            child.type === "folder" ? (
+              <FolderNode
+                key={index}
+                node={child as components["schemas"]["Folder"]}
+                path={path}
+              />
+            ) : (
+              <LessonNode
+                key={index}
+                node={child as components["schemas"]["Lesson"]}
+                path={path}
+              />
+            ),
+          )}
+        </ul>
+      )}
+    </li>
+  );
+}
+
+function LessonNode({
+  node,
+  path,
+}: {
+  node: components["schemas"]["Lesson"];
+  path: string;
+}) {
+  const navigate = useNavigate();
+  const isActive = path === node.path.join("/");
+  console.log(path, node.path.join("/"));
+
+  return (
+    <li
+      className={cn(
+        "flex cursor-pointer items-center rounded px-2 py-1",
+        isActive ? "bg-primary text-primary-foreground" : "hover:bg-secondary",
+      )}
+      onClick={() => navigate(`/lesson/${node.path.join("/")}`)}
+    >
+      <Book className="mr-2 h-4 w-4 shrink-0" />
+      <span>{node.name}</span>
+    </li>
+  );
+}
 
 function getAllLessons(
   root: components["schemas"]["Folder"],
@@ -33,11 +111,6 @@ function getAllLessons(
 
 const Navigation = ({ path }: { path: string }) => {
   const { data } = $api.useSuspenseQuery("get", "/training");
-  const navigate = useNavigate();
-
-  function updateLesson(lessonPath: string) {
-    navigate(`/lesson/${lessonPath}`);
-  }
 
   const flattenedLessons = getAllLessons(data.root);
 
@@ -55,25 +128,42 @@ const Navigation = ({ path }: { path: string }) => {
 
   return (
     <div className="flex gap-1 px-4">
-      <Select value={path} onValueChange={updateLesson}>
-        <SelectTrigger className="w-[70%]">
-          <SelectValue placeholder="Pick a Lesson" />
-        </SelectTrigger>
-        <SelectContent>
-          {flattenedLessons.map((lesson) => (
-            <SelectItem
-              key={lesson.path.join("/")}
-              value={lesson.path.join("/")}
-            >
-              {lesson.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            className="block grow overflow-hidden overflow-ellipsis whitespace-nowrap text-left"
+            variant="outline"
+          >
+            {flattenedLessons[lessonIndex]?.name}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="p-0">
+          <div className="p-2">
+            <ul className="space-y-1">
+              {data.root.children.map((child) =>
+                child.type === "folder" ? (
+                  <FolderNode
+                    key={child.name}
+                    node={child as components["schemas"]["Folder"]}
+                    path={path}
+                  />
+                ) : (
+                  <LessonNode
+                    key={child.name}
+                    node={child as components["schemas"]["Lesson"]}
+                    path={path}
+                  />
+                ),
+              )}
+            </ul>
+          </div>
+        </PopoverContent>
+      </Popover>
       <Link
         className={cn(
           buttonVariants({ size: "icon" }),
           !previousLesson && "pointer-events-none opacity-50",
+          "shrink-0",
         )}
         to={previousLesson ? `/lesson/${previousLesson}` : "#"}
       >
@@ -83,12 +173,13 @@ const Navigation = ({ path }: { path: string }) => {
         className={cn(
           buttonVariants({ size: "icon" }),
           !nextLesson && "pointer-events-none opacity-50",
+          "shrink-0",
         )}
         to={nextLesson ? `/lesson/${nextLesson}` : "#"}
       >
         <ArrowRight className="size-4" />
       </Link>
-      <Button className="grow" size="icon">
+      <Button className="shrink-0" size="icon">
         <RefreshCcw className="size-4" />
       </Button>
     </div>

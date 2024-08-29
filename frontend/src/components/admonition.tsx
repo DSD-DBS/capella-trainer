@@ -24,10 +24,16 @@ const Admonition = ({
     <div className={admonition({ variant })}>
       <div className="px-4">
         <div className="flex items-center">
-          {variant === "info" && <Info size={24} />}
-          {variant === "warning" && <TriangleAlert size={24} />}
-          {variant === "danger" && <TriangleAlert size={24} />}
-          {variant === "success" && <CircleCheck size={24} />}
+          {variant === "info" && <Info className="shrink-0" size={24} />}
+          {variant === "warning" && (
+            <TriangleAlert className="shrink-0" size={24} />
+          )}
+          {variant === "danger" && (
+            <TriangleAlert className="shrink-0" size={24} />
+          )}
+          {variant === "success" && (
+            <CircleCheck className="shrink-0" size={24} />
+          )}
           <div className="ml-2">{children}</div>
         </div>
       </div>
