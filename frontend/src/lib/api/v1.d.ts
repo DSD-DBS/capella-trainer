@@ -122,23 +122,23 @@ export interface components {
              */
             content: string;
             /**
-             * Tasks
+             * Has Tasks
              * @description Whether the lesson has tasks.
              * @default false
              */
-            tasks: boolean;
+            has_tasks: boolean;
             /**
-             * Start Model
+             * Has Start Model
              * @description Whether the lesson has a start model.
              * @default false
              */
-            start_model: boolean;
+            has_start_model: boolean;
             /**
-             * End Model
+             * Has End Model
              * @description Whether the lesson has an end model.
              * @default false
              */
-            end_model: boolean;
+            has_end_model: boolean;
         };
         /** TaskResult */
         TaskResult: {
