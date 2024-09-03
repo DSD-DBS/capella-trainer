@@ -32,13 +32,12 @@ export const Preview: FC<{ source?: string; path: string }> = ({
             selector: "img",
             rewrite: (node) => {
               if (node.properties.src) {
-                node.properties.src = `http://localhost:8000/static-training/${path}/${node.properties.src}`;
+                node.properties.src = `${import.meta.env.VITE_API_BASE}/static-training/${path}/${node.properties.src}`;
               }
             },
           },
         ],
       ],
-      baseUrl: `http://localhost:8000/static-training/${path}/`,
     }).then((r) => setMdxContent(() => r.default));
   }, [source]);
 
