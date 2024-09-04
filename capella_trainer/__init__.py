@@ -1,17 +1,17 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
-import importlib
-import typing as t
-
-import capellambse
+import httpx
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import os
-import frontmatter
 import yaml
 from starlette.staticfiles import StaticFiles
 
+from capella_trainer.constants import TRAINING_DIR, CAPELLA_ENDPOINT
+from capella_trainer.folder import Folder
+from capella_trainer.lesson import Lesson
+from capella_trainer.quiz import Quiz
 from capella_trainer.tasks import TaskResult
 
 app = FastAPI()
@@ -23,208 +23,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-TRAINING_DIR = os.path.abspath("./training")
-
-
-class Element(BaseModel):
-    name: str = Field(description="Display name of the element.")
-    path: list[str] = Field(description="Path to the element.")
-    slug: str = Field(description="Filename of the element.")
-    type: str = Field(description="Type of the element.")
-
-
-class BaseQuestion(BaseModel):
-    text: str = Field(description="The text of the question")
-    explanation: str = Field(description="Explanation of the answer")
-    question_type: str = Field(description="Type of the question")
-    id: int = Field(description="ID of the question")
-
-
-class MultipleChoiceQuestion(BaseQuestion):
-    options: list[str] = Field(description="List of possible answers")
-    correct_options: list[int] = Field(description="List of correct choice indices")
-    question_type: t.Literal["multiple_choice"] = Field(
-        description="Type of the question"
-    )
-
-
-class SingleChoiceQuestion(BaseQuestion):
-    options: list[str] = Field(description="List of possible answers")
-    correct_option: int = Field(description="Index of the correct choice")
-    question_type: t.Literal["single_choice"] = Field(
-        description="Type of the question"
-    )
-
-
-class Quiz(BaseModel):
-    questions: list[MultipleChoiceQuestion | SingleChoiceQuestion] = Field(
-        description="List of questions"
-    )
-
-    @staticmethod
-    def from_path(path_name: list[str]):
-        """
-        Read the quiz content
-        :param path_name: quiz name
-        """
-        lesson = Lesson.from_path(path_name)
-        quiz_file_system_path = os.path.join(TRAINING_DIR, *path_name, "quiz.yaml")
-
-        if not os.path.exists(quiz_file_system_path):
-            raise FileNotFoundError("Quiz not found")
-
-        with open(quiz_file_system_path) as f:
-            quiz = yaml.safe_load(f)
-            questions = []
-            for question in quiz["questions"]:
-                if question["question_type"] == "multiple_choice":
-                    questions.append(MultipleChoiceQuestion(**question))
-                elif question["question_type"] == "single_choice":
-                    questions.append(SingleChoiceQuestion(**question))
-                else:
-                    raise ValueError(
-                        f"Unknown question type {question['question_type']}"
-                    )
-            print(questions)
-            return Quiz(questions=questions)
-
-
-class Lesson(Element):
-    content: str = Field(description="Markdown content")
-    # TODO: temporary fields for testing
-    has_tasks: bool = Field(default=False, description="Whether the lesson has tasks.")
-    has_quiz: bool = Field(default=False, description="Whether the lesson has a quiz.")
-    has_start_model: bool = Field(
-        default=False, description="Whether the lesson has a start model."
-    )
-    has_end_model: bool = Field(
-        default=False, description="Whether the lesson has an end model."
-    )
-    type: str = Field(default="lesson", description="Type of the element.")
-
-    @staticmethod
-    def from_path(path_name: list[str]):
-        """
-        Read the content of the lesson
-        :param path_name: lesson name
-        """
-        file_system_path = os.path.join(TRAINING_DIR, *path_name)
-
-        if not os.path.exists(file_system_path):
-            raise FileNotFoundError(f"Lesson {path_name} not found.")
-
-        if not os.path.isdir(file_system_path):
-            raise NotADirectoryError(f"{path_name} is not a folder.")
-
-        lesson_content = os.path.join(file_system_path, "content.mdx")
-        if os.path.exists(lesson_content):
-            with open(lesson_content) as f:
-                post = frontmatter.load(f)
-                name = post["title"]
-                content = post.content
-                slug = path_name[-1]
-
-                has_tasks = os.path.exists(os.path.join(file_system_path, "tasks.py"))
-                has_quiz = os.path.exists(os.path.join(file_system_path, "quiz.yaml"))
-                has_start_model = os.path.exists(
-                    os.path.join(file_system_path, ".start_model")
-                )
-                has_end_model = os.path.exists(
-                    os.path.join(file_system_path, ".end_model")
-                )
-                return Lesson(
-                    name=name,
-                    content=content,
-                    path=path_name,
-                    slug=slug,
-                    has_tasks=has_tasks,
-                    has_quiz=has_quiz,
-                    has_start_model=has_start_model,
-                    has_end_model=has_end_model,
-                )
-        else:
-            raise FileNotFoundError(f"content.mdx not found in {path_name}")
-
-    def run_checks(self) -> list[TaskResult]:
-        """
-        Get the task results for the lesson
-        """
-
-        tasks_file_system_path = os.path.join(TRAINING_DIR, *self.path, "tasks.py")
-
-        if not os.path.exists(tasks_file_system_path):
-            raise FileNotFoundError("Lesson not found")
-
-        tasks_module_name = f"training.{'.'.join(self.path)}.tasks"
-
-        tasks_module = importlib.import_module(tasks_module_name)
-        # TODO: this should use the network-mounted model and also pass the API client
-        model = capellambse.MelodyModel(
-            "./training/02-first-tests/model/PVMT_Demo.aird"
-        )
-        return tasks_module.tasks.check_tasks(model)
-
-
-class Folder(Element):
-    children: list[t.Self | Lesson] = Field(description="List of lessons and folders.")
-    type: str = Field(default="folder", description="Type of the element.")
-
-    @staticmethod
-    def from_path(path_name: list[str]):
-        """
-        Resolve the folder and its children
-        :param path_name: folder name
-        """
-        children = []
-
-        filesystem_path = os.path.join(TRAINING_DIR, *path_name)
-        if not os.path.exists(filesystem_path):
-            raise FileNotFoundError(f"Folder {path_name} not found.")
-
-        if not os.path.isdir(filesystem_path):
-            raise NotADirectoryError(f"{path_name} is not a folder.")
-
-        folder_meta = os.path.join(filesystem_path, "meta.yaml")
-        slug = len(path_name) > 0 and path_name[-1] or ""
-        if os.path.exists(folder_meta):
-            with open(folder_meta) as f:
-                meta = yaml.safe_load(f)
-                name = meta["name"]
-        else:
-            raise FileNotFoundError(f"meta.yaml not found in {path_name}")
-
-        for file_name in os.listdir(filesystem_path):
-            # folders have a meta.yaml file
-            # lessons have a content.mdx file
-            # ignore other files
-            if not os.path.isdir(os.path.join(filesystem_path, file_name)):
-                continue
-
-            if os.path.exists(os.path.join(filesystem_path, file_name, "meta.yaml")):
-                children.append(Folder.from_path(path_name + [file_name]))
-            elif os.path.exists(
-                os.path.join(filesystem_path, file_name, "content.mdx")
-            ):
-                children.append(Lesson.from_path(path_name + [file_name]))
-
-        return Folder(name=name, path=path_name, children=children, slug=slug)
-
-    def get_child(self, path: list[str]) -> t.Self | Lesson:
-        """
-        Get the child folder or lesson by path
-        :param path: path to the child
-        """
-        if not path:
-            return self
-
-        for child in self.children:
-            if isinstance(child, Lesson) and child.slug == path[0]:
-                return child
-            if isinstance(child, Folder) and child.path == path[:-1]:
-                return child.get_child(path[1:])
-
-        raise FileNotFoundError(f"Child {path} not found.")
 
 
 class Training(BaseModel):
@@ -238,7 +36,7 @@ class Training(BaseModel):
     @staticmethod
     def from_path():
         """
-        Read the training meta data and resolve the root folder
+        Read the training metadata and resolve the root folder
         """
         training_meta_file_path = os.path.join(TRAINING_DIR, "training.yaml")
         if not os.path.exists(training_meta_file_path):
@@ -286,6 +84,34 @@ async def run_training_lesson_checks(lesson_path: str) -> list[TaskResult]:
 @app.get("/training/lesson/{lesson_path:path}/quiz")
 async def get_quiz(lesson_path: str) -> Quiz:
     return Quiz.from_path(lesson_path.split("/"))
+
+
+@app.post("/training/lesson/{lesson_path:path}/load_project")
+async def load_lesson_model(lesson_path: str):
+    lesson = training.root.get_child(lesson_path.split("/"))
+    if not lesson.has_start_model:
+        raise FileNotFoundError("Lesson does not have a start model")
+
+    httpx.post(
+        f"{CAPELLA_ENDPOINT}/projects",
+        json={"location": os.path.join(TRAINING_DIR, lesson.start_project.path)},
+    )
+
+    httpx.post(f"{CAPELLA_ENDPOINT}/projects/{lesson.start_project.name}/open")
+
+
+@app.post("/training/lesson/{lesson_path:path}/load_solution_project")
+async def load_lesson_model_solution(lesson_path: str):
+    lesson = training.root.get_child(lesson_path.split("/"))
+    if not lesson.solution_project:
+        raise FileNotFoundError("Lesson does not have a solution model")
+
+    httpx.post(
+        f"{CAPELLA_ENDPOINT}/projects",
+        json={"location": os.path.join(TRAINING_DIR, lesson.solution_project.path)},
+    )
+
+    httpx.post(f"{CAPELLA_ENDPOINT}/projects/{lesson.solution_project.name}/open")
 
 
 @app.get("/training/lesson/{lesson_path:path}")

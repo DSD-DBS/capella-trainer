@@ -55,6 +55,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/training/lesson/{lesson_path}/load_project": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Load Lesson Model */
+        post: operations["load_lesson_model_training_lesson__lesson_path__load_project_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/training/lesson/{lesson_path}/load_solution_project": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Load Lesson Model Solution */
+        post: operations["load_lesson_model_solution_training_lesson__lesson_path__load_solution_project_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/training/lesson/{lesson_path}": {
         parameters: {
             query?: never;
@@ -150,18 +184,16 @@ export interface components {
              * @default false
              */
             has_quiz: boolean;
+            /** @description Project to load at the start of the lesson. */
+            start_project: components["schemas"]["Project"] | null;
+            /** @description Project for the solution of the lesson. */
+            solution_project: components["schemas"]["Project"] | null;
             /**
-             * Has Start Model
-             * @description Whether the lesson has a start model.
-             * @default false
+             * Show Capella
+             * @description Whether to show Capella or exclusively the lesson.
+             * @default true
              */
-            has_start_model: boolean;
-            /**
-             * Has End Model
-             * @description Whether the lesson has an end model.
-             * @default false
-             */
-            has_end_model: boolean;
+            show_capella: boolean;
         };
         /** MultipleChoiceQuestion */
         MultipleChoiceQuestion: {
@@ -197,6 +229,19 @@ export interface components {
              * @description List of correct choice indices
              */
             correct_options: number[];
+        };
+        /** Project */
+        Project: {
+            /**
+             * Path
+             * @description Path to the project file.
+             */
+            path: string;
+            /**
+             * Name
+             * @description Name of the project.
+             */
+            name: string;
         };
         /** Quiz */
         Quiz: {
@@ -354,6 +399,68 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Quiz"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    load_lesson_model_training_lesson__lesson_path__load_project_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                lesson_path: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    load_lesson_model_solution_training_lesson__lesson_path__load_solution_project_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                lesson_path: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */

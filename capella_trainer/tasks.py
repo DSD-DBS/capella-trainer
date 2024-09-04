@@ -2,12 +2,24 @@ import typing as t
 from collections.abc import Callable
 
 import capellambse
+import httpx
 from pydantic import BaseModel
+
+from capella_trainer.constants import CAPELLA_ENDPOINT
+
+
+class TaskContext:
+    model: t.Optional[capellambse.MelodyModel]
+    client: t.Optional[httpx.Client]
+
+    def __init__(self):
+        self.model = None
+        self.client = httpx.Client(base_url=CAPELLA_ENDPOINT)
 
 
 class TaskDefinition(BaseModel):
     description: str
-    validator: Callable
+    validator: Callable[[TaskContext], None]
 
 
 class TaskResult(BaseModel):
@@ -20,8 +32,15 @@ class TaskResult(BaseModel):
 class TaskList:
     def __init__(self, tasks: list[TaskDefinition]):
         self.tasks = tasks
+        self.task_context = TaskContext()
 
-    def check_tasks(self, *args) -> list[TaskResult]:
+    def load_model_from_path(self, path: str):
+        self.task_context.model = capellambse.MelodyModel(path)
+
+    def set_client(self, client: httpx.Client):
+        self.task_context.client = client
+
+    def check_tasks(self) -> list[TaskResult]:
         results = []
         has_failed = False
         for task in self.tasks:
@@ -37,7 +56,7 @@ class TaskList:
                 continue
 
             try:
-                task.validator(*args)
+                task.validator(self.task_context)
                 results.append(
                     TaskResult(
                         description=task.description,
