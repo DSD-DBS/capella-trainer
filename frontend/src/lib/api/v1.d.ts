@@ -64,8 +64,25 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Load Lesson Model */
-        post: operations["load_lesson_model_training_lesson__lesson_path__load_project_post"];
+        /** Load Lesson Project */
+        post: operations["load_lesson_project_training_lesson__lesson_path__load_project_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/training/lesson/{lesson_path}/reset_project": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reset Lesson Project */
+        post: operations["reset_lesson_project_training_lesson__lesson_path__reset_project_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -81,8 +98,25 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Load Lesson Model Solution */
-        post: operations["load_lesson_model_solution_training_lesson__lesson_path__load_solution_project_post"];
+        /** Load Lesson Solution Project */
+        post: operations["load_lesson_solution_project_training_lesson__lesson_path__load_solution_project_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/training/lesson/{lesson_path}/project_status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Project Status */
+        get: operations["get_project_status_training_lesson__lesson_path__project_status_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -184,10 +218,18 @@ export interface components {
              * @default false
              */
             has_quiz: boolean;
-            /** @description Project to load at the start of the lesson. */
-            start_project: components["schemas"]["Project"] | null;
-            /** @description Project for the solution of the lesson. */
-            solution_project: components["schemas"]["Project"] | null;
+            /**
+             * Start Project
+             * @description Project to load at the start of the lesson.
+             * @default false
+             */
+            start_project: boolean;
+            /**
+             * Solution Project
+             * @description Project for the solution of the lesson.
+             * @default false
+             */
+            solution_project: boolean;
             /**
              * Show Capella
              * @description Whether to show Capella or exclusively the lesson.
@@ -230,19 +272,11 @@ export interface components {
              */
             correct_options: number[];
         };
-        /** Project */
-        Project: {
-            /**
-             * Path
-             * @description Path to the project file.
-             */
-            path: string;
-            /**
-             * Name
-             * @description Name of the project.
-             */
-            name: string;
-        };
+        /**
+         * ProjectStatus
+         * @enum {string}
+         */
+        ProjectStatus: "UNLOADED" | "SOLUTION" | "WORKING" | "WRONG_PROJECT" | "UNKNOWN";
         /** Quiz */
         Quiz: {
             /**
@@ -412,7 +446,7 @@ export interface operations {
             };
         };
     };
-    load_lesson_model_training_lesson__lesson_path__load_project_post: {
+    load_lesson_project_training_lesson__lesson_path__load_project_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -443,7 +477,7 @@ export interface operations {
             };
         };
     };
-    load_lesson_model_solution_training_lesson__lesson_path__load_solution_project_post: {
+    reset_lesson_project_training_lesson__lesson_path__reset_project_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -461,6 +495,68 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    load_lesson_solution_project_training_lesson__lesson_path__load_solution_project_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                lesson_path: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_project_status_training_lesson__lesson_path__project_status_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                lesson_path: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProjectStatus"];
                 };
             };
             /** @description Validation Error */

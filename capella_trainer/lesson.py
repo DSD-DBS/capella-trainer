@@ -1,6 +1,7 @@
 import importlib
 import os
-import typing as t
+import shutil
+
 
 import yaml
 from pydantic import Field, BaseModel
@@ -10,15 +11,8 @@ from capella_trainer.element import Element
 from capella_trainer.tasks import TaskResult
 
 
-class Project(BaseModel):
-    path: str = Field(description="Path to the project file.")
-    name: str = Field(description="Name of the project.")
-
-
 class LessonMeta(BaseModel):
     title: str
-    start_project: t.Optional[Project] = Field(default=None)
-    solution_project: t.Optional[Project] = Field(default=None)
     show_capella: bool = Field(default=True)
 
 
@@ -26,11 +20,11 @@ class Lesson(Element):
     content: str = Field(description="Markdown content")
     has_tasks: bool = Field(default=False, description="Whether the lesson has tasks.")
     has_quiz: bool = Field(default=False, description="Whether the lesson has a quiz.")
-    start_project: t.Optional[Project] = Field(
-        description="Project to load at the start of the lesson."
+    start_project: bool = Field(
+        default=False, description="Project to load at the start of the lesson."
     )
-    solution_project: t.Optional[Project] = Field(
-        description="Project for the solution of the lesson."
+    solution_project: bool = Field(
+        default=False, description="Project for the solution of the lesson."
     )
 
     show_capella: bool = Field(
@@ -55,15 +49,22 @@ class Lesson(Element):
         lesson_content = os.path.join(file_system_path, "content.mdx")
         lesson_meta = os.path.join(file_system_path, "lesson.yaml")
         if os.path.exists(lesson_content) and os.path.exists(lesson_meta):
-            with open(lesson_meta) as f:
+            with open(lesson_meta, encoding="utf-8") as f:
                 meta = LessonMeta(**yaml.safe_load(f))
 
-            with open(lesson_content) as f:
+            with open(lesson_content, encoding="utf-8") as f:
                 content = f.read()
                 slug = path_name[-1]
 
                 has_tasks = os.path.exists(os.path.join(file_system_path, "tasks.py"))
                 has_quiz = os.path.exists(os.path.join(file_system_path, "quiz.yaml"))
+                start_project = os.path.exists(
+                    os.path.join(file_system_path, "start-project")
+                )
+                solution_project = os.path.exists(
+                    os.path.join(file_system_path, "solution-project")
+                )
+
                 return Lesson(
                     name=meta.title,
                     content=content,
@@ -71,12 +72,43 @@ class Lesson(Element):
                     slug=slug,
                     has_tasks=has_tasks,
                     has_quiz=has_quiz,
-                    start_project=meta.start_project,
-                    solution_project=meta.solution_project,
+                    start_project=start_project,
+                    solution_project=solution_project,
                     show_capella=meta.show_capella,
                 )
         else:
             raise FileNotFoundError(f"content.mdx not found in {path_name}")
+
+    def working_project_exists(self):
+        return os.path.exists(os.path.join(TRAINING_DIR, *self.path, "project"))
+
+    def create_working_project(self, recreate=False):
+        start_project_path = os.path.join(TRAINING_DIR, *self.path, "start-project")
+        working_project_path = os.path.join(TRAINING_DIR, *self.path, "project")
+
+        if not os.path.exists(start_project_path):
+            raise FileNotFoundError("Start project not found")
+
+        if os.path.exists(working_project_path) and not recreate:
+            raise FileExistsError("Working project already exists")
+
+        shutil.copytree(start_project_path, working_project_path, dirs_exist_ok=True)
+
+    def recreate_solution_project(self):
+        solution_project_path = os.path.join(
+            TRAINING_DIR, *self.path, "solution-project"
+        )
+        active_solution_project_path = os.path.join(
+            TRAINING_DIR, *self.path, "active-solution-project"
+        )
+
+        if not os.path.exists(solution_project_path):
+            raise FileNotFoundError("Solution project not found")
+
+        if os.path.exists(active_solution_project_path):
+            shutil.rmtree(active_solution_project_path)
+
+        shutil.copytree(solution_project_path, active_solution_project_path)
 
     def run_checks(self) -> list[TaskResult]:
         """

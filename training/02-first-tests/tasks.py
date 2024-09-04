@@ -47,4 +47,4 @@ tasks = TaskList(
     ]
 )
 
-tasks.load_model_from_path("training/02-first-tests/model/PVMT_Demo.aird")
+tasks.load_model_from_path("training/02-first-tests/project/PVMT_Demo.aird")

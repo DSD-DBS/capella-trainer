@@ -7,7 +7,6 @@ import {
   Book,
   ChevronDown,
   ChevronRight,
-  RefreshCcw,
 } from "lucide-react";
 import { $api } from "@/lib/api/client.ts";
 import { cn } from "@/lib/utils.ts";
@@ -19,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button, buttonVariants } from "@/components/ui/button";
+import ProjectControl from "@/components/project-control.tsx";
 
 function FolderNode({
   node,
@@ -159,6 +159,8 @@ const Navigation = ({ path }: { path: string }) => {
           </div>
         </PopoverContent>
       </Popover>
+      <ProjectControl path={path} />
+
       <Link
         className={cn(
           buttonVariants({ size: "icon" }),
@@ -179,9 +181,6 @@ const Navigation = ({ path }: { path: string }) => {
       >
         <ArrowRight className="size-4" />
       </Link>
-      <Button className="shrink-0" size="icon">
-        <RefreshCcw className="size-4" />
-      </Button>
     </div>
   );
 };

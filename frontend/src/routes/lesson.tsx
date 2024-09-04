@@ -7,26 +7,56 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable.tsx";
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef } from "react";
+import { $api } from "@/lib/api/client.ts";
 
 const Lesson = () => {
   const { "*": path } = useParams();
+  const capellaRef = useRef(null);
+
   if (!path) {
     return null;
   }
+
+  // TODO: evil duplication, remove this
+  const { data: lessonData } = $api.useSuspenseQuery(
+    "get",
+    "/training/lesson/{lesson_path}",
+    {
+      params: {
+        path: {
+          lesson_path: path,
+        },
+      },
+    },
+  );
+
+  useEffect(() => {
+    console.log(lessonData);
+    if (lessonData.show_capella && lessonData.start_project) {
+      capellaRef.current.expand();
+    } else {
+      capellaRef.current.collapse();
+    }
+  }, [lessonData]);
+
   return (
-    <Layout>
-      <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel className="flex h-screen flex-col justify-between gap-2 py-4">
-          <Suspense>
-            <Navigation path={path} />
-            <Content path={path} />
-          </Suspense>
-        </ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel>Capella would be here</ResizablePanel>
-      </ResizablePanelGroup>
-    </Layout>
+    <ResizablePanelGroup direction="horizontal">
+      <ResizablePanel className="flex h-screen flex-col justify-between gap-2 py-4">
+        <Suspense>
+          <Navigation path={path} />
+          <Content path={path} />
+        </Suspense>
+      </ResizablePanel>
+      <ResizableHandle />
+      <ResizablePanel collapsible ref={capellaRef}>
+        <iframe
+          src="http://localhost:8088/"
+          className="h-full w-full"
+          frameborder="0"
+        ></iframe>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   );
 };
 

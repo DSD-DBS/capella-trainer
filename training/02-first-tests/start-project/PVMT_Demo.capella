@@ -1,0 +1,1192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--Capella_Version_6.0.0-->
+<org.polarsys.capella.core.data.capellamodeller:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:libraries="http://www.polarsys.org/capella/common/libraries/6.0.0"
+    xmlns:org.polarsys.capella.core.data.capellacommon="http://www.polarsys.org/capella/core/common/6.0.0"
+    xmlns:org.polarsys.capella.core.data.capellacore="http://www.polarsys.org/capella/core/core/6.0.0"
+    xmlns:org.polarsys.capella.core.data.capellamodeller="http://www.polarsys.org/capella/core/modeller/6.0.0"
+    xmlns:org.polarsys.capella.core.data.cs="http://www.polarsys.org/capella/core/cs/6.0.0"
+    xmlns:org.polarsys.capella.core.data.ctx="http://www.polarsys.org/capella/core/ctx/6.0.0"
+    xmlns:org.polarsys.capella.core.data.epbs="http://www.polarsys.org/capella/core/epbs/6.0.0"
+    xmlns:org.polarsys.capella.core.data.fa="http://www.polarsys.org/capella/core/fa/6.0.0"
+    xmlns:org.polarsys.capella.core.data.information="http://www.polarsys.org/capella/core/information/6.0.0"
+    xmlns:org.polarsys.capella.core.data.information.datatype="http://www.polarsys.org/capella/core/information/datatype/6.0.0"
+    xmlns:org.polarsys.capella.core.data.information.datavalue="http://www.polarsys.org/capella/core/information/datavalue/6.0.0"
+    xmlns:org.polarsys.capella.core.data.la="http://www.polarsys.org/capella/core/la/6.0.0"
+    xmlns:org.polarsys.capella.core.data.oa="http://www.polarsys.org/capella/core/oa/6.0.0"
+    xmlns:org.polarsys.capella.core.data.pa="http://www.polarsys.org/capella/core/pa/6.0.0"
+    id="93dc8715-66ac-4b2d-8ff1-1436394d3eed"
+    name="PVMT_Demo">
+  <ownedExtensions xsi:type="libraries:ModelInformation" id="2d21d145-7aa4-43dc-86e3-1cbfa712b21b"/>
+  <ownedEnumerationPropertyTypes xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyType"
+      id="9adce084-6624-400a-a27d-4fa9b23befe6" name="ProgressStatus">
+    <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+        id="9de3e6af-b1e0-4d53-bcd7-bfa1b9ecef23" name="DRAFT"/>
+    <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+        id="540da7fb-88b2-4317-a89c-bb717189d6d3" name="TO_BE_REVIEWED"/>
+    <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+        id="858dde30-d9e1-48fa-8b73-8c2b97defc47" name="TO_BE_DISCUSSED"/>
+    <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+        id="88fe7848-8edf-46e9-9e7b-a07a1504ccf7" name="REWORK_NECESSARY"/>
+    <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+        id="3a5c45b4-b669-45e3-9414-524e46ec56e4" name="UNDER_REWORK"/>
+    <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+        id="9e554294-c0fb-40fd-861f-a41c3065e61f" name="REVIEWED_OK"/>
+  </ownedEnumerationPropertyTypes>
+  <ownedPropertyValuePkgs xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValuePkg"
+      id="7051431d-2fd3-40d2-b13b-72c1d6c8740d" name="EXTENSIONS">
+    <ownedPropertyValuePkgs xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValuePkg"
+        id="039c1016-1db9-4739-86ce-13bd1ae314c4" sid="_zzLcUFMKEe-dXYqLTTA6og" name="SmartHome_General_Setup">
+      <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+          id="780c7110-f988-498d-9fac-3aeebc5a2069" name="version" value="1.0.0"/>
+      <ownedEnumerationPropertyTypes xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyType"
+          id="002b13a6-deb5-430d-b5ae-69410c329d97" sid="_BRn-cFMLEe-dXYqLTTA6og"
+          name="Devices_Types_Enum">
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="fdfb7ee0-43b3-4e3e-8e3e-4d3c94b3c4fe" sid="_DXPAEFMLEe-dXYqLTTA6og"
+            name="Light_Device">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="18e741e9-a532-4105-b90a-cbd3f081d824" name="__COLOR__" value="255,239,78,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="7c8a24c2-57cf-4ed9-a7de-26c66ade1b1a" name="__LITERAL__"/>
+        </ownedLiterals>
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="dec06d39-f1f9-4a40-9d2e-dc7824f07c4d" sid="_EvGK4FMLEe-dXYqLTTA6og"
+            name="Audio_Device">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="e5c1c5ef-8831-4ce0-8363-35d6074ddbcd" name="__COLOR__" value="90,141,255,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="a823eb67-4708-4856-9d49-37f8ec20d24a" name="__LITERAL__"/>
+        </ownedLiterals>
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="d60defbc-b720-4423-956e-8209474ae183" sid="_Fi7bkFMLEe-dXYqLTTA6og"
+            name="Temperature_Device">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="7b28e90e-3f8b-4315-be10-12876df0a983" name="__COLOR__" value="255,97,97,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="7f0a9713-e703-4c3e-b1da-857322a9ec93" name="__LITERAL__"/>
+        </ownedLiterals>
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="7c868b56-8491-4b9b-823f-657b68d557b3" sid="_b4cSwFMQEe-dXYqLTTA6og"
+            name="Control_Device">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="df50052f-e961-41f3-8434-eb2febdc522a" name="__COLOR__" value="150,150,150,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="5310e796-ef48-426b-a91b-26d4a2157af4" name="__LITERAL__"/>
+        </ownedLiterals>
+      </ownedEnumerationPropertyTypes>
+      <ownedEnumerationPropertyTypes xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyType"
+          id="bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" sid="_sSvpYFMNEe-dXYqLTTA6og"
+          name="Types_Enum">
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="774b6c28-fdfd-4782-b8e5-2ad1c8d645cb" sid="_s8bfkFMNEe-dXYqLTTA6og"
+            name="Devices">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="1c05317f-155f-4882-a1c3-12e078552192" name="__LITERAL__"/>
+        </ownedLiterals>
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="04f4bea2-3274-413d-91bd-ea09c839da52" sid="_tLZvsFMNEe-dXYqLTTA6og"
+            name="Room">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="486fdcca-5e3a-4a3d-81ea-39ecf480de2f" name="__LITERAL__"/>
+        </ownedLiterals>
+      </ownedEnumerationPropertyTypes>
+      <ownedEnumerationPropertyTypes xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyType"
+          id="d916d1e1-f22d-4323-8599-992c559c8c41" sid="_mbiI8FMOEe-dXYqLTTA6og"
+          name="Rooms_Enum">
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="496d0343-eb8e-4ae9-ae9b-93062561ce02" sid="_nVX7AFMOEe-dXYqLTTA6og"
+            name="Regular_Room">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="a519eb00-3934-4cb1-92f5-2b9cca08ef2d" name="__COLOR__" value="255,255,255,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="5b8ffe35-b5ce-4211-8fe7-13917712de35" name="__LITERAL__"/>
+        </ownedLiterals>
+      </ownedEnumerationPropertyTypes>
+      <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+          id="6e27d5de-49f2-4a23-826c-9261c8366ad5" sid="_0c7ckFMNEe-dXYqLTTA6og"
+          name="Extension_Types" description="[CLASS]http://www.polarsys.org/capella/core/pa/6.0.0/PhysicalComponent[/CLASS]&#xA;[ARCHITECTURE]PHYSICAL[/ARCHITECTURE]">
+        <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+            id="e487d3ed-a002-4e13-83db-9b044e4ac076" sid="_8XdDIFMNEe-dXYqLTTA6og"
+            name="Types_Enum" description="" type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b"
+            value="#04f4bea2-3274-413d-91bd-ea09c839da52"/>
+      </ownedPropertyValueGroups>
+      <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+          id="a4faaecf-0f03-42e8-b7c2-f2ca64962cd0" sid="_hp8CMFMOEe-dXYqLTTA6og"
+          name="Extension_Rooms" description="[CLASS]http://www.polarsys.org/capella/core/pa/6.0.0/PhysicalComponent[/CLASS]&#xA;[PROPERTY]SmartHome_General_Setup.Extension_Types.Types_Enum=Room[/PROPERTY]&#xA;[ARCHITECTURE]PHYSICAL[/ARCHITECTURE]">
+        <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+            id="e8834803-8212-4eff-8263-588fed32e37a" sid="_qISukFMOEe-dXYqLTTA6og"
+            name="Rooms_Enum" description="" type="#d916d1e1-f22d-4323-8599-992c559c8c41"
+            value="#496d0343-eb8e-4ae9-ae9b-93062561ce02"/>
+      </ownedPropertyValueGroups>
+      <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+          id="159c46f8-7d7b-4817-8de5-bbc2f04dd40f" sid="___UCAFMKEe-dXYqLTTA6og"
+          name="Extension_Devices" description="[CLASS]http://www.polarsys.org/capella/core/pa/6.0.0/PhysicalComponent[/CLASS]&#xA;[PROPERTY]SmartHome_General_Setup.Extension_Types.Types_Enum=Devices[/PROPERTY]&#xA;[ARCHITECTURE]PHYSICAL[/ARCHITECTURE]">
+        <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+            id="f1145591-f59c-410c-9c48-6851ff9342f1" sid="_kVxdsFMLEe-dXYqLTTA6og"
+            name="Devices_Types" description="" type="#002b13a6-deb5-430d-b5ae-69410c329d97"
+            value="#fdfb7ee0-43b3-4e3e-8e3e-4d3c94b3c4fe"/>
+      </ownedPropertyValueGroups>
+    </ownedPropertyValuePkgs>
+    <ownedPropertyValuePkgs xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValuePkg"
+        id="765cf135-2ac6-426f-a47c-63e7f2c291a7" sid="_FZnskFMhEe-dXYqLTTA6og" name="SmartHome_Connections">
+      <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+          id="bbf9c436-1c5f-4f0e-a669-40a4d8dcb4d5" name="version" value="1.0.0"/>
+      <ownedEnumerationPropertyTypes xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyType"
+          id="63acae8d-adf3-414e-90ed-2e2fcc9544de" sid="_LB-cMFMhEe-dXYqLTTA6og"
+          name="Connection_Types">
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="3a9d7668-8beb-4d4c-8e79-ec7c7a432826" sid="_R0_oIFMhEe-dXYqLTTA6og"
+            name="WLAN">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="d25e04c2-f5b6-43fb-b0d7-5dc2f813cc09" name="__LITERAL__" value="WLAN"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="e49edbcf-1552-4e46-bb03-a4522ca8f146" name="__COLOR__" value="255,0,0,0"/>
+        </ownedLiterals>
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="4b698328-50f7-42b1-8b0b-f2ad610cda10" sid="_2RwOMFMjEe-dXYqLTTA6og"
+            name="Bluetooth">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="40fbc87e-8991-4012-9e1e-f105c16271a7" name="__LITERAL__"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="4c86d0df-2d82-4ba0-a38a-756ad84ca8ca" name="__COLOR__" value="0,22,255,0"/>
+        </ownedLiterals>
+      </ownedEnumerationPropertyTypes>
+      <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+          id="c3811fe7-1030-4ac5-9557-2abca8aa63dd" sid="_LY8KsFMhEe-dXYqLTTA6og"
+          name="Extension_Connections" description="[CLASS]http://www.polarsys.org/capella/core/cs/6.0.0/PhysicalLink[/CLASS]&#xA;[ARCHITECTURE]PHYSICAL[/ARCHITECTURE]">
+        <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+            id="5eaaba28-db35-4580-b655-ed1dde6c51b8" sid="_LzKBgFMhEe-dXYqLTTA6og"
+            name="Enum" description="" type="#63acae8d-adf3-414e-90ed-2e2fcc9544de"
+            value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+      </ownedPropertyValueGroups>
+    </ownedPropertyValuePkgs>
+    <ownedPropertyValuePkgs xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValuePkg"
+        id="d1c89def-ca57-4a8a-a003-2ad8a8d709b6" sid="_B9OdMFMsEe-dXYqLTTA6og" name="SmartHome_Energy">
+      <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+          id="83807f22-e4e4-4920-8182-32225eb4b67b" name="version" value="1.0.0"/>
+      <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+          id="89e288bf-8abe-4eed-a688-d2fcc1ec3c7c" sid="_DR5KEFMsEe-dXYqLTTA6og"
+          name="Extension_Energy" description="[CLASS]http://www.polarsys.org/capella/core/pa/6.0.0/PhysicalComponent[/CLASS]&#xA;[PROPERTY]SmartHome_General_Setup.Extension_Types.Types_Enum=Devices[/PROPERTY]&#xA;[ARCHITECTURE]PHYSICAL[/ARCHITECTURE]">
+        <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+            id="caf7d417-fb61-4495-bfbb-f016ab0567f3" sid="_LOqMUFMsEe-dXYqLTTA6og"
+            name="Standby Energy Consumption" description="">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="eec42a87-c8d5-4d50-93a0-b41f5749072a" name="__DISPLAY__" value=""/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="1c7eac3e-7ab9-440a-9b79-56453a0001da" name="__UNIT__" value="Watt"/>
+        </ownedPropertyValues>
+      </ownedPropertyValueGroups>
+    </ownedPropertyValuePkgs>
+  </ownedPropertyValuePkgs>
+  <keyValuePairs xsi:type="org.polarsys.capella.core.data.capellacore:KeyValue" id="b7fd885e-e1f1-44f2-9009-4d850f2b9c51"
+      key="projectApproach" value="SingletonComponents"/>
+  <ownedModelRoots xsi:type="org.polarsys.capella.core.data.capellamodeller:SystemEngineering"
+      id="acff775e-c0bc-4129-8928-47b8aa82da87" name="PVMT_Demo">
+    <ownedArchitectures xsi:type="org.polarsys.capella.core.data.oa:OperationalAnalysis"
+        id="42500ee2-7e12-4663-823b-d41a9cffacfe" name="Operational Analysis">
+      <ownedFunctionPkg xsi:type="org.polarsys.capella.core.data.oa:OperationalActivityPkg"
+          id="7f3b9310-a913-45c5-8ab0-467e19a8b0ef" name="Operational Activities">
+        <ownedOperationalActivities xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+            id="23076d30-f759-4da4-a4d3-ae3cbcb7ff3e" name="Root Operational Activity"/>
+      </ownedFunctionPkg>
+      <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.oa:OperationalCapabilityPkg"
+          id="ba2df1f5-2140-401c-acb5-48a8f96a8f99" name="Operational Capabilities"/>
+      <ownedInterfacePkg xsi:type="org.polarsys.capella.core.data.cs:InterfacePkg"
+          id="f5b9d5b7-58b6-4c81-a981-76ad6b1bd87a" name="Interfaces"/>
+      <ownedDataPkg xsi:type="org.polarsys.capella.core.data.information:DataPkg"
+          id="e745b82f-eb57-4244-83fc-edab81281bb6" name="Data"/>
+      <ownedRolePkg xsi:type="org.polarsys.capella.core.data.oa:RolePkg" id="89d5d49e-4903-49b4-b8fc-48fcf4ee92c5"
+          name="Roles"/>
+      <ownedEntityPkg xsi:type="org.polarsys.capella.core.data.oa:EntityPkg" id="86830603-12c6-4a0c-93f6-6f6f038f1e59"
+          name="Operational Entities"/>
+    </ownedArchitectures>
+    <ownedArchitectures xsi:type="org.polarsys.capella.core.data.ctx:SystemAnalysis"
+        id="7b81e62b-2622-4703-9d74-518e6ba0ad56" name="System Analysis">
+      <ownedFunctionPkg xsi:type="org.polarsys.capella.core.data.ctx:SystemFunctionPkg"
+          id="7a75d1ba-fc9d-40cf-85b9-1dc144cb1cd3" name="System Functions">
+        <ownedSystemFunctions xsi:type="org.polarsys.capella.core.data.ctx:SystemFunction"
+            id="3eb007e4-d849-40f3-83d8-0fd59f36263b" name="Root System Function">
+          <ownedFunctionRealizations xsi:type="org.polarsys.capella.core.data.fa:FunctionRealization"
+              id="07cb5de9-1569-4273-812e-8b7394413456" targetElement="#23076d30-f759-4da4-a4d3-ae3cbcb7ff3e"
+              sourceElement="#3eb007e4-d849-40f3-83d8-0fd59f36263b"/>
+        </ownedSystemFunctions>
+      </ownedFunctionPkg>
+      <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.ctx:CapabilityPkg"
+          id="e7065a00-0414-4153-b137-77a30e5ddb5d" name="Capabilities"/>
+      <ownedInterfacePkg xsi:type="org.polarsys.capella.core.data.cs:InterfacePkg"
+          id="20bd11a1-55de-4721-8863-e2e13aea034b" name="Interfaces"/>
+      <ownedDataPkg xsi:type="org.polarsys.capella.core.data.information:DataPkg"
+          id="8bb8b954-3f33-41ef-a125-f0cc42b529d1" name="Data">
+        <ownedDataPkgs xsi:type="org.polarsys.capella.core.data.information:DataPkg"
+            id="7c95029d-29ea-4455-91b0-ffda625e6054" name="Predefined Types">
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:BooleanType"
+              id="6e3204cd-712a-4391-b512-ddbfd7cd7d80" name="Boolean" visibility="PUBLIC">
+            <ownedLiterals xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralBooleanValue"
+                id="4ece437e-1ea9-4aa5-a1d0-4780974bb2bf" name="True" abstractType="#6e3204cd-712a-4391-b512-ddbfd7cd7d80"
+                value="true"/>
+            <ownedLiterals xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralBooleanValue"
+                id="109f1705-411a-42ba-9abd-f27020a8b40d" name="False" abstractType="#6e3204cd-712a-4391-b512-ddbfd7cd7d80"/>
+          </ownedDataTypes>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="620d58c3-10bb-40af-a2aa-ccbc79753a8c" name="Byte" visibility="PUBLIC">
+            <ownedMinValue xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="72db1bfd-381c-420a-a1f4-0f5ccc282ad8" name="" abstractType="#620d58c3-10bb-40af-a2aa-ccbc79753a8c"
+                value="0"/>
+            <ownedMaxValue xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="ff19fd27-49b8-4aaa-a221-bf5634f62df4" name="" abstractType="#620d58c3-10bb-40af-a2aa-ccbc79753a8c"
+                value="255"/>
+          </ownedDataTypes>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:StringType"
+              id="8a9b338a-69b6-40db-a3e1-3dbc0ec8612e" name="Char" visibility="PUBLIC">
+            <ownedMinLength xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="357047e8-e9f7-4681-b284-891efd341c64" name="" abstractType="#f2c4381b-691f-4f2d-93db-f12939b4be29"
+                value="1"/>
+            <ownedMaxLength xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="66e7ba24-2261-4a88-acc9-8ad537b69a9d" name="" abstractType="#f2c4381b-691f-4f2d-93db-f12939b4be29"
+                value="1"/>
+          </ownedDataTypes>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="87b18c13-92d2-46d3-aa0b-47cbff691f1c" name="Double" discrete="false"
+              visibility="PUBLIC" kind="FLOAT"/>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="531a121f-44ba-4196-98bf-4b4838176626" name="Float" discrete="false"
+              visibility="PUBLIC" kind="FLOAT"/>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="6420f39d-9ef3-43d4-acd3-e436a76e1e55" name="Hexadecimal" visibility="PUBLIC">
+            <ownedMinValue xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="ff94b5d8-6eb9-4d32-b94f-00488d9a30d8" name="" abstractType="#6420f39d-9ef3-43d4-acd3-e436a76e1e55"
+                value="0"/>
+            <ownedMaxValue xsi:type="org.polarsys.capella.core.data.information.datavalue:BinaryExpression"
+                id="2b1aafb1-7df5-401c-b034-6b8f0087ce0b" abstractType="#6420f39d-9ef3-43d4-acd3-e436a76e1e55"
+                operator="SUB">
+              <ownedLeftOperand xsi:type="org.polarsys.capella.core.data.information.datavalue:BinaryExpression"
+                  id="17d81228-5f53-4fd4-83da-7cf677f4a32f" operator="POW">
+                <ownedLeftOperand xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                    id="be1b03d9-1c04-44bf-805e-3e507bf0c73a" value="2"/>
+                <ownedRightOperand xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                    id="71e7634f-1315-4a35-be3f-86361e974f90" value="64"/>
+              </ownedLeftOperand>
+              <ownedRightOperand xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                  id="244da550-1aa8-4ac9-ae42-c68c13a2a1d9" value="1"/>
+            </ownedMaxValue>
+          </ownedDataTypes>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="e23c96a1-0a2d-48f8-b345-559e6b9c4072" name="Integer" visibility="PUBLIC"/>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="c5278b47-78f4-4e37-800d-ade905c58841" name="Long" visibility="PUBLIC"/>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="a22c04ad-a68a-42f1-8a74-5a9df37ea55d" name="LongLong" visibility="PUBLIC"/>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="3a335374-e98a-4ebe-b66f-39d42ed30c2b" name="Short" visibility="PUBLIC"/>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:StringType"
+              id="6a8f8751-0e3b-4270-9af8-9453af7b1e8f" name="String" visibility="PUBLIC"/>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="1ce638c9-6b2a-46df-80d7-5a7a897a1e82" name="UnsignedInteger" maxInclusive="false"
+              visibility="PUBLIC">
+            <ownedMinValue xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="9798225b-53d3-45d5-8d68-7816bc886c41" name="" abstractType="#1ce638c9-6b2a-46df-80d7-5a7a897a1e82"
+                value="0"/>
+          </ownedDataTypes>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="f2c4381b-691f-4f2d-93db-f12939b4be29" name="UnsignedShort" maxInclusive="false"
+              visibility="PUBLIC">
+            <ownedMinValue xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="38671e05-3db3-4148-ba77-8f9868f57eb7" name="" abstractType="#f2c4381b-691f-4f2d-93db-f12939b4be29"
+                value="0"/>
+          </ownedDataTypes>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="c5ac61fa-5be1-4ff8-99a5-d9e24e7c3531" name="UnsignedLong" maxInclusive="false"
+              visibility="PUBLIC">
+            <ownedMinValue xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="72156903-ceb6-498b-b48e-847b981decb9" name="" abstractType="#c5ac61fa-5be1-4ff8-99a5-d9e24e7c3531"
+                value="0"/>
+          </ownedDataTypes>
+          <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:NumericType"
+              id="721b92f9-16a9-45f6-b3fd-5eada29ff799" name="UnsignedLongLong" maxInclusive="false"
+              visibility="PUBLIC">
+            <ownedMinValue xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="1d043b53-65d7-4330-b913-5b4464ec088d" name="" abstractType="#721b92f9-16a9-45f6-b3fd-5eada29ff799"
+                value="0"/>
+          </ownedDataTypes>
+        </ownedDataPkgs>
+      </ownedDataPkg>
+      <ownedSystemComponentPkg xsi:type="org.polarsys.capella.core.data.ctx:SystemComponentPkg"
+          id="0f07b6ae-3163-467c-8e74-4209b31a2627" name="Structure">
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="54f6bd0b-ab42-421e-9318-76aff0c84103"
+            name="System" abstractType="#0e487ab0-8cc1-44c9-9347-b791f69f4723"/>
+        <ownedSystemComponents xsi:type="org.polarsys.capella.core.data.ctx:SystemComponent"
+            id="0e487ab0-8cc1-44c9-9347-b791f69f4723" name="System">
+          <ownedStateMachines xsi:type="org.polarsys.capella.core.data.capellacommon:StateMachine"
+              id="252e826e-2fd0-42a1-b6e0-9babc3528e8c" name="System State Machine">
+            <ownedRegions xsi:type="org.polarsys.capella.core.data.capellacommon:Region"
+                id="1f85b779-d882-4ff5-816c-c15fb1786f58" name="Default Region"/>
+          </ownedStateMachines>
+        </ownedSystemComponents>
+      </ownedSystemComponentPkg>
+      <ownedMissionPkg xsi:type="org.polarsys.capella.core.data.ctx:MissionPkg" id="c5472079-5338-446d-a2c4-7dfb5e19b339"
+          name="Missions"/>
+      <ownedOperationalAnalysisRealizations xsi:type="org.polarsys.capella.core.data.ctx:OperationalAnalysisRealization"
+          id="14b9fea1-8f47-452d-8590-8531fd97debf" targetElement="#42500ee2-7e12-4663-823b-d41a9cffacfe"
+          sourceElement="#7b81e62b-2622-4703-9d74-518e6ba0ad56"/>
+    </ownedArchitectures>
+    <ownedArchitectures xsi:type="org.polarsys.capella.core.data.la:LogicalArchitecture"
+        id="2d3889a8-7968-4736-9a4e-1c0f378e7596" name="Logical Architecture">
+      <ownedFunctionPkg xsi:type="org.polarsys.capella.core.data.la:LogicalFunctionPkg"
+          id="b71e4cba-1a6e-4515-8679-dfe6f13ae024" name="Logical Functions">
+        <ownedLogicalFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+            id="b9cdff9e-44d2-47e4-a540-9628cc9ccb90" name="Root Logical Function">
+          <ownedFunctionRealizations xsi:type="org.polarsys.capella.core.data.fa:FunctionRealization"
+              id="46b40ca6-6990-4b82-8498-c8c0118f467c" targetElement="#3eb007e4-d849-40f3-83d8-0fd59f36263b"
+              sourceElement="#b9cdff9e-44d2-47e4-a540-9628cc9ccb90"/>
+        </ownedLogicalFunctions>
+      </ownedFunctionPkg>
+      <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.la:CapabilityRealizationPkg"
+          id="e0b2cd01-1fbf-4df1-8297-86cc8a4d213b" name="Capabilities"/>
+      <ownedInterfacePkg xsi:type="org.polarsys.capella.core.data.cs:InterfacePkg"
+          id="62912377-a51d-4c59-9360-58936a0b2ae4" name="Interfaces"/>
+      <ownedDataPkg xsi:type="org.polarsys.capella.core.data.information:DataPkg"
+          id="97bbf703-f318-42d9-b048-78b1d381f6be" name="Data"/>
+      <ownedLogicalComponentPkg xsi:type="org.polarsys.capella.core.data.la:LogicalComponentPkg"
+          id="2a7f8fb1-8cd2-466a-a628-f0a1840c2f65" name="Structure">
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="f0fee11a-82c3-4fb4-8a5c-9ec35f7432a3"
+            name="Logical System" abstractType="#5183833f-da98-4cd1-abcd-c0e18e513ee9"/>
+        <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+            id="5183833f-da98-4cd1-abcd-c0e18e513ee9" name="Logical System">
+          <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
+              id="bd5aa164-1d8d-4ce3-a014-3544adeaf729" targetElement="#0e487ab0-8cc1-44c9-9347-b791f69f4723"
+              sourceElement="#5183833f-da98-4cd1-abcd-c0e18e513ee9"/>
+        </ownedLogicalComponents>
+      </ownedLogicalComponentPkg>
+      <ownedSystemAnalysisRealizations xsi:type="org.polarsys.capella.core.data.la:SystemAnalysisRealization"
+          id="0367f920-a50b-4bff-9c1f-10e6ae097130" targetElement="#7b81e62b-2622-4703-9d74-518e6ba0ad56"
+          sourceElement="#2d3889a8-7968-4736-9a4e-1c0f378e7596"/>
+    </ownedArchitectures>
+    <ownedArchitectures xsi:type="org.polarsys.capella.core.data.pa:PhysicalArchitecture"
+        id="35f1832d-a11e-490a-b2bd-38924770ecfb" name="Physical Architecture">
+      <ownedFunctionPkg xsi:type="org.polarsys.capella.core.data.pa:PhysicalFunctionPkg"
+          id="8fbaf546-7d4e-4dc1-a3d7-94034994f0cb" name="Physical Functions">
+        <ownedPhysicalFunctions xsi:type="org.polarsys.capella.core.data.pa:PhysicalFunction"
+            id="bc3306c5-bbbd-4a78-8137-995fe78bbe50" name="Root Physical Function">
+          <ownedFunctionRealizations xsi:type="org.polarsys.capella.core.data.fa:FunctionRealization"
+              id="bacbe611-e688-4ca7-a5de-be92f94ed0c8" targetElement="#b9cdff9e-44d2-47e4-a540-9628cc9ccb90"
+              sourceElement="#bc3306c5-bbbd-4a78-8137-995fe78bbe50"/>
+        </ownedPhysicalFunctions>
+      </ownedFunctionPkg>
+      <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.la:CapabilityRealizationPkg"
+          id="ef2b6eec-d58b-4f56-a872-7e76d8b00097" name="Capabilities"/>
+      <ownedInterfacePkg xsi:type="org.polarsys.capella.core.data.cs:InterfacePkg"
+          id="6b95febc-47b6-4cfe-b252-6b3b76dfc7ff" name="Interfaces"/>
+      <ownedDataPkg xsi:type="org.polarsys.capella.core.data.information:DataPkg"
+          id="0e7d7b31-b2e1-4929-a6ad-05238ca68bc3" name="Data"/>
+      <ownedPhysicalComponentPkg xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponentPkg"
+          id="e2358eaa-562c-4f0c-9001-fffe60ede246" name="Structure">
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="5bc55caf-1a88-4041-896a-3c98ff67932f"
+            name="Smart home system" abstractType="#f79f9e06-7f33-45be-9cad-c4ef0a9f564b"/>
+        <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+            id="f79f9e06-7f33-45be-9cad-c4ef0a9f564b" name="Smart home system">
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="d2c0b7e7-dcb5-4b8c-95fe-0a4c02078af6"
+              name="Kitchen" abstractType="#65247202-572d-4f35-99af-21250021af25"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="5f081d83-5912-4c4e-9809-efac12e4894c"
+              name="Livingroom" abstractType="#1e80b243-92a2-43e9-88d7-d81681ddea5c"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="253b0349-7ece-4d82-bf62-906cf6932610"
+              name="Bedroom" abstractType="#fc6fefa8-1606-4e62-abd7-95811e422223"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="71ae7aae-eecc-4c1a-bd32-c675a926a66f"
+              name="Bathroom" abstractType="#6beb6d35-39bf-4e21-b87d-335ced39fb75"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="feff0ceb-502f-4d62-a77d-fd30f274d266"
+              name="Dining Room" abstractType="#7471213a-44bf-4785-9c43-73f94e97c45b"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="282c03e5-b1bf-45ad-9deb-5cb62bf555d9"
+              name="User" abstractType="#05c02c5c-166d-4ff4-898b-cb6e45c8dc8c"/>
+          <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
+              id="6c7cff4d-9d5e-471e-ac7b-f2d71f8b27d7" targetElement="#5183833f-da98-4cd1-abcd-c0e18e513ee9"
+              sourceElement="#f79f9e06-7f33-45be-9cad-c4ef0a9f564b"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="2e2eeadf-e7c7-4246-987a-104c784244b1" name="PL 1" appliedPropertyValueGroups="#b59896ec-709a-418e-8dfe-64eb0149ec8b"
+              linkEnds="#fb348bf7-29ff-48ef-9656-2e34fb5a8667 #f7204678-a565-44fe-9bcf-b505346ceccd">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="b59896ec-709a-418e-8dfe-64eb0149ec8b" name="SmartHome_Connections.Extension_Connections"
+                appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="71609f20-73ac-4bd1-9bd2-fca2aa4f301e" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                  type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+            </ownedPropertyValueGroups>
+          </ownedPhysicalLinks>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="fad9ea3c-f8db-4a47-9d93-68cb30ace9b4" name="PL 2" appliedPropertyValueGroups="#c97c319e-179c-4a5b-9ade-1440a9e252c1"
+              linkEnds="#96b293ab-a260-48e6-b599-1f5843a5bf47 #7428bdad-66a5-4469-ab5c-fa2bc0de4697">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="c97c319e-179c-4a5b-9ade-1440a9e252c1" name="SmartHome_Connections.Extension_Connections"
+                appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="628364d8-b7ed-4d59-9a50-917b9bfda2da" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                  type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+            </ownedPropertyValueGroups>
+          </ownedPhysicalLinks>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="6a2b4f92-8a21-484f-a168-0f2c3d3e317d" name="PL 3" appliedPropertyValueGroups="#fe248342-9d40-47f6-ae8f-3655ac67ae26"
+              linkEnds="#a0bbbea5-9ba4-43cc-87fe-3d3ca0ca6a92 #b6e1199b-929a-4956-8c5c-aba1b3d5d011">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="fe248342-9d40-47f6-ae8f-3655ac67ae26" name="SmartHome_Connections.Extension_Connections"
+                appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="815058f0-ab61-42ff-bc5e-4eafb75967cb" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                  type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+            </ownedPropertyValueGroups>
+          </ownedPhysicalLinks>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="57afd980-e8ea-4846-8b63-6c4abbd36163" name="PL 4" appliedPropertyValueGroups="#f5a381a6-0f7d-40f8-8550-2d4510f7642b"
+              linkEnds="#3d3c5305-7ac8-40a5-a620-e630bf4bdbe9 #d0c31d79-349c-43b1-86c3-36519ea6d312">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="f5a381a6-0f7d-40f8-8550-2d4510f7642b" name="SmartHome_Connections.Extension_Connections"
+                appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="d56f7d82-f418-4910-8a50-4cda2e65413c" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                  type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+            </ownedPropertyValueGroups>
+          </ownedPhysicalLinks>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="9c828293-500a-4ca8-8d26-d1475e0ecd28" name="PL 5" appliedPropertyValueGroups="#eac0c0e3-9bb1-4e5d-a692-7ca16470799d"
+              linkEnds="#a7b7044e-3f06-4bbf-a1ed-20eb3f5f3ffd #cb67f895-c96b-4c43-b21f-0d6f14fe8c37">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="eac0c0e3-9bb1-4e5d-a692-7ca16470799d" name="SmartHome_Connections.Extension_Connections"
+                appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="69881f42-416a-406c-b304-e10a85a86aa3" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                  type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#4b698328-50f7-42b1-8b0b-f2ad610cda10"/>
+            </ownedPropertyValueGroups>
+          </ownedPhysicalLinks>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="2953102f-f0f0-48cc-8912-c8255086f37d" name="PL 6" appliedPropertyValueGroups="#2cbb0ff1-8b9e-4347-b7e7-9b981dc3f618"
+              linkEnds="#a4c4b188-1081-4e9e-95c1-aa5876f26e81 #677e367b-5a73-4e7c-82a9-bc91751d2abb">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="2cbb0ff1-8b9e-4347-b7e7-9b981dc3f618" name="SmartHome_Connections.Extension_Connections"
+                appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="453697d8-ea98-44bf-a5fe-858380ee2dc6" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                  type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+            </ownedPropertyValueGroups>
+          </ownedPhysicalLinks>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="f5a350b1-abda-434e-8891-e9abb224a28d" name="PL 7" appliedPropertyValueGroups="#fe1a52a1-c684-4756-8342-23741230a828"
+              linkEnds="#5a8858e5-f02e-46d6-952a-c2a8bf164acc #f9ba2d8a-397e-4dbf-85c9-c8de0ab4f06b">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="fe1a52a1-c684-4756-8342-23741230a828" name="SmartHome_Connections.Extension_Connections"
+                appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="fb21bd27-8357-4f1e-a38e-3c6befb47733" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                  type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+            </ownedPropertyValueGroups>
+          </ownedPhysicalLinks>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="64e89ccc-5acf-4fbe-8f3c-df7ce206aa9f" name="PL 8" appliedPropertyValueGroups="#9d588f78-6ac3-4d38-bcf4-74012b06a369"
+              linkEnds="#88e332ce-06b1-4658-857e-fd897f0e8b2b #47510220-0e84-4714-aa98-24ba6ce250f5">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="9d588f78-6ac3-4d38-bcf4-74012b06a369" name="SmartHome_Connections.Extension_Connections"
+                appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="87abc765-8739-4299-8937-b43ba7f4ab38" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                  type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+            </ownedPropertyValueGroups>
+          </ownedPhysicalLinks>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="76c709bc-4297-432f-bcc2-4c93eb3d6057" name="PL 9" appliedPropertyValueGroups="#d4de1f94-cc85-4b19-aeb5-6fe4a4b0db7a"
+              linkEnds="#343f4d02-cf87-4aab-b524-fe71ae5e9ad1 #5a0fe692-1241-4cad-a41d-62438244b362">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="d4de1f94-cc85-4b19-aeb5-6fe4a4b0db7a" name="SmartHome_Connections.Extension_Connections"
+                appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="815a22d2-4e5d-4ef5-84e4-a592d55d285d" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                  type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+            </ownedPropertyValueGroups>
+          </ownedPhysicalLinks>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="bc898861-d456-46b2-9eaf-03af8bbc1ccc" name="PL 10" appliedPropertyValueGroups="#476e51b5-b448-4a89-a9c0-4923d01cbc9f"
+              linkEnds="#5ef86117-c0dd-4578-8b16-627623658740 #1bb64ed7-aed6-4860-a11b-1708f5651d71">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="476e51b5-b448-4a89-a9c0-4923d01cbc9f" name="SmartHome_Connections.Extension_Connections"
+                appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="7920edca-7d7d-4773-bd68-db4cb8208cba" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                  type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#4b698328-50f7-42b1-8b0b-f2ad610cda10"/>
+            </ownedPropertyValueGroups>
+          </ownedPhysicalLinks>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="564fe9de-3a26-40f5-b46d-68d3d3c77221" name="PL 11" linkEnds="#4b002d95-a70d-493f-9bd8-6458fa02fc5c #2aba3c09-40c6-462d-b7c0-12fd9579ffa1"/>
+          <ownedPhysicalLinkCategories xsi:type="org.polarsys.capella.core.data.cs:PhysicalLinkCategory"
+              id="d75c4b4e-cd67-4fcf-800a-371f74920141" name="WLAN" links="#64e89ccc-5acf-4fbe-8f3c-df7ce206aa9f #f5a350b1-abda-434e-8891-e9abb224a28d #2953102f-f0f0-48cc-8912-c8255086f37d"/>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="65247202-572d-4f35-99af-21250021af25" appliedPropertyValueGroups="#124c7a0e-5f2e-4811-832d-4f908229e420 #c094d2f2-ee4d-4d28-8fee-c4ab3078da71"
+              name="Kitchen" kind="FACILITIES" nature="NODE">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="124c7a0e-5f2e-4811-832d-4f908229e420" name="SmartHome_General_Setup.Extension_Types"
+                appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="e938451e-0590-4b75-9cfa-0db1e7833422" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                  type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#04f4bea2-3274-413d-91bd-ea09c839da52"/>
+            </ownedPropertyValueGroups>
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="c094d2f2-ee4d-4d28-8fee-c4ab3078da71" name="SmartHome_General_Setup.Extension_Rooms"
+                appliedPropertyValueGroups="#a4faaecf-0f03-42e8-b7c2-f2ca64962cd0">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="730d0629-042c-4898-9ab5-80dee41632d4" name="Rooms_Enum" appliedPropertyValues="#e8834803-8212-4eff-8263-588fed32e37a"
+                  type="#d916d1e1-f22d-4323-8599-992c559c8c41" value="#496d0343-eb8e-4ae9-ae9b-93062561ce02"/>
+            </ownedPropertyValueGroups>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="309b5374-1375-41eb-aa65-c72639b9a692"
+                name="Light" abstractType="#ef98db8a-5b93-48c7-a046-a01147a2cca8"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="51537740-6be1-47e1-a87f-a3c5f477d8ac"
+                name="Thermostat" abstractType="#05f80dd8-a689-446d-aa00-92fcb6282a8b"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="f69c9162-8f74-42da-9d67-2efa92b2208a"
+                name="Radio" abstractType="#732310a3-0c3f-4c42-8e23-7ab6281b4729"/>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="ef98db8a-5b93-48c7-a046-a01147a2cca8" appliedPropertyValueGroups="#fd2761a1-7060-42b2-94b9-4c9c9f652c07 #2c14c9fa-b50c-40bc-b58f-a53497de07ae #5275e9d1-7ee4-44d4-86f8-297b156b91e4"
+                name="Light" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="fd2761a1-7060-42b2-94b9-4c9c9f652c07" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="0d5b4ad2-aa56-440b-b10c-8292e0834baf" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="2c14c9fa-b50c-40bc-b58f-a53497de07ae" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="9661f33b-44de-471e-99fe-a80152a2d56d" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#fdfb7ee0-43b3-4e3e-8e3e-4d3c94b3c4fe"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="5275e9d1-7ee4-44d4-86f8-297b156b91e4" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="5fc3ee72-863c-487f-9b55-35f0cff046de" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="2"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="343f4d02-cf87-4aab-b524-fe71ae5e9ad1" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="05f80dd8-a689-446d-aa00-92fcb6282a8b" appliedPropertyValueGroups="#4a14743a-2604-4cd9-a4c2-09f3676c6542 #dd1681a1-2074-4eb4-a8c2-4ab6ea7845fd #872d13c5-6cac-4dfd-885d-0529cebe9399"
+                name="Thermostat" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="4a14743a-2604-4cd9-a4c2-09f3676c6542" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="b0832054-5de7-4b0f-9569-4f6deaface0c" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="dd1681a1-2074-4eb4-a8c2-4ab6ea7845fd" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="171be0a0-815b-4e25-be04-e44771ea9700" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#d60defbc-b720-4423-956e-8209474ae183"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="872d13c5-6cac-4dfd-885d-0529cebe9399" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="2137e2d8-fd20-4348-a166-a6d0a005537c" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="6"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="88e332ce-06b1-4658-857e-fd897f0e8b2b" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="732310a3-0c3f-4c42-8e23-7ab6281b4729" appliedPropertyValueGroups="#63cabe3c-5d8e-4444-b4bf-5f03e722dbc3 #45e00553-630d-4e54-a7ef-82ccfcf645fb #c83a0cad-158a-42ad-9c7b-93aef5813d9c"
+                name="Radio" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="63cabe3c-5d8e-4444-b4bf-5f03e722dbc3" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="c543a673-daf7-44a1-8abf-dde30341dc2b" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="45e00553-630d-4e54-a7ef-82ccfcf645fb" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="aed69f60-3537-4054-8b11-da96a1ac38e3" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#dec06d39-f1f9-4a40-9d2e-dc7824f07c4d"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="c83a0cad-158a-42ad-9c7b-93aef5813d9c" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="a568214e-6366-4f55-af4c-f9859dad7aed" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="5"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="5ef86117-c0dd-4578-8b16-627623658740" name="PP 1"/>
+            </ownedPhysicalComponents>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="1e80b243-92a2-43e9-88d7-d81681ddea5c" appliedPropertyValueGroups="#885c71dd-6086-478a-9233-1ef1e87e880b #262dee49-d53e-4400-aeeb-e0d02120d327"
+              name="Livingroom" nature="NODE">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="885c71dd-6086-478a-9233-1ef1e87e880b" name="SmartHome_General_Setup.Extension_Types"
+                appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="9071b356-b58c-47cc-8522-cfff40bb9799" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                  type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#04f4bea2-3274-413d-91bd-ea09c839da52"/>
+            </ownedPropertyValueGroups>
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="262dee49-d53e-4400-aeeb-e0d02120d327" name="SmartHome_General_Setup.Extension_Rooms"
+                appliedPropertyValueGroups="#a4faaecf-0f03-42e8-b7c2-f2ca64962cd0">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="34275d5d-9ad4-468b-aa95-835423983c7c" name="Rooms_Enum" appliedPropertyValues="#e8834803-8212-4eff-8263-588fed32e37a"
+                  type="#d916d1e1-f22d-4323-8599-992c559c8c41" value="#496d0343-eb8e-4ae9-ae9b-93062561ce02"/>
+            </ownedPropertyValueGroups>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="489e16b5-91f4-41d3-8268-153646a69233"
+                name="Light" abstractType="#d1cf96af-8497-4a31-ab43-03e38aeeec06"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="44d9f71b-8fca-4aa2-bfed-1bf98415da78"
+                name="Thermostat" abstractType="#8cd011d1-16ed-4bbf-959d-927cefc84415"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="712f9a1d-2137-4c7b-aae3-5bded5ce3214"
+                name="Radio" abstractType="#fbfb8281-c6c0-4350-9ba4-37344a3d1ae1"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="b089eb2b-3abb-4544-9908-8e6146834786"
+                name="Controller" abstractType="#33d1158a-e559-4ade-9991-84d2482ad1a3"/>
+            <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+                id="7862c53b-137a-49a2-a8d8-594a2ca427ae" name="PL 1" appliedPropertyValueGroups="#f63992eb-24e0-461c-b26f-d8a1cea5c1b1"
+                linkEnds="#df0f987b-8890-4c9b-9cca-5d213309e521 #9d19641b-b57c-41fe-b1d4-3b0d864c5827">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="f63992eb-24e0-461c-b26f-d8a1cea5c1b1" name="SmartHome_Connections.Extension_Connections"
+                  appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="9511c9ec-96e0-4099-b54c-10667a63f1e9" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                    type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#4b698328-50f7-42b1-8b0b-f2ad610cda10"/>
+              </ownedPropertyValueGroups>
+            </ownedPhysicalLinks>
+            <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+                id="1fc27857-8136-4bdf-bc4a-c9c771e29707" name="PL 2" appliedPropertyValueGroups="#22b84b55-c7a7-49aa-bf8a-d857bf47b022"
+                linkEnds="#35a93791-f5bb-4b3c-a75f-94a0ac488799 #07b4fec2-1136-4df3-ab9a-4da6cdc8ce20">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="22b84b55-c7a7-49aa-bf8a-d857bf47b022" name="SmartHome_Connections.Extension_Connections"
+                  appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="e2659e9a-c83a-4269-8fba-1b678f773560" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                    type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+              </ownedPropertyValueGroups>
+            </ownedPhysicalLinks>
+            <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+                id="bbcc258e-a32f-4261-9d4b-a67101124132" name="PL 3" appliedPropertyValueGroups="#178c03fa-7bd4-4798-a430-0c375b48d39a"
+                linkEnds="#6479261c-e198-46b1-b2ad-e1d93b2a7a9d #82986d27-c176-4b75-8d34-6ebe52c5a9a4">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="178c03fa-7bd4-4798-a430-0c375b48d39a" name="SmartHome_Connections.Extension_Connections"
+                  appliedPropertyValueGroups="#c3811fe7-1030-4ac5-9557-2abca8aa63dd">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="0ea3d27d-076f-438e-9109-71d6110d1419" name="Enum" appliedPropertyValues="#5eaaba28-db35-4580-b655-ed1dde6c51b8"
+                    type="#63acae8d-adf3-414e-90ed-2e2fcc9544de" value="#3a9d7668-8beb-4d4c-8e79-ec7c7a432826"/>
+              </ownedPropertyValueGroups>
+            </ownedPhysicalLinks>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="d1cf96af-8497-4a31-ab43-03e38aeeec06" appliedPropertyValueGroups="#89b90a74-518e-4cb4-90f2-f94a39e459b1 #d8cc6532-4fa8-4c39-9306-fb9ae197fffb #b95768af-9b94-444a-ba0e-163f1391c152"
+                name="Light" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="89b90a74-518e-4cb4-90f2-f94a39e459b1" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="a941a60e-44ae-4291-919d-8f5964f26570" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="d8cc6532-4fa8-4c39-9306-fb9ae197fffb" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="c6904dd5-f275-4814-a215-260091f81d5b" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#fdfb7ee0-43b3-4e3e-8e3e-4d3c94b3c4fe"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="b95768af-9b94-444a-ba0e-163f1391c152" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="b03ef775-2007-4626-8350-d0d89c4f0bbf" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="2"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="6479261c-e198-46b1-b2ad-e1d93b2a7a9d" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="8cd011d1-16ed-4bbf-959d-927cefc84415" appliedPropertyValueGroups="#e6dd1723-ad8c-4505-916f-029196812609 #60742c73-a5b7-4d2b-9be0-e280d78869c3 #aed64f38-5f93-40ba-9110-c2424610e37b"
+                name="Thermostat" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="e6dd1723-ad8c-4505-916f-029196812609" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="405dc5e2-d42e-48e9-8ffd-a4c94272ec1c" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="60742c73-a5b7-4d2b-9be0-e280d78869c3" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="ed6abf85-05aa-4cde-adc2-e42421d59669" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#d60defbc-b720-4423-956e-8209474ae183"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="aed64f38-5f93-40ba-9110-c2424610e37b" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="2e31ffa7-dfaa-4595-b222-71f259ad428d" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="6"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="35a93791-f5bb-4b3c-a75f-94a0ac488799" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="fbfb8281-c6c0-4350-9ba4-37344a3d1ae1" appliedPropertyValueGroups="#eb696304-4a65-465a-a33b-0dfb38dc0984 #58b9a979-fc0e-4535-9e4a-a170041fd85a #8adda81e-1d54-4dc0-88e8-a91135485e69"
+                name="Radio" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="eb696304-4a65-465a-a33b-0dfb38dc0984" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="ba19ae51-27b2-43c8-99df-df2dc923ea87" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="58b9a979-fc0e-4535-9e4a-a170041fd85a" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="5f23580c-ea9f-4c99-b905-150fe0636bca" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#dec06d39-f1f9-4a40-9d2e-dc7824f07c4d"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="8adda81e-1d54-4dc0-88e8-a91135485e69" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="d00486a6-b92d-4cfc-a640-d7d4103c51ff" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="5"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="df0f987b-8890-4c9b-9cca-5d213309e521" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="33d1158a-e559-4ade-9991-84d2482ad1a3" appliedPropertyValueGroups="#339ebedc-fafe-4dd3-bce4-989b4d5af9fd #86670733-d166-44a1-9545-488f680ad464 #1332536d-ebec-40f7-831f-497852df766b"
+                name="Controller" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="339ebedc-fafe-4dd3-bce4-989b4d5af9fd" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="57b4b0c5-9f63-4ec8-b7f4-a203793af434" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="86670733-d166-44a1-9545-488f680ad464" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="92450bc8-d059-4ede-9620-dee200fd16d3" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#7c868b56-8491-4b9b-823f-657b68d557b3"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="1332536d-ebec-40f7-831f-497852df766b" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="9bd71f29-bad4-45b1-9601-19ddd7abfe6a" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="20"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="2bdc8177-e62d-4bd7-8ad8-ef59dbcda8e8"
+                  name="CPU" abstractType="#b4b5b4ca-c61b-49ca-aad4-f8f57d91f348"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="3ceff022-80a1-460b-a49f-163437c1e0dd"
+                  name="Panel" abstractType="#6cfb4e1b-a363-42fa-b388-b474031096c0"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="9d19641b-b57c-41fe-b1d4-3b0d864c5827" name="PP 3"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="07b4fec2-1136-4df3-ab9a-4da6cdc8ce20" name="PP 4"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="82986d27-c176-4b75-8d34-6ebe52c5a9a4" name="PP 5"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="f7204678-a565-44fe-9bcf-b505346ceccd" name="PP 6"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="7428bdad-66a5-4469-ab5c-fa2bc0de4697" name="PP 7"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="b6e1199b-929a-4956-8c5c-aba1b3d5d011" name="PP 8"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="d0c31d79-349c-43b1-86c3-36519ea6d312" name="PP 9"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="cb67f895-c96b-4c43-b21f-0d6f14fe8c37" name="PP 10"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="677e367b-5a73-4e7c-82a9-bc91751d2abb" name="PP 11"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="f9ba2d8a-397e-4dbf-85c9-c8de0ab4f06b" name="PP 12"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="47510220-0e84-4714-aa98-24ba6ce250f5" name="PP 13"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="5a0fe692-1241-4cad-a41d-62438244b362" name="PP 14"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="1bb64ed7-aed6-4860-a11b-1708f5651d71" name="PP 15"/>
+              <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                  id="b4b5b4ca-c61b-49ca-aad4-f8f57d91f348" appliedPropertyValueGroups="#eff63585-7a22-43df-9119-c6c1f31f7d58 #6cc44f67-869f-4813-b65b-289f05877fc7 #3b0a1e92-27a1-4532-8d4f-47a5aae6bd34"
+                  name="CPU" nature="NODE">
+                <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                    id="eff63585-7a22-43df-9119-c6c1f31f7d58" name="SmartHome_General_Setup.Extension_Types"
+                    appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                  <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                      id="67bcbc20-9494-4734-86f3-0ef9c8fdfa45" name="Types_Enum"
+                      appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                      type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+                </ownedPropertyValueGroups>
+                <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                    id="6cc44f67-869f-4813-b65b-289f05877fc7" name="SmartHome_General_Setup.Extension_Devices"
+                    appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                  <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                      id="34d0d05c-bc01-48bf-838b-04ece63d46a2" name="Devices_Types"
+                      appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                      type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#7c868b56-8491-4b9b-823f-657b68d557b3"/>
+                </ownedPropertyValueGroups>
+                <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                    id="3b0a1e92-27a1-4532-8d4f-47a5aae6bd34" name="SmartHome_Energy.Extension_Energy"
+                    appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                  <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                      id="0df4e673-047a-48f5-ab1c-36ef9c3a3264" name="Standby Energy Consumption"
+                      appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                      value="5"/>
+                </ownedPropertyValueGroups>
+              </ownedPhysicalComponents>
+              <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                  id="6cfb4e1b-a363-42fa-b388-b474031096c0" appliedPropertyValueGroups="#dbce4941-e885-40cc-8b19-934794f87462 #88f5d368-e697-4b5f-8ae5-b6e745fd33c5 #f165fe22-420b-4fb5-a5b9-f9be11315204"
+                  name="Panel" nature="NODE">
+                <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                    id="dbce4941-e885-40cc-8b19-934794f87462" name="SmartHome_General_Setup.Extension_Types"
+                    appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                  <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                      id="f97361d1-80fd-4684-9b2d-160db6ac8883" name="Types_Enum"
+                      appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                      type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+                </ownedPropertyValueGroups>
+                <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                    id="88f5d368-e697-4b5f-8ae5-b6e745fd33c5" name="SmartHome_General_Setup.Extension_Devices"
+                    appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                  <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                      id="5b12fc18-f890-43b3-a291-b45f3faeb835" name="Devices_Types"
+                      appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                      type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#7c868b56-8491-4b9b-823f-657b68d557b3"/>
+                </ownedPropertyValueGroups>
+                <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                    id="f165fe22-420b-4fb5-a5b9-f9be11315204" name="SmartHome_Energy.Extension_Energy"
+                    appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                  <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                      id="86c9dcac-b86b-4d2b-9ea9-3d80ba33cd5c" name="Standby Energy Consumption"
+                      appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                      value="20"/>
+                </ownedPropertyValueGroups>
+                <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                    id="4b002d95-a70d-493f-9bd8-6458fa02fc5c" name="PP 1"/>
+              </ownedPhysicalComponents>
+            </ownedPhysicalComponents>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="fc6fefa8-1606-4e62-abd7-95811e422223" appliedPropertyValueGroups="#bc0b6767-a6c7-4d4b-afd7-9036e4e90f75 #1229b4ec-9eea-4459-84f1-134d8cd94bde"
+              name="Bedroom" kind="FACILITIES" nature="NODE">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="bc0b6767-a6c7-4d4b-afd7-9036e4e90f75" name="SmartHome_General_Setup.Extension_Types"
+                appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="5adc4b3b-ed9a-4b72-8e6f-307e9f809162" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                  type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#04f4bea2-3274-413d-91bd-ea09c839da52"/>
+            </ownedPropertyValueGroups>
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="1229b4ec-9eea-4459-84f1-134d8cd94bde" name="SmartHome_General_Setup.Extension_Rooms"
+                appliedPropertyValueGroups="#a4faaecf-0f03-42e8-b7c2-f2ca64962cd0">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="af150dde-dfc0-453a-938c-3e9a4326413b" name="Rooms_Enum" appliedPropertyValues="#e8834803-8212-4eff-8263-588fed32e37a"
+                  type="#d916d1e1-f22d-4323-8599-992c559c8c41" value="#496d0343-eb8e-4ae9-ae9b-93062561ce02"/>
+            </ownedPropertyValueGroups>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="37326fa3-2bdc-4d44-aef0-6c42a340a10f"
+                name="Light" abstractType="#6a8875ea-aec5-4df1-8830-c7f35798e7ea"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="e6f77aec-7e2b-4c8c-b49f-ba31efa0bcdc"
+                name="Thermostat" abstractType="#cd9387f6-88d2-4117-afe6-659135117db2"/>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="6a8875ea-aec5-4df1-8830-c7f35798e7ea" appliedPropertyValueGroups="#849f0443-3920-4290-b6ac-00917056b087 #ab8bac20-490a-4fb4-a585-ff18db0bfef8 #45b46924-160c-4668-b38b-d9df39b1aa4d"
+                name="Light" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="849f0443-3920-4290-b6ac-00917056b087" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="344f87bf-57ed-4e9a-8feb-eebdd5e1b318" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="ab8bac20-490a-4fb4-a585-ff18db0bfef8" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="5ffc5791-bd0e-4970-a6be-32c3532857e7" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#fdfb7ee0-43b3-4e3e-8e3e-4d3c94b3c4fe"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="45b46924-160c-4668-b38b-d9df39b1aa4d" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="3a0e9d3a-fe99-4bc0-b495-a89f05b3190b" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="2"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="fb348bf7-29ff-48ef-9656-2e34fb5a8667" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="cd9387f6-88d2-4117-afe6-659135117db2" appliedPropertyValueGroups="#790aa90e-6476-44cf-bc2d-f88539979e79 #cebdb9ed-d6be-438d-97cf-3d081e7f7f27 #7e97a0f6-2b51-43f1-95fe-52012668f632"
+                name="Thermostat" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="790aa90e-6476-44cf-bc2d-f88539979e79" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="fba47704-fb54-4a49-853d-fdf334caf27a" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="cebdb9ed-d6be-438d-97cf-3d081e7f7f27" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="d8aa2a3a-450f-469b-a586-cfba0f4d08bd" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#d60defbc-b720-4423-956e-8209474ae183"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="7e97a0f6-2b51-43f1-95fe-52012668f632" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="a2853d22-1d2c-4072-9c4a-67a5bb3c3849" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="6"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="96b293ab-a260-48e6-b599-1f5843a5bf47" name="PP 1"/>
+            </ownedPhysicalComponents>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="6beb6d35-39bf-4e21-b87d-335ced39fb75" appliedPropertyValueGroups="#b3c79522-2813-4efb-8588-e5449cd1cbd1 #c2100454-24b5-43d7-8676-41d50a6d9e84"
+              name="Bathroom" nature="NODE">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="b3c79522-2813-4efb-8588-e5449cd1cbd1" name="SmartHome_General_Setup.Extension_Types"
+                appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="2ed2a346-6906-47db-8f55-e01db8e8a113" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                  type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#04f4bea2-3274-413d-91bd-ea09c839da52"/>
+            </ownedPropertyValueGroups>
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="c2100454-24b5-43d7-8676-41d50a6d9e84" name="SmartHome_General_Setup.Extension_Rooms"
+                appliedPropertyValueGroups="#a4faaecf-0f03-42e8-b7c2-f2ca64962cd0">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="c011ab41-f05e-4389-9716-c142f178808a" name="Rooms_Enum" appliedPropertyValues="#e8834803-8212-4eff-8263-588fed32e37a"
+                  type="#d916d1e1-f22d-4323-8599-992c559c8c41" value="#496d0343-eb8e-4ae9-ae9b-93062561ce02"/>
+            </ownedPropertyValueGroups>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="c0a896d1-8db7-4559-a769-409f4bc9dd9f"
+                name="Light" abstractType="#09d9b991-d70c-4991-8acc-8463e92e3ce0"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="72fa1279-bc6b-40a9-a699-d794c6d13a10"
+                name="Thermostat" abstractType="#d4a33878-38c6-4dae-a95b-adc2cc9d9f6f"/>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="09d9b991-d70c-4991-8acc-8463e92e3ce0" appliedPropertyValueGroups="#cde9f751-cafb-4922-812f-8b9f93a0cd48 #ebaafbf2-39a1-4af8-a9f3-880a3642377c #2b3c87fc-2488-4ca1-b7a4-35d777b334dd"
+                name="Light" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="cde9f751-cafb-4922-812f-8b9f93a0cd48" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="35e62731-15a9-45f0-8d07-a485a864d81b" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="ebaafbf2-39a1-4af8-a9f3-880a3642377c" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="25b517cb-ebc6-4cd3-9eac-4f3cd70f0a5f" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#fdfb7ee0-43b3-4e3e-8e3e-4d3c94b3c4fe"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="2b3c87fc-2488-4ca1-b7a4-35d777b334dd" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="4813a494-6e99-4a51-b3a3-11f411a26edd" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="2"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="a0bbbea5-9ba4-43cc-87fe-3d3ca0ca6a92" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="d4a33878-38c6-4dae-a95b-adc2cc9d9f6f" appliedPropertyValueGroups="#464af523-c1e9-43b7-a106-d877d7f616fa #8a583d92-bd9d-49d6-86f2-ccddb38fe17d #cf5f536c-eb9b-448b-b300-cbc74fb2cf2c"
+                name="Thermostat" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="464af523-c1e9-43b7-a106-d877d7f616fa" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="48728386-0b27-4382-913c-1711ce19c036" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="8a583d92-bd9d-49d6-86f2-ccddb38fe17d" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="348ec64d-f0e1-47f0-9bcb-ec0e61d9b024" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#d60defbc-b720-4423-956e-8209474ae183"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="cf5f536c-eb9b-448b-b300-cbc74fb2cf2c" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="898cd364-1fa4-42a5-82c8-08b75295214b" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="6"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="3d3c5305-7ac8-40a5-a620-e630bf4bdbe9" name="PP 1"/>
+            </ownedPhysicalComponents>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="7471213a-44bf-4785-9c43-73f94e97c45b" appliedPropertyValueGroups="#88b52ec5-dee8-4b9a-ad6f-a30f473be669 #f298daa8-0b78-4be9-9ca7-ae4f9e396078"
+              name="Dining Room" nature="NODE">
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="88b52ec5-dee8-4b9a-ad6f-a30f473be669" name="SmartHome_General_Setup.Extension_Types"
+                appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="12a5e178-d887-40c9-8118-050bc1d4ac8d" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                  type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#04f4bea2-3274-413d-91bd-ea09c839da52"/>
+            </ownedPropertyValueGroups>
+            <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                id="f298daa8-0b78-4be9-9ca7-ae4f9e396078" name="SmartHome_General_Setup.Extension_Rooms"
+                appliedPropertyValueGroups="#a4faaecf-0f03-42e8-b7c2-f2ca64962cd0">
+              <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                  id="57702005-f225-486e-adad-2510d7541787" name="Rooms_Enum" appliedPropertyValues="#e8834803-8212-4eff-8263-588fed32e37a"
+                  type="#d916d1e1-f22d-4323-8599-992c559c8c41" value="#496d0343-eb8e-4ae9-ae9b-93062561ce02"/>
+            </ownedPropertyValueGroups>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="6aaf6a84-1eac-4357-969a-43bca865d046"
+                name="Light" abstractType="#7963f535-d11b-4080-9f4f-26034b72377f"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="2e58f134-556a-4a2b-b48a-97745394a188"
+                name="Thermostat" abstractType="#1905e1ad-cd3f-4c3d-88a3-5eab5d023d3e"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="e4deb391-95d7-4d77-84f4-58caac1fbc3a"
+                name="Radio" abstractType="#2f290aa4-2c95-4389-a812-aa08ae442ed6"/>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="7963f535-d11b-4080-9f4f-26034b72377f" appliedPropertyValueGroups="#b1bbe9d2-8d7b-4e08-b62f-361a905ef66a #f55caa93-4ae8-4ce9-a1e0-0d9de1643bbe #dedeb250-e964-4908-aa54-2a325b5745b0"
+                name="Light" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="b1bbe9d2-8d7b-4e08-b62f-361a905ef66a" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="01da9cdc-b1e2-47d7-b4bc-43e48ac44930" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="f55caa93-4ae8-4ce9-a1e0-0d9de1643bbe" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="2df2dfef-ee1a-4928-8230-b8ee7dfe7a3d" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#fdfb7ee0-43b3-4e3e-8e3e-4d3c94b3c4fe"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="dedeb250-e964-4908-aa54-2a325b5745b0" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="17997f97-4e79-43e4-b69f-5aa10e51b3a6" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="2"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="5a8858e5-f02e-46d6-952a-c2a8bf164acc" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="1905e1ad-cd3f-4c3d-88a3-5eab5d023d3e" appliedPropertyValueGroups="#29bca24f-ec62-4a12-ac19-63f11e5309c4 #be7c21db-8d9e-46e6-86ba-ceb947021b3a #168f6f21-2340-4ff8-ba29-ab7cb9b4a397"
+                name="Thermostat" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="29bca24f-ec62-4a12-ac19-63f11e5309c4" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="22723ed8-9a39-4343-bf21-9bb180c82712" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="be7c21db-8d9e-46e6-86ba-ceb947021b3a" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="11d1ef97-6275-448e-a222-254c9ce1266c" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#d60defbc-b720-4423-956e-8209474ae183"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="168f6f21-2340-4ff8-ba29-ab7cb9b4a397" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="48564146-8d5a-4a11-a198-949ebc186558" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="6"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="a4c4b188-1081-4e9e-95c1-aa5876f26e81" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="2f290aa4-2c95-4389-a812-aa08ae442ed6" appliedPropertyValueGroups="#fc8bdfde-d83d-4ed2-9142-a5e1a47ed315 #d83b1629-59a0-403d-8d17-7f935693928f #a2eabdb3-8dc7-45da-8acf-a18af8d47037"
+                name="Radio" nature="NODE">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="fc8bdfde-d83d-4ed2-9142-a5e1a47ed315" name="SmartHome_General_Setup.Extension_Types"
+                  appliedPropertyValueGroups="#6e27d5de-49f2-4a23-826c-9261c8366ad5">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="f8403c33-9e06-4c07-9e87-6f5dc7762273" name="Types_Enum" appliedPropertyValues="#e487d3ed-a002-4e13-83db-9b044e4ac076"
+                    type="#bb83b1b4-b31c-4c88-bec7-c06549bfbc9b" value="#774b6c28-fdfd-4782-b8e5-2ad1c8d645cb"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="d83b1629-59a0-403d-8d17-7f935693928f" name="SmartHome_General_Setup.Extension_Devices"
+                  appliedPropertyValueGroups="#159c46f8-7d7b-4817-8de5-bbc2f04dd40f">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="de5838f9-9d40-4a85-af07-47c6c206daa9" name="Devices_Types"
+                    appliedPropertyValues="#f1145591-f59c-410c-9c48-6851ff9342f1"
+                    type="#002b13a6-deb5-430d-b5ae-69410c329d97" value="#dec06d39-f1f9-4a40-9d2e-dc7824f07c4d"/>
+              </ownedPropertyValueGroups>
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="a2eabdb3-8dc7-45da-8acf-a18af8d47037" name="SmartHome_Energy.Extension_Energy"
+                  appliedPropertyValueGroups="#89e288bf-8abe-4eed-a688-d2fcc1ec3c7c">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:IntegerPropertyValue"
+                    id="1d213f3d-ea31-4270-9282-a60485a49fe1" name="Standby Energy Consumption"
+                    appliedPropertyValues="#caf7d417-fb61-4495-bfbb-f016ab0567f3"
+                    value="6"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="a7b7044e-3f06-4bbf-a1ed-20eb3f5f3ffd" name="PP 1"/>
+            </ownedPhysicalComponents>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="05c02c5c-166d-4ff4-898b-cb6e45c8dc8c" name="User" actor="true" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="2aba3c09-40c6-462d-b7c0-12fd9579ffa1" name="PP 1"/>
+          </ownedPhysicalComponents>
+        </ownedPhysicalComponents>
+      </ownedPhysicalComponentPkg>
+      <ownedLogicalArchitectureRealizations xsi:type="org.polarsys.capella.core.data.pa:LogicalArchitectureRealization"
+          id="dcdc016d-5512-470a-90e5-d9a3bf8f4c52" targetElement="#2d3889a8-7968-4736-9a4e-1c0f378e7596"
+          sourceElement="#35f1832d-a11e-490a-b2bd-38924770ecfb"/>
+    </ownedArchitectures>
+    <ownedArchitectures xsi:type="org.polarsys.capella.core.data.epbs:EPBSArchitecture"
+        id="a3f262b5-852b-4646-ad07-2922b4bf26b0" name="EPBS Architecture">
+      <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.la:CapabilityRealizationPkg"
+          id="8b74af0a-25a7-44dc-ae09-42070d22f8b8" name="Capabilities"/>
+      <ownedConfigurationItemPkg xsi:type="org.polarsys.capella.core.data.epbs:ConfigurationItemPkg"
+          id="b7c7180d-80e7-4eb9-ad2f-3fe375a7ced2" name="Structure">
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="f76ffe46-03ca-4226-8f30-7306c570f46d"
+            name="System" abstractType="#eb40eb5e-e90d-4c22-a07a-ab9f63fc6501"/>
+        <ownedConfigurationItems xsi:type="org.polarsys.capella.core.data.epbs:ConfigurationItem"
+            id="eb40eb5e-e90d-4c22-a07a-ab9f63fc6501" name="System" kind="SystemCI">
+          <ownedPhysicalArtifactRealizations xsi:type="org.polarsys.capella.core.data.epbs:PhysicalArtifactRealization"
+              id="3520d05f-c2f5-4f9e-9b1c-79ad2c04f983" targetElement="#f79f9e06-7f33-45be-9cad-c4ef0a9f564b"
+              sourceElement="#eb40eb5e-e90d-4c22-a07a-ab9f63fc6501"/>
+        </ownedConfigurationItems>
+      </ownedConfigurationItemPkg>
+      <ownedPhysicalArchitectureRealizations xsi:type="org.polarsys.capella.core.data.epbs:PhysicalArchitectureRealization"
+          id="459cafa8-5602-4375-82bc-a9c82725fadb" targetElement="#35f1832d-a11e-490a-b2bd-38924770ecfb"
+          sourceElement="#a3f262b5-852b-4646-ad07-2922b4bf26b0"/>
+    </ownedArchitectures>
+  </ownedModelRoots>
+</org.polarsys.capella.core.data.capellamodeller:Project>

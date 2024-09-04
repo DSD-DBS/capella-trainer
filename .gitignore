@@ -159,3 +159,5 @@ cython_debug/
 
 # IntellIJ files
 .idea/
+
+workspace

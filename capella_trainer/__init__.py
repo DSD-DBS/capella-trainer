@@ -1,5 +1,7 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
+from enum import Enum
+
 import httpx
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -86,32 +88,97 @@ async def get_quiz(lesson_path: str) -> Quiz:
     return Quiz.from_path(lesson_path.split("/"))
 
 
+def close_projects():
+    projects = httpx.get(f"{CAPELLA_ENDPOINT}/projects").json()
+    for project in projects:
+        httpx.post(f"{CAPELLA_ENDPOINT}/projects/{project['name']}/close")
+        httpx.delete(
+            f"{CAPELLA_ENDPOINT}/projects/{project['name']}?deleteContents=false"
+        )
+
+
 @app.post("/training/lesson/{lesson_path:path}/load_project")
-async def load_lesson_model(lesson_path: str):
+async def load_lesson_project(lesson_path: str):
     lesson = training.root.get_child(lesson_path.split("/"))
-    if not lesson.has_start_model:
-        raise FileNotFoundError("Lesson does not have a start model")
+    if not lesson.start_project:
+        raise FileNotFoundError("Lesson does not have a start start-project")
 
-    httpx.post(
+    close_projects()
+
+    if not lesson.working_project_exists():
+        lesson.create_working_project()
+
+    res = httpx.post(
         f"{CAPELLA_ENDPOINT}/projects",
-        json={"location": os.path.join(TRAINING_DIR, lesson.start_project.path)},
+        json={
+            "location": f"/training/{lesson_path}/project"
+        },  # TODO use proper os path
     )
+    print(res.read())
 
-    httpx.post(f"{CAPELLA_ENDPOINT}/projects/{lesson.start_project.name}/open")
+
+@app.post("/training/lesson/{lesson_path:path}/reset_project")
+async def reset_lesson_project(lesson_path: str):
+    lesson = training.root.get_child(lesson_path.split("/"))
+    if not lesson.start_project:
+        raise FileNotFoundError("Lesson does not have a start start-project")
+
+    close_projects()
+
+    lesson.create_working_project(recreate=True)
+
+    res = httpx.post(
+        f"{CAPELLA_ENDPOINT}/projects",
+        json={
+            "location": f"/training/{lesson_path}/project"
+        },  # TODO use proper os path
+    )
+    print(res.read())
 
 
 @app.post("/training/lesson/{lesson_path:path}/load_solution_project")
-async def load_lesson_model_solution(lesson_path: str):
+async def load_lesson_solution_project(lesson_path: str):
     lesson = training.root.get_child(lesson_path.split("/"))
     if not lesson.solution_project:
-        raise FileNotFoundError("Lesson does not have a solution model")
+        raise FileNotFoundError("Lesson does not have a solution start-project")
 
-    httpx.post(
+    close_projects()
+
+    lesson.recreate_solution_project()
+
+    res = httpx.post(
         f"{CAPELLA_ENDPOINT}/projects",
-        json={"location": os.path.join(TRAINING_DIR, lesson.solution_project.path)},
+        json={
+            "location": f"/training/{lesson_path}/active-solution-project"
+        },  # TODO use proper os path
     )
+    print(res.read())
 
-    httpx.post(f"{CAPELLA_ENDPOINT}/projects/{lesson.solution_project.name}/open")
+
+class ProjectStatus(Enum):
+    UNLOADED = "UNLOADED"
+    SOLUTION = "SOLUTION"
+    WORKING = "WORKING"
+    WRONG_PROJECT = "WRONG_PROJECT"
+    UNKNOWN = "UNKNOWN"
+
+
+@app.get("/training/lesson/{lesson_path:path}/project_status")
+async def get_project_status(lesson_path: str) -> ProjectStatus:
+    projects = httpx.get(f"{CAPELLA_ENDPOINT}/projects").json()
+    if len(projects) == 0:
+        return ProjectStatus.UNLOADED
+
+    project_path = projects[0]["location"]
+    if not project_path.startswith(f"/training/{lesson_path}"):
+        return ProjectStatus.WRONG_PROJECT
+
+    elif project_path.endswith("active-solution-project"):
+        return ProjectStatus.SOLUTION
+    elif project_path.endswith("project"):
+        return ProjectStatus.WORKING
+    else:
+        return ProjectStatus.UNKNOWN
 
 
 @app.get("/training/lesson/{lesson_path:path}")
