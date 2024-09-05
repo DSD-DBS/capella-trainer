@@ -136,28 +136,8 @@ async def reset_lesson_project(lesson_path: str):
     print(res.read())
 
 
-@app.post("/training/lesson/{lesson_path:path}/load_solution_project")
-async def load_lesson_solution_project(lesson_path: str):
-    lesson = training.root.get_child(lesson_path.split("/"))
-    if not lesson.solution_project:
-        raise FileNotFoundError("Lesson does not have a solution start-project")
-
-    close_projects()
-
-    lesson.recreate_solution_project()
-
-    res = httpx.post(
-        f"{CAPELLA_ENDPOINT}/projects",
-        json={
-            "location": f"/training/{lesson_path}/active-solution-project"
-        },  # TODO use proper os path
-    )
-    print(res.read())
-
-
 class ProjectStatus(Enum):
     UNLOADED = "UNLOADED"
-    SOLUTION = "SOLUTION"
     WORKING = "WORKING"
     WRONG_PROJECT = "WRONG_PROJECT"
     UNKNOWN = "UNKNOWN"
@@ -172,9 +152,6 @@ async def get_project_status(lesson_path: str) -> ProjectStatus:
     project_path = projects[0]["location"]
     if not project_path.startswith(f"/training/{lesson_path}"):
         return ProjectStatus.WRONG_PROJECT
-
-    elif project_path.endswith("active-solution-project"):
-        return ProjectStatus.SOLUTION
     elif project_path.endswith("project"):
         return ProjectStatus.WORKING
     else:

@@ -14,17 +14,15 @@ from capella_trainer.tasks import TaskResult
 class LessonMeta(BaseModel):
     title: str
     show_capella: t.Optional[bool] = Field(default=None)
+    start_project: t.Optional[str] = Field(default=None)
 
 
 class Lesson(Element):
     content: str = Field(description="Markdown content")
     has_tasks: bool = Field(default=False, description="Whether the lesson has tasks.")
     has_quiz: bool = Field(default=False, description="Whether the lesson has a quiz.")
-    start_project: bool = Field(
-        default=False, description="Project to load at the start of the lesson."
-    )
-    solution_project: bool = Field(
-        default=False, description="Project for the solution of the lesson."
+    start_project: t.Optional[str] = Field(
+        default=None, description="Project to load at the start of the lesson."
     )
 
     show_capella: t.Optional[bool] = Field(
@@ -58,12 +56,6 @@ class Lesson(Element):
 
                 has_tasks = os.path.exists(os.path.join(file_system_path, "tasks.py"))
                 has_quiz = os.path.exists(os.path.join(file_system_path, "quiz.yaml"))
-                start_project = os.path.exists(
-                    os.path.join(file_system_path, "start-project")
-                )
-                solution_project = os.path.exists(
-                    os.path.join(file_system_path, "solution-project")
-                )
 
                 return Lesson(
                     name=meta.title,
@@ -72,18 +64,17 @@ class Lesson(Element):
                     slug=slug,
                     has_tasks=has_tasks,
                     has_quiz=has_quiz,
-                    start_project=start_project,
-                    solution_project=solution_project,
+                    start_project=meta.start_project,
                     show_capella=meta.show_capella,
                 )
         else:
             raise FileNotFoundError(f"content.mdx not found in {path_name}")
 
     def working_project_exists(self):
-        return os.path.exists(os.path.join(TRAINING_DIR, *self.path, "project"))
+        return os.path.exists(os.path.join(TRAINING_DIR, self.start_project))
 
     def create_working_project(self, recreate=False):
-        start_project_path = os.path.join(TRAINING_DIR, *self.path, "start-project")
+        start_project_path = os.path.join(TRAINING_DIR, self.start_project)
         working_project_path = os.path.join(TRAINING_DIR, *self.path, "project")
 
         if not os.path.exists(start_project_path):
@@ -93,22 +84,6 @@ class Lesson(Element):
             raise FileExistsError("Working project already exists")
 
         shutil.copytree(start_project_path, working_project_path, dirs_exist_ok=True)
-
-    def recreate_solution_project(self):
-        solution_project_path = os.path.join(
-            TRAINING_DIR, *self.path, "solution-project"
-        )
-        active_solution_project_path = os.path.join(
-            TRAINING_DIR, *self.path, "active-solution-project"
-        )
-
-        if not os.path.exists(solution_project_path):
-            raise FileNotFoundError("Solution project not found")
-
-        if os.path.exists(active_solution_project_path):
-            shutil.rmtree(active_solution_project_path)
-
-        shutil.copytree(solution_project_path, active_solution_project_path)
 
     def run_checks(self) -> list[TaskResult]:
         """
