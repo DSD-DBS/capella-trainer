@@ -33,7 +33,13 @@ const Lesson = () => {
 
   useEffect(() => {
     console.log(lessonData);
-    if (lessonData.show_capella && lessonData.start_project) {
+    if (lessonData.show_capella === null) {
+      if (lessonData.start_project) {
+        capellaRef.current.expand();
+      } else {
+        capellaRef.current.collapse();
+      }
+    } else if (lessonData.show_capella) {
       capellaRef.current.expand();
     } else {
       capellaRef.current.collapse();

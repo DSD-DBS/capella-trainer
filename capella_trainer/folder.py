@@ -64,7 +64,7 @@ class Folder(Element):
         for child in self.children:
             if isinstance(child, Lesson) and child.slug == path[0]:
                 return child
-            if isinstance(child, Folder) and child.path == path[:-1]:
+            if isinstance(child, Folder) and child.path[-1] == path[0]:
                 return child.get_child(path[1:])
 
         raise FileNotFoundError(f"Child {path} not found.")

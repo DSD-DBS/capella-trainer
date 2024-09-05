@@ -233,9 +233,8 @@ export interface components {
             /**
              * Show Capella
              * @description Whether to show Capella or exclusively the lesson.
-             * @default true
              */
-            show_capella: boolean;
+            show_capella?: boolean | null;
         };
         /** MultipleChoiceQuestion */
         MultipleChoiceQuestion: {

@@ -1070,8 +1070,8 @@
                 name="Thermostat" abstractType="#1905e1ad-cd3f-4c3d-88a3-5eab5d023d3e"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="e4deb391-95d7-4d77-84f4-58caac1fbc3a"
                 name="Radio" abstractType="#2f290aa4-2c95-4389-a812-aa08ae442ed6"/>
-            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="b58b575c-2fe6-426d-ac3d-2fe85740e405"
-                name="Smart Speaker" abstractType="#80bd252c-00b3-4d80-8e54-e7716f9ed4be"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="03ed3dab-9d47-4b95-b396-cb82b79acd6b"
+                name="PC 4" abstractType="#46fc8f8d-b944-4442-b466-74a37babee77"/>
             <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
                 id="7963f535-d11b-4080-9f4f-26034b72377f" appliedPropertyValueGroups="#b1bbe9d2-8d7b-4e08-b62f-361a905ef66a #f55caa93-4ae8-4ce9-a1e0-0d9de1643bbe #dedeb250-e964-4908-aa54-2a325b5745b0"
                 name="Light" nature="NODE">
@@ -1160,7 +1160,7 @@
                   id="a7b7044e-3f06-4bbf-a1ed-20eb3f5f3ffd" name="PP 1"/>
             </ownedPhysicalComponents>
             <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
-                id="80bd252c-00b3-4d80-8e54-e7716f9ed4be" name="Smart Speaker" nature="NODE"/>
+                id="46fc8f8d-b944-4442-b466-74a37babee77" name="PC 4" nature="NODE"/>
           </ownedPhysicalComponents>
           <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
               id="05c02c5c-166d-4ff4-898b-cb6e45c8dc8c" name="User" actor="true" nature="NODE">

@@ -19,11 +19,11 @@ const Content = ({ path }: { path: string }) => {
 
   return (
     <>
-      <ScrollArea className="prose max-w-full grow p-4 prose-h1:text-3xl prose-h1:font-bold prose-img:w-96 prose-img:max-w-full">
+      <ScrollArea className="prose mx-auto max-w-screen-md grow rounded-lg border-2 p-4 prose-h1:text-3xl prose-h1:font-bold prose-img:w-96 prose-img:max-w-full">
         <Preview source={data.content} path={path} />
+        {data.has_quiz && <Quiz path={path} />}
+        {data.has_tasks && <Tasks path={path} />}
       </ScrollArea>
-      {data.has_tasks && <Tasks path={path} />}
-      {data.has_quiz && <Quiz path={path} />}
     </>
   );
 };

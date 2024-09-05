@@ -44,7 +44,7 @@ const ProjectControl = ({ path }: { path: string }) => {
     "/training/lesson/{lesson_path}/load_solution_project",
   );
 
-  if (!lessonData.start_project || !lessonData.show_capella) {
+  if (!lessonData.start_project || lessonData.show_capella === false) {
     return null;
   }
 

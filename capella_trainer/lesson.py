@@ -1,7 +1,7 @@
 import importlib
 import os
 import shutil
-
+import typing as t
 
 import yaml
 from pydantic import Field, BaseModel
@@ -13,7 +13,7 @@ from capella_trainer.tasks import TaskResult
 
 class LessonMeta(BaseModel):
     title: str
-    show_capella: bool = Field(default=True)
+    show_capella: t.Optional[bool] = Field(default=None)
 
 
 class Lesson(Element):
@@ -27,8 +27,8 @@ class Lesson(Element):
         default=False, description="Project for the solution of the lesson."
     )
 
-    show_capella: bool = Field(
-        default=True, description="Whether to show Capella or exclusively the lesson."
+    show_capella: t.Optional[bool] = Field(
+        default=None, description="Whether to show Capella or exclusively the lesson."
     )
     type: str = Field(default="lesson", description="Type of the element.")
 
@@ -122,6 +122,8 @@ class Lesson(Element):
 
         tasks_module_name = f"training.{'.'.join(self.path)}.tasks"
 
+        importlib.invalidate_caches()
         tasks_module = importlib.import_module(tasks_module_name)
+        tasks_module.setup()
 
         return tasks_module.tasks.check_tasks()
