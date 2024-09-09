@@ -34,16 +34,6 @@ const ProjectControl = ({ path }: { path: string }) => {
     "/training/lesson/{lesson_path}/load_project",
   );
 
-  const resetProject = $api.useMutation(
-    "post",
-    "/training/lesson/{lesson_path}/reset_project",
-  );
-
-  const loadSolutionProject = $api.useMutation(
-    "post",
-    "/training/lesson/{lesson_path}/load_solution_project",
-  );
-
   if (!lessonData.start_project || lessonData.show_capella === false) {
     return null;
   }
@@ -65,56 +55,16 @@ const ProjectControl = ({ path }: { path: string }) => {
       )}
       {projectStatus === "WORKING" && (
         <>
-          {lessonData.solution_project && (
-            <Button
-              onClick={() =>
-                loadSolutionProject.mutate({
-                  params: { path: { lesson_path: path } },
-                })
-              }
-              disabled={resetProject.isPending || loadSolutionProject.isPending}
-              className="shrink-0"
-            >
-              Show Solution
-            </Button>
-          )}
-
-          <Button
-            onClick={() =>
-              resetProject.mutate({
-                params: { path: { lesson_path: path } },
-              })
-            }
-            disabled={resetProject.isPending || loadSolutionProject.isPending}
-            className="shrink-0"
-          >
-            Reset Project
-          </Button>
-        </>
-      )}
-      {projectStatus === "SOLUTION" && (
-        <>
           <Button
             onClick={() =>
               loadProject.mutate({
                 params: { path: { lesson_path: path } },
               })
             }
-            disabled={loadSolutionProject.isPending || loadProject.isPending}
+            disabled={loadProject.isPending}
             className="shrink-0"
           >
-            Show Project
-          </Button>
-          <Button
-            onClick={() =>
-              loadSolutionProject.mutate({
-                params: { path: { lesson_path: path } },
-              })
-            }
-            disabled={loadSolutionProject.isPending || loadProject.isPending}
-            className="shrink-0"
-          >
-            Reset Solution
+            Reset Project
           </Button>
         </>
       )}

@@ -70,18 +70,12 @@ class Lesson(Element):
         else:
             raise FileNotFoundError(f"content.mdx not found in {path_name}")
 
-    def working_project_exists(self):
-        return os.path.exists(os.path.join(TRAINING_DIR, self.start_project))
-
-    def create_working_project(self, recreate=False):
+    def create_working_project(self):
         start_project_path = os.path.join(TRAINING_DIR, self.start_project)
-        working_project_path = os.path.join(TRAINING_DIR, *self.path, "project")
+        working_project_path = os.path.join(TRAINING_DIR, "project")
 
         if not os.path.exists(start_project_path):
             raise FileNotFoundError("Start project not found")
-
-        if os.path.exists(working_project_path) and not recreate:
-            raise FileExistsError("Working project already exists")
 
         shutil.copytree(start_project_path, working_project_path, dirs_exist_ok=True)
 

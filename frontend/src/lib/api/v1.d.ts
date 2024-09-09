@@ -72,40 +72,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/training/lesson/{lesson_path}/reset_project": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Reset Lesson Project */
-        post: operations["reset_lesson_project_training_lesson__lesson_path__reset_project_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/training/lesson/{lesson_path}/load_solution_project": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Load Lesson Solution Project */
-        post: operations["load_lesson_solution_project_training_lesson__lesson_path__load_solution_project_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/training/lesson/{lesson_path}/project_status": {
         parameters: {
             query?: never;
@@ -221,15 +187,8 @@ export interface components {
             /**
              * Start Project
              * @description Project to load at the start of the lesson.
-             * @default false
              */
-            start_project: boolean;
-            /**
-             * Solution Project
-             * @description Project for the solution of the lesson.
-             * @default false
-             */
-            solution_project: boolean;
+            start_project?: string | null;
             /**
              * Show Capella
              * @description Whether to show Capella or exclusively the lesson.
@@ -275,7 +234,7 @@ export interface components {
          * ProjectStatus
          * @enum {string}
          */
-        ProjectStatus: "UNLOADED" | "SOLUTION" | "WORKING" | "WRONG_PROJECT" | "UNKNOWN";
+        ProjectStatus: "UNLOADED" | "WORKING" | "WRONG_PROJECT" | "UNKNOWN";
         /** Quiz */
         Quiz: {
             /**
@@ -446,68 +405,6 @@ export interface operations {
         };
     };
     load_lesson_project_training_lesson__lesson_path__load_project_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                lesson_path: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    reset_lesson_project_training_lesson__lesson_path__reset_project_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                lesson_path: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    load_lesson_solution_project_training_lesson__lesson_path__load_solution_project_post: {
         parameters: {
             query?: never;
             header?: never;
