@@ -15,11 +15,13 @@ class LessonMeta(BaseModel):
     title: str
     show_capella: t.Optional[bool] = Field(default=None)
     start_project: t.Optional[str] = Field(default=None)
+    task_text: t.Optional[str] = Field(default=None)
 
 
 class Lesson(Element):
     content: str = Field(description="Markdown content")
     has_tasks: bool = Field(default=False, description="Whether the lesson has tasks.")
+    task_text: t.Optional[str] = Field(default=None, description="Text for the tasks.")
     has_quiz: bool = Field(default=False, description="Whether the lesson has a quiz.")
     start_project: t.Optional[str] = Field(
         default=None, description="Project to load at the start of the lesson."
@@ -63,6 +65,7 @@ class Lesson(Element):
                     path=path_name,
                     slug=slug,
                     has_tasks=has_tasks,
+                    task_text=meta.task_text,
                     has_quiz=has_quiz,
                     start_project=meta.start_project,
                     show_capella=meta.show_capella,
@@ -107,6 +110,6 @@ class Lesson(Element):
 
         importlib.invalidate_caches()
         tasks_module = importlib.import_module(tasks_module_name)
-        tasks_module.setup()
+        tasks_module.setup(self.working_project_path)
 
         return tasks_module.tasks.check_tasks()

@@ -1,5 +1,4 @@
 import Navigation from "@/components/navigation.tsx";
-import Layout from "@/components/layout.tsx";
 import Content from "@/components/content.tsx";
 import { useParams } from "react-router-dom";
 import {
@@ -48,7 +47,7 @@ const Lesson = () => {
 
   return (
     <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel className="flex h-screen flex-col justify-between gap-2 py-4">
+      <ResizablePanel className="flex h-screen flex-col justify-between gap-2 py-2">
         <Suspense>
           <Navigation path={path} />
           <Content path={path} />

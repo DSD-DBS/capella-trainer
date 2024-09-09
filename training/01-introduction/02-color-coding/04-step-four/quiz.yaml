@@ -1,0 +1,10 @@
+questions:
+  - text: "In the world of Capella, what is one important purpose of PVMT (Property Value Management Tool)?"
+    id: 1
+    question_type: single_choice
+    options:
+      - "To manage the emotions of your models. It's crucial to keep them happy!"
+      - "To assign custom colors to model elements."
+      - "To make sure your models win the 'DBS Trophy' award."
+    correct_option: 1
+    explanation: Explanation text here.

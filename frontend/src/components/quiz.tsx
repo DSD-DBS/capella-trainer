@@ -80,9 +80,7 @@ export default function Quiz({ path }: { path: string }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="mx-4" onClick={resetQuiz}>
-          Start Knowledge Check
-        </Button>
+        <Button onClick={resetQuiz}>Start Knowledge Check</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] md:max-w-[700px]">
         <DialogHeader>

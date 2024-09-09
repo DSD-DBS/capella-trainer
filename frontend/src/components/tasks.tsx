@@ -23,12 +23,25 @@ const Tasks = ({ path }: { path: string }) => {
     },
   );
 
+  // Todo fix duplication
+  const { data } = $api.useSuspenseQuery(
+    "get",
+    "/training/lesson/{lesson_path}",
+    {
+      params: {
+        path: {
+          lesson_path: path,
+        },
+      },
+    },
+  );
+
   const activeIndex = checks?.findIndex(
     (check) => !check.success && check.was_executed,
   );
 
   return (
-    <div className="px-4">
+    <div className="not-prose">
       <div className="flex items-center justify-between px-3">
         <div className="text-lg font-bold">Tasks</div>
         <div>
@@ -37,6 +50,8 @@ const Tasks = ({ path }: { path: string }) => {
           )}
         </div>
       </div>
+
+      {data.task_text && <div className="px-3 pb-2">{data.task_text}</div>}
 
       <ol className="relative grid">
         {checks &&
@@ -86,7 +101,7 @@ const Tasks = ({ path }: { path: string }) => {
           ))}
 
         <AnimatePresence>
-          {activeIndex && activeIndex > 0 && (
+          {activeIndex !== undefined && activeIndex >= 0 && (
             <motion.div
               layout
               className="absolute -z-10 h-full w-full rounded-md bg-gray-200"

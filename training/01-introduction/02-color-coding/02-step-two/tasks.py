@@ -1,3 +1,5 @@
+import os.path
+
 from capella_trainer.tasks import TaskList, TaskDefinition, TaskContext
 
 
@@ -16,7 +18,9 @@ def test_new_component_was_created_in_dining_room(context: TaskContext):
 
 
 def test_new_component_was_renamed_to_radio(context: TaskContext):
-    radio = context.model.pa.all_components.by_name("Radio")
+    radio = context.model.pa.all_components.by_name("Dining Room").components.by_name(
+        "Radio"
+    )
     assert (
         radio is not None
     ), 'You did not name it "Radio", please use the exactly the name.'
@@ -24,7 +28,7 @@ def test_new_component_was_renamed_to_radio(context: TaskContext):
 
 
 def test_assign_types_to_radio(context: TaskContext):
-    pass
+    assert False, "Not implemented"
 
 
 tasks = TaskList(
@@ -38,14 +42,12 @@ tasks = TaskList(
             validator=test_new_component_was_renamed_to_radio,
         ),
         TaskDefinition(
-            description='Assign Types_Enum=Devices and Devices_Types=Audio_Device to the physical component "Radio"',
+            description='Navigate to the property values of the component "Radio" and change the Types_Enum to Devices and the Devices_Types to Audio_Device',
             validator=test_assign_types_to_radio,
         ),
     ]
 )
 
 
-def setup():
-    tasks.load_model_from_path(
-        "training/01-introduction/02-color-coding/02-step-two/project/PVMT_Demo.aird"
-    )
+def setup(path):
+    tasks.load_model_from_path(os.path.join(path, "PVMT_Demo.aird"))

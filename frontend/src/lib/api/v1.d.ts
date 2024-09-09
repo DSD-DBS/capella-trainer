@@ -179,6 +179,11 @@ export interface components {
              */
             has_tasks: boolean;
             /**
+             * Task Text
+             * @description Text for the tasks.
+             */
+            task_text?: string | null;
+            /**
              * Has Quiz
              * @description Whether the lesson has a quiz.
              * @default false
