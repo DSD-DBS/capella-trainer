@@ -4,11 +4,11 @@ from capella_trainer.tasks import TaskList, TaskDefinition, TaskContext
 
 
 def check_pab_is_opened(context: TaskContext):
-    res = context.client.get("/projects")
-    open_projects = res.json()
+    res = context.client.get("/projects/exercise/diagram-editors")
+    open_editors = res.json()
     # TODO more sophisticated check
     assert (
-        len(open_projects) > 0
+        open_editors[0]["name"] == "[PAB] Physical System"
     ), "Please chose the right model and open the '[PAB] Smart Home System'. You can find it in the model explorer."
 
 
