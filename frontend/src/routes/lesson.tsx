@@ -58,8 +58,7 @@ const Lesson = () => {
       <ResizablePanel collapsible ref={capellaRef}>
         <iframe
           src="http://localhost:8088/"
-          className="h-full w-full"
-          frameborder="0"
+          className="h-full w-full border-0"
         ></iframe>
       </ResizablePanel>
     </ResizablePanelGroup>
