@@ -29,10 +29,15 @@ export const Preview: FC<{ source?: string; path: string }> = ({
         [
           rehypeRewrite,
           {
-            selector: "img",
             rewrite: (node) => {
-              if (node.properties.src) {
+              console.log(node);
+              if (node?.properties?.src) {
                 node.properties.src = `${import.meta.env.VITE_API_BASE}/static-training/${path}/${node.properties.src}`;
+              } else if (
+                node?.type === "mdxJsxFlowElement" &&
+                node?.name === "video"
+              ) {
+                node.attributes[0].value = `${import.meta.env.VITE_API_BASE}/static-training/${path}/${node.attributes[0].value}`;
               }
             },
           },

@@ -109,9 +109,7 @@ async def load_lesson_project(lesson_path: str):
 
     res = httpx.post(
         f"{CAPELLA_ENDPOINT}/projects",
-        json={
-            "location": f"/training/{lesson_path}/project"
-        },  # TODO use proper os path
+        json={"location": lesson.container_working_project_path},
     )
     print(res.read())
 
@@ -131,10 +129,10 @@ async def get_project_status(lesson_path: str) -> ProjectStatus:
         return ProjectStatus.UNLOADED
 
     project_path = projects[0]["location"]
-    if not project_path.startswith(f"/training/{lesson.start_project}"):
-        return ProjectStatus.WRONG_PROJECT
-    elif project_path.endswith("project"):
+    if project_path == lesson.container_working_project_path:
         return ProjectStatus.WORKING
+    elif project_path.startswith("/training") and project_path.endswith("project"):
+        return ProjectStatus.WRONG_PROJECT
     else:
         return ProjectStatus.UNKNOWN
 

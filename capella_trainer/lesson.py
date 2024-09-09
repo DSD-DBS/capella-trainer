@@ -70,23 +70,37 @@ class Lesson(Element):
         else:
             raise FileNotFoundError(f"content.mdx not found in {path_name}")
 
-    def create_working_project(self):
-        start_project_path = os.path.join(TRAINING_DIR, self.start_project)
-        working_project_path = os.path.join(TRAINING_DIR, "project")
+    @property
+    def start_project_path(self):
+        return os.path.join(TRAINING_DIR, self.start_project)
 
-        if not os.path.exists(start_project_path):
+    @property
+    def working_project_path(self):
+        return os.path.join(TRAINING_DIR, self.start_project, "../project")
+
+    @property
+    def container_working_project_path(self):
+        return os.path.normpath(f"/training/{self.start_project}/../project").replace(
+            "\\", "/"
+        )
+
+    @property
+    def tasks_file_path(self):
+        return os.path.join(TRAINING_DIR, *self.path, "tasks.py")
+
+    def create_working_project(self):
+        if not os.path.exists(self.start_project_path):
             raise FileNotFoundError("Start project not found")
 
-        shutil.copytree(start_project_path, working_project_path, dirs_exist_ok=True)
+        shutil.copytree(
+            self.start_project_path, self.working_project_path, dirs_exist_ok=True
+        )
 
     def run_checks(self) -> list[TaskResult]:
         """
         Get the task results for the lesson
         """
-
-        tasks_file_system_path = os.path.join(TRAINING_DIR, *self.path, "tasks.py")
-
-        if not os.path.exists(tasks_file_system_path):
+        if not os.path.exists(self.tasks_file_path):
             raise FileNotFoundError("Lesson not found")
 
         tasks_module_name = f"training.{'.'.join(self.path)}.tasks"
