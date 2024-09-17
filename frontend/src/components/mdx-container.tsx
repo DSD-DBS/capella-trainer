@@ -7,7 +7,8 @@ import { MDXProps } from "mdx/types";
 import remarkGfm from "remark-gfm";
 import rehypeRewrite from "rehype-rewrite";
 
-import Admonition from "@/components/admonition.tsx";
+import Admonition from "@/components/markdown/admonition.tsx";
+import InlineImageFactory from "@/components/markdown/inline-image.tsx";
 
 type ReactMDXContent = (props: MDXProps) => ReactNode;
 
@@ -35,7 +36,7 @@ export const Preview: FC<{ source?: string; path: string }> = ({
                 node.properties.src = `${import.meta.env.VITE_API_BASE}/static-training/${path}/${node.properties.src}`;
               } else if (
                 node?.type === "mdxJsxFlowElement" &&
-                node?.name === "video"
+                (node?.name === "video" || node?.name === "img")
               ) {
                 node.attributes[0].value = `${import.meta.env.VITE_API_BASE}/static-training/${path}/${node.attributes[0].value}`;
               }
@@ -46,5 +47,9 @@ export const Preview: FC<{ source?: string; path: string }> = ({
     }).then((r) => setMdxContent(() => r.default));
   }, [source]);
 
-  return <MdxContent components={{ Admonition }} />;
+  return (
+    <MdxContent
+      components={{ Admonition, InlineImage: InlineImageFactory({ path }) }}
+    />
+  );
 };
