@@ -28,7 +28,22 @@ def test_new_component_was_renamed_to_radio(context: TaskContext):
 
 
 def test_assign_types_to_radio(context: TaskContext):
-    assert False, "Not implemented"
+    radio = context.model.pa.all_components.by_name("Dining Room").components.by_name(
+        "Radio"
+    )
+    assert (
+        radio.property_value_groups["SmartHome_General_Setup.Extension_Types"][
+            "Types_Enum"
+        ].name
+        == "Devices"
+    ), "The property Types_Enum is not set to Devices"
+
+    assert (
+        radio.property_value_groups["SmartHome_General_Setup.Extension_Devices"][
+            "Devices_Types"
+        ].name
+        == "Audio_Device"
+    ), "The property Devices_Types is not set to Audio_Device"
 
 
 tasks = TaskList(
