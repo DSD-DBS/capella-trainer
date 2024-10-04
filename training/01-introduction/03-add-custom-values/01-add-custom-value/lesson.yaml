@@ -1,0 +1,10 @@
+title: "Part 1: Add custom value"
+start_project: "01-introduction/02-define-custom-colors/start-project"
+exercise:
+  description: "Add a power value of 5 Watts to the Radio in the living room to complete its setup."
+  tasks:
+    - id: 1
+      description: |
+        Set the Standby_Energy_Consumption to a value of 5 Watt.
+      hint: |
+        Please set the Property "Standby_Energy_Consumption" to a value of 5 Watt. You find it in the Property Value Management menu of the Radio as soon as you click on it. If you somehow closed the Property Value Management window: go to Window > show view >other > Property values to show it.

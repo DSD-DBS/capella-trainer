@@ -1,0 +1,16 @@
+title: "Introduction"
+start_project: "01-introduction/02-define-custom-colors/start-project"
+exercise:
+  description: "Add the missing functionality to your model."
+  tasks:
+    - id: 1
+      description: Create a logical Function named "Detect Events"
+      hint: |
+        Please name the logical function (<CaIcon name="logicalFunction" />) named "detect events". You can easily rename it by selecting it and changing its name in the properties.
+    - id: 2
+      description: Create a logical Component named "Event detection system"
+      hint: |
+        Please name the logical component (<CaIcon name="logicalComponent" />) named "Event detection system". You can easily rename it by selecting it and changing its name in the properties.
+    - id: 3
+      description: Allocate logical function "Detect Events" to logical component "Event detection system"
+      hint: Please allocate the logical function "detect events" to the logical component "event detection system". Do this by drag-and-drop the logical function into the logical component.

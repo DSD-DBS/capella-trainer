@@ -1,7 +1,7 @@
 import { $api } from "@/lib/api/client.ts";
-import { Preview } from "@/components/mdx-container.tsx";
+import { RenderMdx } from "@/components/render-mdx.tsx";
 import { ScrollArea } from "./ui/scroll-area";
-import Tasks from "@/components/tasks.tsx";
+import Exercise from "@/components/exercise.tsx";
 import Quiz from "@/components/quiz.tsx";
 
 const Content = ({ path }: { path: string }) => {
@@ -20,9 +20,9 @@ const Content = ({ path }: { path: string }) => {
   return (
     <>
       <ScrollArea className="prose mx-auto max-w-screen-md grow rounded-md border-2 p-4 prose-h1:text-3xl prose-h1:font-bold prose-img:w-96 prose-img:max-w-full">
-        <Preview source={data.content} path={path} />
+        <RenderMdx source={data.content} path={path} />
         {data.has_quiz && <Quiz path={path} />}
-        {data.has_tasks && <Tasks path={path} />}
+        {data.exercise && <Exercise path={path} />}
       </ScrollArea>
     </>
   );

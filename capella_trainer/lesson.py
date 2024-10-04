@@ -8,20 +8,21 @@ from pydantic import Field, BaseModel
 
 from capella_trainer.constants import TRAINING_DIR
 from capella_trainer.element import Element
-from capella_trainer.tasks import TaskResult
+from capella_trainer.exercise import TaskResult, ExerciseMeta
 
 
 class LessonMeta(BaseModel):
     title: str
     show_capella: t.Optional[bool] = Field(default=None)
     start_project: t.Optional[str] = Field(default=None)
-    task_text: t.Optional[str] = Field(default=None)
+    exercise: t.Optional[ExerciseMeta] = Field(default=None)
 
 
 class Lesson(Element):
     content: str = Field(description="Markdown content")
-    has_tasks: bool = Field(default=False, description="Whether the lesson has tasks.")
-    task_text: t.Optional[str] = Field(default=None, description="Text for the tasks.")
+    exercise: t.Optional[ExerciseMeta] = Field(
+        default=None, description="Metadata for the exercise."
+    )
     has_quiz: bool = Field(default=False, description="Whether the lesson has a quiz.")
     start_project: t.Optional[str] = Field(
         default=None, description="Project to load at the start of the lesson."
@@ -52,11 +53,20 @@ class Lesson(Element):
             with open(lesson_meta, encoding="utf-8") as f:
                 meta = LessonMeta(**yaml.safe_load(f))
 
+                exercises_exist = os.path.exists(
+                    os.path.join(file_system_path, "exercise.py")
+                )
+
+                if ~(exercises_exist ^ bool(meta.exercise)):
+                    # raise ValueError(
+                    #     "Exercise metadata does not match the exercise file."
+                    # )
+                    pass  # TODO: Enable this
+
             with open(lesson_content, encoding="utf-8") as f:
                 content = f.read()
                 slug = path_name[-1]
 
-                has_tasks = os.path.exists(os.path.join(file_system_path, "tasks.py"))
                 has_quiz = os.path.exists(os.path.join(file_system_path, "quiz.yaml"))
 
                 return Lesson(
@@ -64,8 +74,7 @@ class Lesson(Element):
                     content=content,
                     path=path_name,
                     slug=slug,
-                    has_tasks=has_tasks,
-                    task_text=meta.task_text,
+                    exercise=meta.exercise,
                     has_quiz=has_quiz,
                     start_project=meta.start_project,
                     show_capella=meta.show_capella,
@@ -89,7 +98,7 @@ class Lesson(Element):
 
     @property
     def tasks_file_path(self):
-        return os.path.join(TRAINING_DIR, *self.path, "tasks.py")
+        return os.path.join(TRAINING_DIR, *self.path, "exercise.py")
 
     def create_working_project(self):
         if not os.path.exists(self.start_project_path):
@@ -99,14 +108,14 @@ class Lesson(Element):
             self.start_project_path, self.working_project_path, dirs_exist_ok=True
         )
 
-    def run_checks(self) -> list[TaskResult]:
+    def run_exercise_checks(self) -> list[TaskResult]:
         """
-        Get the task results for the lesson
+        Get the task check results for the lesson's exercise
         """
         if not os.path.exists(self.tasks_file_path):
             raise FileNotFoundError("Lesson not found")
 
-        tasks_module_name = f"training.{'.'.join(self.path)}.tasks"
+        tasks_module_name = f"training.{'.'.join(self.path)}.exercise"
 
         importlib.invalidate_caches()
         tasks_module = importlib.import_module(tasks_module_name)

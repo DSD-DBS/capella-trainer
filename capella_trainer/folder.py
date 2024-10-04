@@ -36,8 +36,7 @@ class Folder(Element):
                 name = meta["name"]
         else:
             raise FileNotFoundError(f"folder.yaml not found in {path_name}")
-
-        for file_name in os.listdir(filesystem_path):
+        for file_name in sorted(os.listdir(filesystem_path)):
             # folders have a folder.yaml file
             # lessons have a content.mdx file
             # ignore other files

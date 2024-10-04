@@ -21,7 +21,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/training/lesson/{lesson_path}/checks": {
+    "/training/lesson/{lesson_path}/exercise": {
         parameters: {
             query?: never;
             header?: never;
@@ -31,7 +31,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Run Training Lesson Checks */
-        post: operations["run_training_lesson_checks_training_lesson__lesson_path__checks_post"];
+        post: operations["run_training_lesson_checks_training_lesson__lesson_path__exercise_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -110,6 +110,16 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** ExerciseMeta */
+        ExerciseMeta: {
+            /**
+             * Description
+             * @description Description of the exercise
+             */
+            description: string;
+            /** Tasks */
+            tasks: components["schemas"]["TaskMeta"][];
+        };
         /** Folder */
         Folder: {
             /**
@@ -172,17 +182,8 @@ export interface components {
              * @description Markdown content
              */
             content: string;
-            /**
-             * Has Tasks
-             * @description Whether the lesson has tasks.
-             * @default false
-             */
-            has_tasks: boolean;
-            /**
-             * Task Text
-             * @description Text for the tasks.
-             */
-            task_text?: string | null;
+            /** @description Metadata for the exercise. */
+            exercise?: components["schemas"]["ExerciseMeta"] | null;
             /**
              * Has Quiz
              * @description Whether the lesson has a quiz.
@@ -283,8 +284,25 @@ export interface components {
              */
             correct_option: number;
         };
+        /** TaskMeta */
+        TaskMeta: {
+            /** Id */
+            id: number;
+            /**
+             * Description
+             * @description Description of the task
+             */
+            description: string;
+            /**
+             * Hint
+             * @description Hint for the task in MDX
+             */
+            hint?: string | null;
+        };
         /** TaskResult */
         TaskResult: {
+            /** Id */
+            id: number;
             /** Description */
             description: string;
             /** Was Executed */
@@ -347,7 +365,7 @@ export interface operations {
             };
         };
     };
-    run_training_lesson_checks_training_lesson__lesson_path__checks_post: {
+    run_training_lesson_checks_training_lesson__lesson_path__exercise_post: {
         parameters: {
             query?: never;
             header?: never;

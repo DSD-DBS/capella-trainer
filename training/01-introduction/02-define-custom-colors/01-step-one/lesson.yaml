@@ -1,0 +1,10 @@
+title: "Color-Coding: Step 1"
+start_project: "01-introduction/02-define-custom-colors/start-project"
+exercise:
+  description: "Make yourself familiar with the Capella model of your smart home system"
+  tasks:
+    - id: 1
+      description: |
+        Open the pre-existing Capella model and open the "[PAB] Smart Home System" diagram in the physical architecture.
+      hint: |
+        Please chose the right Capella model and open the '[PAB] Smart Home System'. You find it in the model explorer.

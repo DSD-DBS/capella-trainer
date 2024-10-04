@@ -14,7 +14,7 @@ from capella_trainer.constants import TRAINING_DIR, CAPELLA_ENDPOINT
 from capella_trainer.folder import Folder
 from capella_trainer.lesson import Lesson
 from capella_trainer.quiz import Quiz
-from capella_trainer.tasks import TaskResult
+from capella_trainer.exercise import TaskResult
 
 app = FastAPI()
 
@@ -77,10 +77,10 @@ async def get_training() -> Training:
     return training
 
 
-@app.post("/training/lesson/{lesson_path:path}/checks")
+@app.post("/training/lesson/{lesson_path:path}/exercise")
 async def run_training_lesson_checks(lesson_path: str) -> list[TaskResult]:
     lesson = training.root.get_child(lesson_path.split("/"))
-    return lesson.run_checks()
+    return lesson.run_exercise_checks()
 
 
 @app.get("/training/lesson/{lesson_path:path}/quiz")

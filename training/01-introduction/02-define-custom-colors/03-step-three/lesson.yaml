@@ -1,0 +1,10 @@
+title: "Color-Coding: Step 3"
+start_project: "01-introduction/02-define-custom-colors/start-project"
+exercise:
+  description: "Show the physical links."
+  tasks:
+    - id: 1
+      description: |
+        Un-check "Collapse Component Physical Ports" and "Hide Physical Links" in the filter menu.
+      hint: |
+        Please un-check the required fields. You find it in the "Filter" on the top of your Diagram (<CaIcon name="filter" />).
