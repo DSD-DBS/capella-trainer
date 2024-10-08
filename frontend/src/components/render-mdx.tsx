@@ -10,6 +10,7 @@ import rehypeRewrite from "rehype-rewrite";
 import Admonition from "@/components/markdown/admonition.tsx";
 import InlineImageFactory from "@/components/markdown/inline-image.tsx";
 import CaIcon from "@/components/markdown/caicon.tsx";
+import { Root, RootContent } from "hast";
 
 type ReactMDXContent = (props: MDXProps) => ReactNode;
 
@@ -23,7 +24,9 @@ export const RenderMdx: FC<{ source?: string; path: string }> = ({
 
   useEffect(() => {
     evaluate(source, {
+      // @ts-ignore
       jsx,
+      // @ts-ignore
       jsxs,
       Fragment,
       remarkPlugins: [remarkGfm],
@@ -31,9 +34,10 @@ export const RenderMdx: FC<{ source?: string; path: string }> = ({
         [
           rehypeRewrite,
           {
-            rewrite: (node) => {
-              console.log(node);
+            rewrite: (node: Root | RootContent) => {
+              // @ts-ignore
               if (node?.properties?.src) {
+                // @ts-ignore
                 node.properties.src = `${import.meta.env.VITE_API_BASE}/static-training/${path}/${node.properties.src}`;
               } else if (
                 node?.type === "mdxJsxFlowElement" &&

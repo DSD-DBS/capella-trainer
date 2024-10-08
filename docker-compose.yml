@@ -11,3 +11,9 @@ services:
     volumes:
       - ./training:/training
       - ./workspace:/workspace
+  app:
+    build: .
+    volumes:
+      - ./training:/app/training
+    ports:
+      - "8000:8000"

@@ -8,10 +8,11 @@ import {
 } from "@/components/ui/resizable.tsx";
 import { Suspense, useEffect, useRef } from "react";
 import { $api } from "@/lib/api/client.ts";
+import { ImperativePanelHandle } from "react-resizable-panels";
 
 const Lesson = () => {
   const { "*": path } = useParams();
-  const capellaRef = useRef(null);
+  const capellaRef = useRef<ImperativePanelHandle>(null);
 
   if (!path) {
     return null;
@@ -32,6 +33,7 @@ const Lesson = () => {
 
   useEffect(() => {
     console.log(lessonData);
+    if (!capellaRef.current) return;
     if (lessonData.show_capella === null) {
       if (lessonData.start_project) {
         capellaRef.current.expand();

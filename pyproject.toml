@@ -27,20 +27,13 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
 ]
-dependencies = ["fastapi", "pydantic", "uvicorn", "capellambse", "httpx"]
+dependencies = ["fastapi", "pydantic", "uvicorn", "capellambse", "httpx", "click"]
 
 [project.urls]
 Homepage = "https://github.com/DSD-DBS/capella-trainer"
 Documentation = "https://dsd-dbs.github.io/capella-trainer"
 
 [project.optional-dependencies]
-docs = [
-  "furo",
-  "sphinx",
-  "sphinx-copybutton",
-  "tomli; python_version<'3.11'",
-]
-
 test = [
   "pytest",
   "pytest-cov",
