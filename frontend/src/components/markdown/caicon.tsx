@@ -3,6 +3,7 @@ import importConfig from "~/assets/capella-icons/import-config.png";
 import filter from "~/assets/capella-icons/filter.png";
 import logicalComponent from "~/assets/capella-icons/logical-component.png";
 import logicalFunction from "~/assets/capella-icons/logical-function.png";
+import functionalExchange from "~/assets/capella-icons/functional-exchange.png";
 import domain from "~/assets/capella-icons/domain.png";
 import newDomain from "~/assets/capella-icons/new-domain.png";
 import openCurrentConfigFile from "~/assets/capella-icons/open-current-config-file.png";
@@ -19,6 +20,7 @@ const icons = {
   filter,
   logicalComponent,
   logicalFunction,
+  functionalExchange,
   domain,
   newDomain,
   openCurrentConfigFile,

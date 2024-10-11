@@ -11,5 +11,4 @@ export default defineConfig({
       "~": path.resolve(__dirname),
     },
   },
-  base: "/my-spa/",
 });

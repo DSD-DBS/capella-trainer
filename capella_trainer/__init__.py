@@ -19,17 +19,17 @@ from capella_trainer.exercise import TaskResult
 app = FastAPI()
 
 
-class SPAStaticFiles(StaticFiles):
-    async def get_response(self, path: str, scope):
-        response = await super().get_response(path, scope)
-        if response.status_code == 404:
-            response = await super().get_response(".", scope)
-        return response
-
-
-app.mount(
-    "/my-spa/", SPAStaticFiles(directory="frontend/dist", html=True), name="whatever"
-)
+# class SPAStaticFiles(StaticFiles):
+#     async def get_response(self, path: str, scope):
+#         response = await super().get_response(path, scope)
+#         if response.status_code == 404:
+#             response = await super().get_response(".", scope)
+#         return response
+#
+#
+# app.mount(
+#     "/my-spa/", SPAStaticFiles(directory="frontend/dist", html=True), name="whatever"
+# )
 
 
 app.add_middleware(
