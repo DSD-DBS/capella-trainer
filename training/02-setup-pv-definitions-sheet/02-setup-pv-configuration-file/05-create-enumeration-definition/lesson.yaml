@@ -1,0 +1,10 @@
+title: Create Enumeration Definition
+start_project: "01-introduction/02-define-custom-colors/start-project"
+exercise:
+  description: Create an EClass Rule for logical functions.
+  tasks:
+    - id: 1
+      description: |
+        Create an Enumeration Definition named "Type Literals".
+      hint: |
+        You can create an Enumeration Definition with a right-click on the domain (<CaIcon name="domain" />) and select the option to create an Enumeration Definition (<CaIcon name="createEnumerationDefinition" />). Then, just rename it in the text field on the right.

@@ -13,6 +13,12 @@ import search from "~/assets/capella-icons/search.png";
 import extension from "~/assets/capella-icons/extension.png";
 import createExtension from "~/assets/capella-icons/create-extension.png";
 import scope from "~/assets/capella-icons/scope.png";
+import createEclassRule from "~/assets/capella-icons/create-eclass-rule.png";
+import eclassRule from "~/assets/capella-icons/eclass-rule.png";
+import createEnumerationDefinition from "~/assets/capella-icons/create-enumeration-definition.png";
+import enumerationDefinition from "~/assets/capella-icons/enumeration-definition.png";
+import createEnumerationLiteral from "~/assets/capella-icons/create-enumeration-literal.png";
+import createBackgroundColor from "~/assets/capella-icons/create-background-color.png";
 
 const icons = {
   exportConfig,
@@ -30,6 +36,12 @@ const icons = {
   extension,
   createExtension,
   scope,
+  eclassRule,
+  createEclassRule,
+  enumerationDefinition,
+  createEnumerationDefinition,
+  createEnumerationLiteral,
+  createBackgroundColor,
 };
 
 type IconName = keyof typeof icons;

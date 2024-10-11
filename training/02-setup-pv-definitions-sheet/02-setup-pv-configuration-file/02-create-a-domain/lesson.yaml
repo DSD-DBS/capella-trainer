@@ -1,0 +1,11 @@
+title: "Part 2: Create a Domain"
+start_project: "01-introduction/02-define-custom-colors/start-project"
+exercise:
+  description: |
+    Create a new domain named "Function Type"
+  tasks:
+    - id: 1
+      description: |
+        Create a new Domain named "Function Type" in the default PV configuration file
+      hint: |
+        Please create a new Domain in your default PV configuration file. You can simply do this by clicking on the book icon (<CaIcon name="newDomain"/>). Simply rename it by selecting the Domain (<CaIcon name="domain" />) and changing its name in the text field on the right.

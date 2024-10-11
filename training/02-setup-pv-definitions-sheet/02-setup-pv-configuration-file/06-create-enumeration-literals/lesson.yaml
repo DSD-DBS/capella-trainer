@@ -1,0 +1,9 @@
+title: Create Enumeration Literals
+start_project: "01-introduction/02-define-custom-colors/start-project"
+exercise:
+  description: Create new Enumeration Literals.
+  tasks:
+    - id: 1
+      description: Create four Enumeration Literals under the newly created Enumeration Definition and name them Security, Temperature, Light, and Audio
+      hint: |
+        Create four new Enumeration Definitions and name them Security, Temperature, Light, and Audio. Start by right-clicking on your newly created definition (<CaIcon name="enumerationDefinition" />). Now, one by one, create your Enumeration Literals (<CaIcon name="createEnumerationLiteral" />) each one representing a specific value you want to define in your model.

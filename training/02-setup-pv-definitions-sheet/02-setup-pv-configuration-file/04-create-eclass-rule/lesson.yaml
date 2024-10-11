@@ -1,0 +1,14 @@
+title: Create EClass Rule
+start_project: "01-introduction/02-define-custom-colors/start-project"
+exercise:
+  description: Create an EClass Rule for logical functions
+  tasks:
+    - id: 1
+      description: Create exactly an EClass Rule under the Scope
+      hint: |
+        Please create a new EClass Rule under the Scope. You can do this by right-clicking on the scope (<CaIcon name="scope" />) and then chose the EClass Rule (<CaIcon name="createEclassRule" />).
+    - id: 2
+      description: |
+        Select "LogicalFunction" for the newly created EClass Rule
+      hint: |
+        Please chose the type "LogicalFunction" for the EClass Rule. You can do this by choosing selecting your EClass Rule (<CaIcon name="eclassRule" />) "LogicalFunction" from the dropdown menu on the right.

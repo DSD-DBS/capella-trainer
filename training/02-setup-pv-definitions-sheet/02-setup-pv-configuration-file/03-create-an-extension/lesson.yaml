@@ -1,0 +1,15 @@
+title: "Part 3: Create an extension"
+start_project: "01-introduction/02-define-custom-colors/start-project"
+exercise:
+  description: Create a new Extension for the logical layer.
+  tasks:
+    - id: 1
+      description: |
+        Create a new Extension in the newly created Domain "Function Types" and name it "Logical Function Types"
+      hint: |
+        To create an Extension, just follow these steps: Right-click on the Domain (1) (<CaIcon name="domain" />) and create an Extension (2) (<CaIcon name="createExtension" />). Simply rename it by selecting the Extension (<CaIcon name="extension" />) and changing its name in the text field on the right.
+    - id: 2
+      description: |
+        Set the Scope to "Logical" only
+      hint: |
+        Select the Scope (<CaIcon name="scope" />) and tick the "Logical" button.
