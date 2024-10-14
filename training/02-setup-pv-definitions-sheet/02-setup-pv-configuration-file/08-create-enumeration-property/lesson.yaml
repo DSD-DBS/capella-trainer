@@ -1,8 +1,23 @@
-title:
-start_project: "01-introduction/02-define-custom-colors/start-project"
+title: "Part 8: Create Enumeration Property"
+start_project: "02-setup-pv-definitions-sheet/start-project"
 exercise:
-  description:
+  description: Create an Enumeration Property and link it to the Enumeration Definition.
   tasks:
     - id: 1
-      description:
-      hint:
+      description: |
+        Create an Enumeration Property under the Extension "Logical Function Types" and name it "Function Types"
+      hint: |
+        Please create only one enumeration property under the extension "logical function types". Do to this you need to navigate to your Extension (<CaIcon name="extension" />), right-click, and select "Create Enumeration Property" (<CaIcon name="createEnumerationProperty" />). Then simply name it "Function Types". You can change the name by selecting the Enumeration Property and changing the name on the right.
+    - id: 2
+      description: |
+        Link the Enumeration Property to the previously created Enumeration Definition "Type Literals"
+      hint: |
+        Please link the Enumeration Property you have just created to the Enumeration Definition "Type Literals". Select the Enumeration Definition  and in the "Type" dropdown, select the Enumeration Definition.
+    - id: 3
+      description: Set the default value to Security
+      hint: |
+        Please set the default value to "Security". In the PV definitions sheet you always have to define a default value. Change it by selecting the Enumeration Property (<CaIcon name="enumerationProperty" />) and choosing "Security" from the dropdown list on the right".
+    - id: 4
+      description: Add a meaningful description for the Enumeration Property of at least 10 characters.
+      hint: |
+        Please add some description to the description field. You find it on the right after selecting the Enumeration Property (<CaIcon name="enumerationProperty" />).

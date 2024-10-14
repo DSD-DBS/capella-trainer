@@ -1,5 +1,5 @@
-title: Create Enumeration Literals
-start_project: "01-introduction/02-define-custom-colors/start-project"
+title: "Part 6: Create Enumeration Literals"
+start_project: "02-setup-pv-definitions-sheet/start-project"
 exercise:
   description: Create new Enumeration Literals.
   tasks:

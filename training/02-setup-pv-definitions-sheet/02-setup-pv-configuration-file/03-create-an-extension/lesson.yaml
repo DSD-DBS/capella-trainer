@@ -1,5 +1,5 @@
 title: "Part 3: Create an extension"
-start_project: "01-introduction/02-define-custom-colors/start-project"
+start_project: "02-setup-pv-definitions-sheet/start-project"
 exercise:
   description: Create a new Extension for the logical layer.
   tasks:

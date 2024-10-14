@@ -3,15 +3,15 @@ import os
 from capella_trainer.exercise import TaskList, TaskDefinition, TaskContext
 
 
-def test_created_logical_component(context: TaskContext):
-    pass
+def check_pv_config_opened(context: TaskContext):
+    assert False, "Not implemented"
 
 
 tasks = TaskList(
     [
         TaskDefinition(
             id=1,
-            validator=test_created_logical_component,
+            validator=check_pv_config_opened,
         ),
     ]
 )

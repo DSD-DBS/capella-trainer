@@ -1,4 +1,4 @@
-title: "Color-Coding: Step 2"
+title: "Part 2: Extend the model"
 start_project: "01-introduction/02-define-custom-colors/start-project"
 exercise:
   description: 'Create a the physical component "Radio" in the dining room. Assign the device type "Audio" to it.'

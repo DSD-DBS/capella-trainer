@@ -4,7 +4,7 @@ from capella_trainer.exercise import TaskList, TaskDefinition, TaskContext
 import capellambse.aird
 
 
-def check_pab_is_opened(context: TaskContext):
+def check_filter_is_set(context: TaskContext):
     diagram = context.model.diagrams[0]
     active_filters = capellambse.aird.ActiveFilters(context.model, diagram)
     assert (
@@ -19,7 +19,7 @@ tasks = TaskList(
     [
         TaskDefinition(
             id=1,
-            validator=check_pab_is_opened,
+            validator=check_filter_is_set,
         ),
     ]
 )

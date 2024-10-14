@@ -1,5 +1,5 @@
-title: Create Enumeration Definition
-start_project: "01-introduction/02-define-custom-colors/start-project"
+title: "Part 5: Create Enumeration Definition"
+start_project: "02-setup-pv-definitions-sheet/start-project"
 exercise:
   description: Create an EClass Rule for logical functions.
   tasks:
