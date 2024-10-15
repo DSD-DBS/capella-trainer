@@ -7,8 +7,8 @@ def check_pab_is_opened(context: TaskContext):
     res = context.client.get("/projects/exercise/diagram-editors")
     open_editors = res.json()
     # TODO more sophisticated check
-    assert (
-        open_editors[0]["name"] == "[PAB] Physical System"
+    assert any(
+        open_editor["name"] == "[PAB] Physical System" for open_editor in open_editors
     ), "Please chose the right model and open the '[PAB] Smart Home System'. You can find it in the model explorer."
 
 

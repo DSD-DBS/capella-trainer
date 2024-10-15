@@ -5,10 +5,12 @@ from enum import Enum
 import httpx
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import HTTPException
 from pydantic import BaseModel, Field
 import os
 import yaml
 from starlette.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from capella_trainer.constants import TRAINING_DIR, CAPELLA_ENDPOINT
 from capella_trainer.folder import Folder
@@ -17,19 +19,6 @@ from capella_trainer.quiz import Quiz
 from capella_trainer.exercise import TaskResult
 
 app = FastAPI()
-
-
-# class SPAStaticFiles(StaticFiles):
-#     async def get_response(self, path: str, scope):
-#         response = await super().get_response(path, scope)
-#         if response.status_code == 404:
-#             response = await super().get_response(".", scope)
-#         return response
-#
-#
-# app.mount(
-#     "/my-spa/", SPAStaticFiles(directory="frontend/dist", html=True), name="whatever"
-# )
 
 
 app.add_middleware(
@@ -154,3 +143,21 @@ async def get_project_status(lesson_path: str) -> ProjectStatus:
 @app.get("/training/lesson/{lesson_path:path}")
 async def get_training_lesson(lesson_path: str) -> Lesson:
     return training.root.get_child(lesson_path.split("/"))
+
+
+class SPAStaticFiles(StaticFiles):
+    async def get_response(self, path: str, scope):
+        try:
+            return await super().get_response(path, scope)
+        except (HTTPException, StarletteHTTPException) as ex:
+            if ex.status_code == 404:
+                return await super().get_response("index.html", scope)
+            else:
+                raise ex
+
+
+# app.mount(
+#     "/",
+#     SPAStaticFiles(directory="/app/frontend/dist", html=True),
+#     name="spa-static-files",
+# )
