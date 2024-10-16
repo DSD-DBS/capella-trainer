@@ -12,6 +12,10 @@ from capella_trainer.lesson import Lesson
 class Folder(Element):
     children: list[t.Self | Lesson] = Field(description="List of lessons and folders.")
     type: str = Field(default="folder", description="Type of the element.")
+    progress_root: t.Optional[bool] = Field(
+        default=None, description="Whether children should be tracked for progress."
+    )
+    _counter: int = 0
 
     @staticmethod
     def from_path(path_name: list[str]):
@@ -34,6 +38,7 @@ class Folder(Element):
             with open(folder_meta) as f:
                 meta = yaml.safe_load(f)
                 name = meta["name"]
+                progress_root = meta.get("progress_root")
         else:
             raise FileNotFoundError(f"folder.yaml not found in {path_name}")
         for file_name in sorted(os.listdir(filesystem_path)):
@@ -50,7 +55,13 @@ class Folder(Element):
             ):
                 children.append(Lesson.from_path(path_name + [file_name]))
 
-        return Folder(name=name, path=path_name, children=children, slug=slug)
+        return Folder(
+            name=name,
+            path=path_name,
+            children=children,
+            slug=slug,
+            progress_root=progress_root,
+        )
 
     def get_child(self, path: list[str]) -> t.Self | Lesson:
         """

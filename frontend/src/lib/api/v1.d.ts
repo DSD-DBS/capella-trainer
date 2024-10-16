@@ -148,6 +148,11 @@ export interface components {
              * @description List of lessons and folders.
              */
             children: (components["schemas"]["Folder"] | components["schemas"]["Lesson"])[];
+            /**
+             * Progress Root
+             * @description Whether children should be tracked for progress.
+             */
+            progress_root?: boolean | null;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -303,8 +308,6 @@ export interface components {
         TaskResult: {
             /** Id */
             id: number;
-            /** Description */
-            description: string;
             /** Was Executed */
             was_executed: boolean;
             /** Success */

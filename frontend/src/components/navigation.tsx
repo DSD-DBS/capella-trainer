@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/popover";
 import { Button, buttonVariants } from "@/components/ui/button";
 import ProjectControl from "@/components/project-control.tsx";
+import { Progress } from "@/components/ui/progress.tsx";
 
 function FolderNode({
   node,
@@ -92,27 +93,40 @@ function LessonNode({
 
 function getAllLessons(
   root: components["schemas"]["Folder"],
-): components["schemas"]["Lesson"][] {
+  progressRootPath: string[] = [],
+): {
+  lessons: components["schemas"]["Lesson"][];
+  progressRoot: components["schemas"]["Folder"] | null;
+} {
   const lessons: components["schemas"]["Lesson"][] = [];
+  let progressRoot: components["schemas"]["Folder"] | null = null;
 
   function traverse(
     element: components["schemas"]["Folder"] | components["schemas"]["Lesson"],
+    currentPath: string[] = [],
   ) {
     if (element?.type === "lesson") {
       lessons.push(element as components["schemas"]["Lesson"]);
     } else if (element?.type === "folder") {
-      (element as components["schemas"]["Folder"]).children.forEach(traverse);
+      const folder = element as components["schemas"]["Folder"];
+      if (folder.progress_root) {
+        progressRoot = folder;
+        progressRootPath = currentPath;
+      }
+      folder.children.forEach((child) =>
+        traverse(child, [...currentPath, folder.name]),
+      );
     }
   }
 
   traverse(root);
-  return lessons;
+  return { lessons, progressRoot };
 }
 
 const Navigation = ({ path }: { path: string }) => {
   const { data } = $api.useSuspenseQuery("get", "/training");
 
-  const flattenedLessons = getAllLessons(data.root);
+  const { lessons: flattenedLessons, progressRoot } = getAllLessons(data.root);
 
   const lessonIndex = flattenedLessons.findIndex(
     (lesson) => lesson.path.join("/") === path,
@@ -126,61 +140,75 @@ const Navigation = ({ path }: { path: string }) => {
       ? flattenedLessons[lessonIndex + 1].path.join("/")
       : null;
 
-  return (
-    <div className="flex gap-1 px-4">
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            className="block grow overflow-hidden overflow-ellipsis whitespace-nowrap text-left"
-            variant="outline"
-          >
-            {flattenedLessons[lessonIndex]?.name}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="p-0">
-          <div className="p-2">
-            <ul className="space-y-1">
-              {data.root.children.map((child) =>
-                child.type === "folder" ? (
-                  <FolderNode
-                    key={child.name}
-                    node={child as components["schemas"]["Folder"]}
-                    path={path}
-                  />
-                ) : (
-                  <LessonNode
-                    key={child.name}
-                    node={child as components["schemas"]["Lesson"]}
-                    path={path}
-                  />
-                ),
-              )}
-            </ul>
-          </div>
-        </PopoverContent>
-      </Popover>
-      <ProjectControl path={path} />
+  let progress = 0;
+  if (progressRoot) {
+    const progressLessons = getAllLessons(progressRoot).lessons;
+    const currentLessonIndex = progressLessons.findIndex(
+      (lesson) => lesson.path.join("/") === path,
+    );
+    if (currentLessonIndex !== -1) {
+      progress = ((currentLessonIndex + 1) / progressLessons.length) * 100;
+    }
+  }
 
-      <Link
-        className={cn(
-          buttonVariants({ size: "icon" }),
-          !previousLesson && "pointer-events-none opacity-50",
-          "shrink-0",
-        )}
-        to={previousLesson ? `/lesson/${previousLesson}` : "#"}
-      >
-        <ArrowLeft className="size-4" />
-      </Link>
-      <Link
-        className={cn(
-          buttonVariants({ size: "icon" }),
-          !nextLesson && "pointer-events-none opacity-50",
-          "shrink-0",
-        )}
-        to={nextLesson ? `/lesson/${nextLesson}` : "#"}
-      >
-        <ArrowRight className="size-4" />
-      </Link>
+  return (
+    <div className="flex flex-col gap-1 px-4">
+      <div className="flex gap-1">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              className="block grow overflow-hidden overflow-ellipsis whitespace-nowrap text-left"
+              variant="outline"
+            >
+              {flattenedLessons[lessonIndex]?.name}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="p-0">
+            <div className="p-2">
+              <ul className="space-y-1">
+                {data.root.children.map((child) =>
+                  child.type === "folder" ? (
+                    <FolderNode
+                      key={child.name}
+                      node={child as components["schemas"]["Folder"]}
+                      path={path}
+                    />
+                  ) : (
+                    <LessonNode
+                      key={child.name}
+                      node={child as components["schemas"]["Lesson"]}
+                      path={path}
+                    />
+                  ),
+                )}
+              </ul>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <ProjectControl path={path} />
+
+        <Link
+          className={cn(
+            buttonVariants({ size: "icon" }),
+            !previousLesson && "pointer-events-none opacity-50",
+            "shrink-0",
+          )}
+          to={previousLesson ? `/lesson/${previousLesson}` : "#"}
+        >
+          <ArrowLeft className="size-4" />
+        </Link>
+        <Link
+          className={cn(
+            buttonVariants({ size: "icon" }),
+            !nextLesson && "pointer-events-none opacity-50",
+            "shrink-0",
+          )}
+          to={nextLesson ? `/lesson/${nextLesson}` : "#"}
+        >
+          <ArrowRight className="size-4" />
+        </Link>
+      </div>
+      <Progress value={progress} />
     </div>
   );
 };
