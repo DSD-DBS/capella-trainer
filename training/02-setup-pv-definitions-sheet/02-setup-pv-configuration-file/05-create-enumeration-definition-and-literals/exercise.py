@@ -3,16 +3,18 @@ import os
 from capella_trainer.exercise import TaskList, TaskDefinition, TaskContext
 
 
-def test_created_enumeration_literals(context: TaskContext):
+def test_created_enumeration_definition(context: TaskContext):
+    enumeration_definitions = context.model.pvmt.domains.by_name(
+        "Function Type"
+    ).enumeration_property_types
+    assert (
+        len(enumeration_definitions) > 0
+    ), "Create a new Enumeration Definition called 'Type Literals'"
     try:
-        type_literals = context.model.pvmt.domains.by_name(
-            "Function Type"
-        ).enumeration_property_types.by_name("Type Literals")
+        type_literals = enumeration_definitions.by_name("Type Literals")
     except KeyError:
         type_literals = None
-    assert (
-        type_literals is not None
-    ), "Did you create a new Enumeration Literal in the previous task?"
+    assert type_literals is not None, "Make sure to call it 'Type Literals'"
     assert any(
         type_literal.name == "Security" for type_literal in type_literals.literals
     ), "Create a literal called 'Security'"
@@ -32,7 +34,7 @@ tasks = TaskList(
     [
         TaskDefinition(
             id=1,
-            validator=test_created_enumeration_literals,
+            validator=test_created_enumeration_definition,
         ),
     ]
 )

@@ -19,11 +19,6 @@ def test_created_new_extension(context: TaskContext):
         extension is not None
     ), "Create a new extension called 'Logical Function Types'"
 
-
-def test_set_extension_scope(context: TaskContext):
-    function_type = context.model.pvmt.domains.by_name("Function Type")
-    extension = function_type.groups.by_name("Logical Function Types")
-
     assert (
         extension.selector.raw == "[ARCHITECTURE]LOGICAL[/ARCHITECTURE]"
     ), "Set the extension scope to the Logical layer"
@@ -34,11 +29,7 @@ tasks = TaskList(
         TaskDefinition(
             id=1,
             validator=test_created_new_extension,
-        ),
-        TaskDefinition(
-            id=2,
-            validator=test_set_extension_scope,
-        ),
+        )
     ],
 )
 

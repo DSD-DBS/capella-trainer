@@ -11,12 +11,9 @@ def test_created_logical_component(context: TaskContext):
     ).groups.by_name("Logical Function Types")
 
     assert len(logical_function_types.selector.classes) > 0, "Create a new EClass Rule"
-
-
-def test_rule_is_logical_function(context: TaskContext):
-    logical_function_types = context.model.pvmt.domains.by_name(
-        "Function Type"
-    ).groups.by_name("Logical Function Types")
+    assert (
+        len(logical_function_types.selector.classes) < 2
+    ), "Create only one EClass Rule"
     assert any(
         eclass_rule == capellambse.metamodel.la.LogicalFunction
         for eclass_rule in logical_function_types.selector.classes
@@ -27,10 +24,6 @@ tasks = TaskList(
     [
         TaskDefinition(
             id=1,
-            validator=test_created_logical_component,
-        ),
-        TaskDefinition(
-            id=2,
             validator=test_created_logical_component,
         ),
     ]

@@ -22,6 +22,7 @@ import enumerationLiteral from "~/assets/capella-icons/enumeration-literal.png";
 import enumerationProperty from "~/assets/capella-icons/enumeration-property.png";
 import createEnumerationProperty from "~/assets/capella-icons/create-enumeration-property.png";
 import createBackgroundColor from "~/assets/capella-icons/create-background-color.png";
+import saveAll from "~/assets/capella-icons/save-all.png";
 
 const icons = {
   exportConfig,
@@ -48,6 +49,7 @@ const icons = {
   enumerationProperty,
   createEnumerationProperty,
   createBackgroundColor,
+  saveAll,
 };
 
 type IconName = keyof typeof icons;
