@@ -17,9 +17,12 @@ def test_new_component_was_created_in_dining_room(context: TaskContext):
 
 
 def test_new_component_was_renamed_to_radio(context: TaskContext):
-    radio = context.model.pa.all_components.by_name("Dining Room").components.by_name(
-        "Radio"
-    )
+    try:
+        radio = context.model.pa.all_components.by_name(
+            "Dining Room"
+        ).components.by_name("Radio")
+    except:
+        radio = None
     assert (
         radio is not None
     ), 'You did not name it "Radio", please use the exactly the name.'
