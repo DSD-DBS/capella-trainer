@@ -1,6 +1,6 @@
 services:
   capella:
-    image: dbb-set-docker-stage-dev-local.bahnhub.tech.rz.db.de/capella/training-mode:main-main
+    image: ghcr.io/dsd-dbs/capella-dockerimages/capella/remote:6.0.0-selected-dropins-338-merge
     ports:
       - "8088:10000"
       - "5007:5007"
@@ -11,6 +11,7 @@ services:
     volumes:
       - ./training:/training
       - ./workspace:/workspace
+      - ./dropins:/opt/capella/dropins
   app:
     image: ghcr.io/dsd-dbs/capella-trainer/capella-trainer:main
     volumes:
