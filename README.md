@@ -14,6 +14,12 @@ Short one-line project description
 
 Read the [full documentation on Github pages](https://dsd-dbs.github.io/capella-trainer).
 
+# Quickstart using docker
+- Clone the repository
+- Log into the docker registry using a personal access token: `docker login ghcr.io`
+- Start the docker container: `docker-compose up -f docker-compose.prod.yml`
+- View the first lesson at `http://localhost:8000/lesson/01-introduction/01-welcome`
+
 # Installation
 
 You can install the latest released version directly from PyPI.
