@@ -156,8 +156,8 @@ class SPAStaticFiles(StaticFiles):
                 raise ex
 
 
-# app.mount(
-#     "/",
-#     SPAStaticFiles(directory="/app/frontend/dist", html=True),
-#     name="spa-static-files",
-# )
+app.mount(
+    "/",
+    SPAStaticFiles(directory="/app/frontend/dist", html=True),
+    name="spa-static-files",
+)

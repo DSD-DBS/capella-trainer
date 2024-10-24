@@ -91,10 +91,7 @@ function LessonNode({
   );
 }
 
-function getAllLessons(
-  root: components["schemas"]["Folder"],
-  progressRootPath: string[] = [],
-): {
+function getAllLessons(root: components["schemas"]["Folder"]): {
   lessons: components["schemas"]["Lesson"][];
   progressRoot: components["schemas"]["Folder"] | null;
 } {
@@ -111,7 +108,6 @@ function getAllLessons(
       const folder = element as components["schemas"]["Folder"];
       if (folder.progress_root) {
         progressRoot = folder;
-        progressRootPath = currentPath;
       }
       folder.children.forEach((child) =>
         traverse(child, [...currentPath, folder.name]),

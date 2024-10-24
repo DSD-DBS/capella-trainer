@@ -7,8 +7,8 @@ services:
     environment:
       - CONNECTION_METHOD=xpra
       - XPRA_SUBPATH="/"
-      - XPRA_CSP_ORIGIN_HOST=http://localhost:5173
-#      - XPRA_CSP_ORIGIN_HOST=http://localhost:8000
+#      - XPRA_CSP_ORIGIN_HOST=http://localhost:5173
+      - XPRA_CSP_ORIGIN_HOST=http://localhost:8000
     volumes:
       - ./training:/training
       - ./workspace:/workspace
@@ -18,3 +18,5 @@ services:
       - ./training:/app/training
     ports:
       - "8000:8000"
+    environment:
+      - CAPELLA_ENDPOINT=http://capella:5007/api/v1
