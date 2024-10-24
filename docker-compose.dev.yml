@@ -1,0 +1,21 @@
+services:
+  capella:
+    image: dbb-set-docker-stage-dev-local.bahnhub.tech.rz.db.de/capella/training-mode:main-main
+    ports:
+      - "8088:10000"
+      - "5007:5007"
+    environment:
+      - CONNECTION_METHOD=xpra
+      - XPRA_SUBPATH="/"
+      - XPRA_CSP_ORIGIN_HOST=http://localhost:5173
+    volumes:
+      - ./training:/training
+      - ./workspace:/workspace
+  app:
+    build: .
+    volumes:
+      - ./training:/app/training
+    ports:
+      - "8000:8000"
+    environment:
+      - CAPELLA_ENDPOINT=http://capella:5007/api/v1

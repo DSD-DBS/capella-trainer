@@ -7,13 +7,12 @@ services:
     environment:
       - CONNECTION_METHOD=xpra
       - XPRA_SUBPATH="/"
-#      - XPRA_CSP_ORIGIN_HOST=http://localhost:5173
       - XPRA_CSP_ORIGIN_HOST=http://localhost:8000
     volumes:
       - ./training:/training
       - ./workspace:/workspace
   app:
-    build: .
+    image: ghcr.io/dsd-dbs/capella-trainer/capella-trainer:main
     volumes:
       - ./training:/app/training
     ports:
