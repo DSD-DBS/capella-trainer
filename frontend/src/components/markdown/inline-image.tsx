@@ -1,3 +1,5 @@
+import { API_BASE } from "@/lib/const.ts";
+
 const InlineImage = ({
   src,
   alt,
@@ -7,7 +9,7 @@ const InlineImage = ({
   alt: string;
   path: string;
 }) => {
-  const properSource = `${import.meta.env.VITE_API_BASE}/static-training/${path}/${src}`;
+  const properSource = `${API_BASE}/static-training/${path}/${src}`;
   return (
     <img src={properSource} alt={alt} className="not-prose inline-block w-4" />
   );

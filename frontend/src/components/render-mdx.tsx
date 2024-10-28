@@ -11,6 +11,7 @@ import Admonition from "@/components/markdown/admonition.tsx";
 import InlineImageFactory from "@/components/markdown/inline-image.tsx";
 import CaIcon from "@/components/markdown/caicon.tsx";
 import { Root, RootContent } from "hast";
+import { API_BASE } from "@/lib/const.ts";
 
 type ReactMDXContent = (props: MDXProps) => ReactNode;
 
@@ -38,12 +39,12 @@ export const RenderMdx: FC<{ source?: string; path: string }> = ({
               // @ts-ignore
               if (node?.properties?.src) {
                 // @ts-ignore
-                node.properties.src = `${import.meta.env.VITE_API_BASE}/static-training/${path}/${node.properties.src}`;
+                node.properties.src = `${API_BASE}/static-training/${path}/${node.properties.src}`;
               } else if (
                 node?.type === "mdxJsxFlowElement" &&
                 (node?.name === "video" || node?.name === "img")
               ) {
-                node.attributes[0].value = `${import.meta.env.VITE_API_BASE}/static-training/${path}/${node.attributes[0].value}`;
+                node.attributes[0].value = `${API_BASE}/static-training/${path}/${node.attributes[0].value}`;
               }
             },
           },
