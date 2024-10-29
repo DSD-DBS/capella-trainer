@@ -72,7 +72,9 @@ print(training)
 # This exposes all files in the training directory under /static-training
 # Since there's no sensitive information in the training files, this is fine
 # So don't store sensitive information in there.
-app.mount("/static-training", StaticFiles(directory="training"), name="static-training")
+app.mount(
+    "/static-training", StaticFiles(directory=TRAINING_DIR), name="static-training"
+)
 
 
 @app.get("/training")
