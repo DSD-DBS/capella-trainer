@@ -17,7 +17,7 @@ Read the [full documentation on Github pages](https://dsd-dbs.github.io/capella-
 # Quickstart using docker
 - Clone the repository
 - Log into the docker registry using a personal access token: `docker login ghcr.io`
-- Start the docker container: `docker-compose up -f docker-compose.prod.yml`
+- Start the docker container: `docker-compose -f docker-compose.prod.yml up`
 - View the first lesson at `http://localhost:8000/lesson/01-introduction/01-welcome`
 
 # Installation
