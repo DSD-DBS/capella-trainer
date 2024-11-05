@@ -38,6 +38,70 @@ and interactive exercises (model checks using [capellambse](https://github.com/D
 Check the [authoring guide](AUTHORING.md) for information on how to create your
 own training materials.
 
+## Integration in the Capella Collaboration Manager
+
+The Capella Trainer can be integrated into the [Capella Collaboration Manager](https://github.com/DSD-DBS/capella-collab-manager).
+
+To do so, you have to be administrator in a running instance of the Capella Collaboration Manager.
+Navigate to `Menu` > `Settings` > `Tools` > `Add a new tool` and fill in the following configuration:
+
+```yml
+name: Training Controller
+config:
+  resources:
+    cpu:
+      requests: 0.4
+      limits: 2
+    memory:
+      requests: 1.6Gi
+      limits: 6Gi
+  environment: {}
+  connection:
+    methods:
+      - id: http
+        type: http
+        name: Browser Connection
+        ports:
+          metrics: 9118
+          http: 8000
+        environment:
+          API_BASE: "{CAPELLACOLLAB_SESSIONS_BASE_PATH}"
+          ROUTE_PREFIX: "{CAPELLACOLLAB_SESSIONS_BASE_PATH}"
+          TRAINING_DIR:
+            stage: before
+            value: "{CAPELLACOLLAB_SESSION_PROVISIONING[0][path]}"
+          HOST_FRONTEND: "TRUE"
+        sharing:
+          enabled: false
+        redirect_url: "{CAPELLACOLLAB_SESSIONS_SCHEME}://{CAPELLACOLLAB_SESSIONS_HOST}:{CAPELLACOLLAB_SESSIONS_PORT}{CAPELLACOLLAB_SESSIONS_BASE_PATH}/"
+        cookies: {}
+  monitoring:
+    prometheus:
+      path: /prometheus
+  provisioning:
+    directory: /models
+    max_number_of_models: 1
+    required: true
+  persistent_workspaces:
+    mounting_enabled: true
+  supported_project_types:
+    - training
+```
+
+After saving the configuration, you have to add a version for the new tool:
+
+```yml
+name: "Latest"
+config:
+  is_recommended: true
+  is_deprecated: false
+  sessions:
+    persistent:
+      image: ghcr.io/dsd-dbs/capella-trainer/capella-trainer:main
+  backups:
+    image: null
+```
+
 # Contributing
 
 We'd love to see your bug reports and improvement suggestions! Please take a
