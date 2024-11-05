@@ -26,9 +26,11 @@ COPY --from=build-frontend /app/dist/ ./frontend/dist/
 # Expose the port the app runs in
 EXPOSE 8000
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Run as non-root user per default
-RUN chmod -R 777 /home
-USER 1000
+#RUN chmod -R 777 /home
+#USER 1000
 
-ENTRYPOINT ["uvicorn", "capella_trainer:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["/entrypoint.sh"]
