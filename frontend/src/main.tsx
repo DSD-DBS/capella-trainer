@@ -6,6 +6,7 @@ import Lesson from "@/routes/lesson.tsx";
 import { createRoot } from "react-dom/client";
 import Layout from "@/components/layout.tsx";
 import { ROUTE_PREFIX } from "@/lib/const.ts";
+import Index from "@/routes";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")!).render(
       <Layout>
         <Router basename={ROUTE_PREFIX}>
           <Routes>
+            <Route path="/" element={<Index />} />
             <Route path="/lesson/*" element={<Lesson />} />
           </Routes>
         </Router>

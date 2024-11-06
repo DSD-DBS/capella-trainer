@@ -9,8 +9,26 @@ import {
 import { Suspense, useEffect, useRef } from "react";
 import { $api } from "@/lib/api/client.ts";
 import { ImperativePanelHandle } from "react-resizable-panels";
+import { ENABLE_BUILT_IN_CAPELLA } from "@/lib/const.ts";
 
-const Lesson = () => {
+const StaticLesson = () => {
+  const { "*": path } = useParams();
+
+  if (!path) {
+    return null;
+  }
+
+  return (
+    <div className="flex h-screen flex-col justify-between gap-2 py-2">
+      <Suspense>
+        <Navigation path={path} />
+        <Content path={path} />
+      </Suspense>
+    </div>
+  );
+};
+
+const ResizeableLesson = () => {
   const { "*": path } = useParams();
   const capellaRef = useRef<ImperativePanelHandle>(null);
 
@@ -64,6 +82,14 @@ const Lesson = () => {
       </ResizablePanel>
     </ResizablePanelGroup>
   );
+};
+
+const Lesson = () => {
+  if (ENABLE_BUILT_IN_CAPELLA) {
+    return <ResizeableLesson />;
+  } else {
+    return <StaticLesson />;
+  }
 };
 
 export default Lesson;
