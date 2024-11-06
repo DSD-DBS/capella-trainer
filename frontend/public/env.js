@@ -5,4 +5,5 @@
 
 window.env = {
   ROUTE_PREFIX: "__ROUTE_PREFIX__",
+  ENABLE_BUILT_IN_CAPELLA: "__ENABLE_BUILT_IN_CAPELLA__",
 };
