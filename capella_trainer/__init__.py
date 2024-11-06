@@ -3,7 +3,7 @@
 from enum import Enum
 
 import httpx
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException
 from pydantic import BaseModel, Field
@@ -12,15 +12,14 @@ import yaml
 from starlette.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from capella_trainer.constants import TRAINING_DIR, CAPELLA_ENDPOINT
+from capella_trainer.constants import TRAINING_DIR, CAPELLA_ENDPOINT, ROUTE_PREFIX
 from capella_trainer.folder import Folder
 from capella_trainer.lesson import Lesson
 from capella_trainer.quiz import Quiz
 from capella_trainer.exercise import TaskResult
 
 app = FastAPI()
-
-
+router = APIRouter(prefix=ROUTE_PREFIX)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -73,22 +72,24 @@ print(training)
 # Since there's no sensitive information in the training files, this is fine
 # So don't store sensitive information in there.
 app.mount(
-    "/static-training", StaticFiles(directory=TRAINING_DIR), name="static-training"
+    f"{ROUTE_PREFIX}/static-training",
+    StaticFiles(directory=TRAINING_DIR),
+    name="static-training",
 )
 
 
-@app.get("/training")
+@router.get("/training")
 async def get_training() -> Training:
     return training
 
 
-@app.post("/training/lesson/{lesson_path:path}/exercise")
+@router.post("/training/lesson/{lesson_path:path}/exercise")
 async def run_training_lesson_checks(lesson_path: str) -> list[TaskResult]:
     lesson = training.root.get_child(lesson_path.split("/"))
     return lesson.run_exercise_checks()
 
 
-@app.get("/training/lesson/{lesson_path:path}/quiz")
+@router.get("/training/lesson/{lesson_path:path}/quiz")
 async def get_quiz(lesson_path: str) -> Quiz:
     return Quiz.from_path(lesson_path.split("/"))
 
@@ -102,7 +103,7 @@ def close_projects():
         )
 
 
-@app.post("/training/lesson/{lesson_path:path}/load_project")
+@router.post("/training/lesson/{lesson_path:path}/load_project")
 async def load_lesson_project(lesson_path: str):
     lesson = training.root.get_child(lesson_path.split("/"))
     if not lesson.start_project:
@@ -126,7 +127,7 @@ class ProjectStatus(Enum):
     UNKNOWN = "UNKNOWN"
 
 
-@app.get("/training/lesson/{lesson_path:path}/project_status")
+@router.get("/training/lesson/{lesson_path:path}/project_status")
 async def get_project_status(lesson_path: str) -> ProjectStatus:
     lesson = training.root.get_child(lesson_path.split("/"))
     projects = httpx.get(f"{CAPELLA_ENDPOINT}/projects").json()
@@ -142,7 +143,7 @@ async def get_project_status(lesson_path: str) -> ProjectStatus:
         return ProjectStatus.UNKNOWN
 
 
-@app.get("/training/lesson/{lesson_path:path}")
+@router.get("/training/lesson/{lesson_path:path}")
 async def get_training_lesson(lesson_path: str) -> Lesson:
     return training.root.get_child(lesson_path.split("/"))
 
@@ -158,8 +159,10 @@ class SPAStaticFiles(StaticFiles):
                 raise ex
 
 
+app.include_router(router)
+
 app.mount(
-    "/",
+    f"{ROUTE_PREFIX}/",
     SPAStaticFiles(directory="/app/frontend/dist", html=True),
     name="spa-static-files",
 )

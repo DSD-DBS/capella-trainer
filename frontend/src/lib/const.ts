@@ -1,1 +1,4 @@
-export const API_BASE = import.meta.env.VITE_API_BASE ?? "";
+// @ts-expect-error .env fix
+export const API_BASE = window.env.ROUTE_PREFIX;
+// @ts-expect-error .env fix
+export const ROUTE_PREFIX = window.env.ROUTE_PREFIX;
