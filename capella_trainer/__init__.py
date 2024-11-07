@@ -109,14 +109,20 @@ async def load_lesson_project(lesson_path: str):
     if not lesson.start_project:
         raise FileNotFoundError("Lesson does not have a start start-project")
 
-    close_projects()
+    try:
+        close_projects()
+    except httpx.HTTPError:
+        raise HTTPException(status_code=500, detail="Failed to close projects")
 
     lesson.create_working_project()
 
-    res = httpx.post(
-        f"{CAPELLA_ENDPOINT}/projects",
-        json={"location": lesson.container_working_project_path},
-    )
+    try:
+        res = httpx.post(
+            f"{CAPELLA_ENDPOINT}/projects",
+            json={"location": lesson.container_working_project_path},
+        )
+    except httpx.HTTPError:
+        raise HTTPException(status_code=500, detail="Failed to load project")
     print(res.read())
 
 
@@ -130,7 +136,10 @@ class ProjectStatus(Enum):
 @router.get("/training/lesson/{lesson_path:path}/project_status")
 async def get_project_status(lesson_path: str) -> ProjectStatus:
     lesson = training.root.get_child(lesson_path.split("/"))
-    projects = httpx.get(f"{CAPELLA_ENDPOINT}/projects").json()
+    try:
+        projects = httpx.get(f"{CAPELLA_ENDPOINT}/projects").json()
+    except httpx.HTTPError:
+        return ProjectStatus.UNKNOWN
     if len(projects) == 0:
         return ProjectStatus.UNLOADED
 
