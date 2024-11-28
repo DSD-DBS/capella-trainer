@@ -8,4 +8,4 @@ sed -i "s|__ENABLE_BUILT_IN_CAPELLA__|${ENABLE_BUILT_IN_CAPELLA}|g" ./frontend/d
 sed -i "s|href=\"/|href=\"${ROUTE_PREFIX}/|g" ./frontend/dist/index.html
 sed -i "s|src=\"/|src=\"${ROUTE_PREFIX}/|g" ./frontend/dist/index.html
 
-uvicorn capella_trainer:app --host 0.0.0.0 --port 8000
+uvicorn capella_trainer:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app/training --reload-include '**' --reload-exclude 'project'
