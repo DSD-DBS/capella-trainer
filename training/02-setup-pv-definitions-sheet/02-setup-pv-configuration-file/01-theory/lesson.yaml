@@ -1,9 +1,0 @@
-title: "Part 1: Theory"
-start_project: "02-setup-pv-definitions-sheet/start-project"
-exercise:
-  description: "Open the PV configuration file"
-  tasks:
-    - id: 1
-      description: Open default PV configuration file
-      hint: |
-        Please open the default PV configuration file using the gear icon (<CaIcon name="openCurrentConfigFile" />) on the top-right corner in the "Property Values" tab. In case you accidentally closed the tab you can open it again via Window > Show View > Other > Property Values.
