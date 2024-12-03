@@ -156,7 +156,7 @@ const Exercise = ({ path }: { path: string }) => {
   if (!data.exercise) return;
 
   return (
-    <div className="not-prose">
+    <div className="not-prose rounded-lg border-2 px-1.5 py-2.5">
       <div className="flex items-center justify-between px-3">
         <div className="text-lg font-bold">Exercise</div>
         <div>
