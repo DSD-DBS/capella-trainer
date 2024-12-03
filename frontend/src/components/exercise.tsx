@@ -119,12 +119,12 @@ const Exercise = ({ path }: { path: string }) => {
   const { data: session } = $api.useQuery("get", "/session");
   const sessionMutation = $api.useMutation("post", "/session", {
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["get", "/session"] });
+      queryClient.refetchQueries({ queryKey: ["get", "/session"] });
     },
   });
 
   useEffect(() => {
-    if (!checks || !session) return;
+    if (!checks || !session || sessionMutation.isPending) return;
     if (checks.every((check) => check.success)) {
       if (!session.completed_lessons.includes(path)) {
         sessionMutation.mutate({
@@ -135,7 +135,7 @@ const Exercise = ({ path }: { path: string }) => {
         });
       }
     }
-  }, [checks, session]);
+  }, [checks, path, session, sessionMutation]);
 
   const { data } = $api.useSuspenseQuery(
     "get",

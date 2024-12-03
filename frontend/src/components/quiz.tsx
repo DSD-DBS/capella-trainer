@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -15,9 +15,11 @@ import {
 } from "@/components/ui/dialog";
 import { $api } from "@/lib/api/client.ts";
 import { components } from "@/lib/api/v1";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Quiz({ path }: { path: string }) {
-  const { data } = $api.useSuspenseQuery(
+  const queryClient = useQueryClient();
+  const { data: quiz } = $api.useSuspenseQuery(
     "get",
     "/training/lesson/{lesson_path}/quiz",
     {
@@ -28,6 +30,27 @@ export default function Quiz({ path }: { path: string }) {
       },
     },
   );
+
+  const { data: session } = $api.useQuery("get", "/session");
+  const sessionMutation = $api.useMutation("post", "/session", {
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ["get", "/session"] });
+    },
+  });
+
+  useEffect(() => {
+    if (!session || !checkedAnswers || sessionMutation.isPending) return;
+    if (quiz.questions.every((question) => isCorrect(question))) {
+      if (!session.completed_lessons.includes(path)) {
+        sessionMutation.mutate({
+          body: {
+            last_lesson: session.last_lesson,
+            completed_lessons: [...session.completed_lessons, path],
+          },
+        });
+      }
+    }
+  }, [quiz, path, session, sessionMutation]);
 
   const [userAnswers, setUserAnswers] = useState<Record<number, number[]>>({});
   const [checkedAnswers, setCheckedAnswers] = useState(false);
@@ -91,7 +114,7 @@ export default function Quiz({ path }: { path: string }) {
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-6">
-          {data.questions.map((question) => (
+          {quiz.questions.map((question) => (
             <div key={question.id} className="space-y-4">
               <h3 className="text-lg font-semibold">{question.text}</h3>
               {question.question_type === "single_choice" ? (
