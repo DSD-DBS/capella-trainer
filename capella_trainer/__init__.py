@@ -17,6 +17,7 @@ from capella_trainer.folder import Folder
 from capella_trainer.lesson import Lesson
 from capella_trainer.quiz import Quiz
 from capella_trainer.exercise import TaskResult
+from capella_trainer.session import Session
 
 app = FastAPI()
 router = APIRouter(prefix=ROUTE_PREFIX)
@@ -155,6 +156,17 @@ async def get_project_status(lesson_path: str) -> ProjectStatus:
 @router.get("/training/lesson/{lesson_path:path}")
 async def get_training_lesson(lesson_path: str) -> Lesson:
     return training.root.get_child(lesson_path.split("/"))
+
+
+@router.get("/session")
+async def get_session() -> Session:
+    return Session.read()
+
+
+@router.post("/session")
+async def set_session(session: Session):
+    session.write()
+    return session
 
 
 class SPAStaticFiles(StaticFiles):

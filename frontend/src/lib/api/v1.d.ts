@@ -106,6 +106,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/session": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Session */
+        get: operations["get_session_session_get"];
+        put?: never;
+        /** Set Session */
+        post: operations["set_session_session_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -253,6 +271,20 @@ export interface components {
              * @description List of questions
              */
             questions: (components["schemas"]["MultipleChoiceQuestion"] | components["schemas"]["SingleChoiceQuestion"])[];
+        };
+        /** Session */
+        Session: {
+            /**
+             * Last Lesson
+             * @description Path of last seen lesson.
+             */
+            last_lesson?: string | null;
+            /**
+             * Completed Lessons
+             * @description List of paths for completed lessons.
+             * @default []
+             */
+            completed_lessons: string[];
         };
         /** SingleChoiceQuestion */
         SingleChoiceQuestion: {
@@ -510,6 +542,59 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Lesson"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_session_session_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Session"];
+                };
+            };
+        };
+    };
+    set_session_session_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Session"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */

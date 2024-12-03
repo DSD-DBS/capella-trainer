@@ -5,6 +5,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Book,
+  BookCheck,
   ChevronDown,
   ChevronRight,
 } from "lucide-react";
@@ -75,7 +76,8 @@ function LessonNode({
 }) {
   const navigate = useNavigate();
   const isActive = path === node.path.join("/");
-  console.log(path, node.path.join("/"));
+  const { data: session } = $api.useSuspenseQuery("get", "/session");
+  const isCompleted = session.completed_lessons.includes(node.path.join("/"));
 
   return (
     <li
@@ -85,7 +87,12 @@ function LessonNode({
       )}
       onClick={() => navigate(`/lesson/${node.path.join("/")}`)}
     >
-      <Book className="mr-2 h-4 w-4 shrink-0" />
+      {isCompleted ? (
+        <BookCheck className="mr-2 h-4 w-4 shrink-0" />
+      ) : (
+        <Book className="mr-2 h-4 w-4 shrink-0" />
+      )}
+
       <span>{node.name}</span>
     </li>
   );
