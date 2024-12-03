@@ -18,6 +18,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog.tsx";
 import { RenderMdx } from "@/components/render-mdx.tsx";
+import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Task = ({
   task,
@@ -95,6 +97,7 @@ const Task = ({
 };
 
 const Exercise = ({ path }: { path: string }) => {
+  const queryClient = useQueryClient();
   const {
     data: checks,
     isPending,
@@ -113,8 +116,27 @@ const Exercise = ({ path }: { path: string }) => {
       refetchInterval: 3 * 1000,
     },
   );
+  const { data: session } = $api.useQuery("get", "/session");
+  const sessionMutation = $api.useMutation("post", "/session", {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["get", "/session"] });
+    },
+  });
 
-  // Todo fix duplication
+  useEffect(() => {
+    if (!checks || !session) return;
+    if (checks.every((check) => check.success)) {
+      if (!session.completed_lessons.includes(path)) {
+        sessionMutation.mutate({
+          body: {
+            last_lesson: session.last_lesson,
+            completed_lessons: [...session.completed_lessons, path],
+          },
+        });
+      }
+    }
+  }, [checks, session]);
+
   const { data } = $api.useSuspenseQuery(
     "get",
     "/training/lesson/{lesson_path}",
