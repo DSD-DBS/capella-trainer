@@ -1,10 +1,11 @@
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
 import os
+import typing as t
 
 import yaml
-
-
 from pydantic import BaseModel, Field
-import typing as t
 
 from capella_trainer.constants import TRAINING_DIR
 from capella_trainer.lesson import Lesson
@@ -19,7 +20,9 @@ class BaseQuestion(BaseModel):
 
 class MultipleChoiceQuestion(BaseQuestion):
     options: list[str] = Field(description="List of possible answers")
-    correct_options: list[int] = Field(description="List of correct choice indices")
+    correct_options: list[int] = Field(
+        description="List of correct choice indices"
+    )
     question_type: t.Literal["multiple_choice"] = Field(
         description="Type of the question"
     )
@@ -33,26 +36,27 @@ class SingleChoiceQuestion(BaseQuestion):
     )
 
 
-class Quiz(BaseModel):
-    questions: list[MultipleChoiceQuestion | SingleChoiceQuestion] = Field(
-        description="List of questions"
-    )
+Question = SingleChoiceQuestion | MultipleChoiceQuestion
 
-    @staticmethod
-    def from_path(path_name: list[str]):
-        """
-        Read the quiz content
-        :param path_name: quiz name
-        """
+
+class Quiz(BaseModel):
+    questions: list[Question] = Field(description="List of questions")
+
+    @classmethod
+    def from_path(cls, path_name: list[str]) -> t.Self:
+        """Read the quiz content :param path_name: quiz name."""
         lesson = Lesson.from_path(path_name)
-        quiz_file_system_path = os.path.join(TRAINING_DIR, *path_name, "quiz.yaml")
+        assert lesson is not None
+        quiz_file_system_path = os.path.join(
+            TRAINING_DIR, *path_name, "quiz.yaml"
+        )
 
         if not os.path.exists(quiz_file_system_path):
             raise FileNotFoundError("Quiz not found")
 
         with open(quiz_file_system_path) as f:
             quiz = yaml.safe_load(f)
-            questions = []
+            questions: list[Question] = []
             for question in quiz["questions"]:
                 if question["question_type"] == "multiple_choice":
                     questions.append(MultipleChoiceQuestion(**question))
@@ -63,4 +67,4 @@ class Quiz(BaseModel):
                         f"Unknown question type {question['question_type']}"
                     )
             print(questions)
-            return Quiz(questions=questions)
+            return cls(questions=questions)

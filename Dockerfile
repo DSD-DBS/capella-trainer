@@ -20,17 +20,16 @@ COPY ./capella_trainer ./capella_trainer
 COPY ./pyproject.toml ./
 COPY ./.git ./.git
 
-RUN pip install .
+RUN pip install . --no-cache-dir
 COPY --from=build-frontend /app/dist/ ./frontend/dist/
 
 # Expose the port the app runs in
 EXPOSE 8000
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.sh && \
+    chmod -R 777 /home/ # Run as non-root user per default
 
-# Run as non-root user per default
-#RUN chmod -R 777 /home
-#USER 1000
+USER 1000
 
 ENTRYPOINT ["/entrypoint.sh"]

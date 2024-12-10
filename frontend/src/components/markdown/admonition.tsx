@@ -1,3 +1,8 @@
+/*
+ * Copyright DB InfraGO AG and contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import React from "react";
 import { TriangleAlert, Info, CircleCheck } from "lucide-react";
 import { cva, VariantProps } from "class-variance-authority";

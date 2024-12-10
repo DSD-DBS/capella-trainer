@@ -1,3 +1,8 @@
+/*
+ * Copyright DB InfraGO AG and contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 

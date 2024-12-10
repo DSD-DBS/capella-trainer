@@ -1,3 +1,8 @@
+/*
+ * Copyright DB InfraGO AG and contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { API_BASE } from "@/lib/const.ts";
 
 const InlineImage = ({

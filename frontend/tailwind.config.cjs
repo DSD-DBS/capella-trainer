@@ -1,3 +1,8 @@
+/*
+ * Copyright DB InfraGO AG and contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],

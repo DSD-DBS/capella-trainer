@@ -1,0 +1,10 @@
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+version = 1
+
+[[annotations]]
+path = "capella-icons/**.png"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Copyright Eclipse Capella project contributors"
+SPDX-License-Identifier = "EPL-2.0"

@@ -5,6 +5,44 @@ default_install_hook_types: [commit-msg, pre-commit]
 default_stages: [commit, merge-commit]
 minimum_pre_commit_version: 3.2.0
 repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.5.7
+    hooks:
+      - id: ruff
+        args: [ --fix ]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.13.0
+    hooks:
+      - id: mypy
+        args: [ --config-file=./pyproject.toml ]
+        additional_dependencies:
+          - fastapi
+          - pydantic
+          - types-pyyaml
+          - capellambse
+          - httpx
+  - repo: local
+    hooks:
+      - id: tsc
+        name: tsc
+        entry: tsc -noEmit -p ./frontend
+        pass_filenames: false
+        language: node
+        types_or: [ts]
+        additional_dependencies:
+          - 'typescript@^5.7.2'
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        entry: prettier --write
+        language: node
+        types_or: [ts, tsx, css, html, markdown]
+        additional_dependencies:
+          - 'prettier-plugin-tailwindcss@^0.6.9'
+          - 'prettier@^3.4.2'
+          - 'tailwindcss@^3.4.16'
   - repo: https://github.com/gitleaks/gitleaks.git
     rev: v8.18.4
     hooks:
@@ -64,8 +102,8 @@ repos:
           - '<!--| ~| -->'
       - id: insert-license
         name: Insert Apache license headers (C-style comments)
-        files: '\.(?:s?css|js|ts)$'
-        exclude: '(?:^|/)\..+'
+        files: '\.(?:s?css|js|jsx|ts|tsx)$'
+        exclude: '(?:^|/)\..+|frontend/src/lib/api/v1\.d\.ts$'
         args:
           - --detect-license-in-X-top-lines=15
           - --license-filepath
@@ -82,27 +120,8 @@ repos:
           - LICENSES/.license_header_apache.txt
           - --comment-style
           - '..|  |'
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-  - repo: https://github.com/PyCQA/docformatter
-    rev: v1.7.5
-    hooks:
-      - id: docformatter
-        additional_dependencies:
-          - docformatter[tomli]
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.5.7
-    hooks:
-      - id: ruff-format
-      - id: ruff
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.1
-    hooks:
-      - id: mypy
   - repo: https://github.com/fsfe/reuse-tool
-    rev: v2.1.0
+    rev: v5.0.2
     hooks:
       - id: reuse
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
