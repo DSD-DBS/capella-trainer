@@ -1,8 +1,13 @@
-import yaml
-import os
-from pydantic import BaseModel, Field
-from capella_trainer.constants import TRAINING_DIR
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
 
+import os
+import typing as t
+
+import yaml
+from pydantic import BaseModel, Field
+
+from capella_trainer.constants import TRAINING_DIR
 
 session_file_path = os.path.join(TRAINING_DIR, "session.yaml")
 
@@ -16,23 +21,19 @@ class Session(BaseModel):
         default=[],
     )
 
-    @staticmethod
-    def read():
-        """
-        Read the session data
-        """
+    @classmethod
+    def read(cls) -> t.Self:
+        """Read the session data."""
         if not os.path.exists(session_file_path):
-            return Session()
+            return cls()
         with open(session_file_path) as f:
             session = yaml.safe_load(f)
-            return Session(
+            return cls(
                 last_lesson=session.get("last_lesson"),
                 completed_lessons=session.get("completed_lessons", []),
             )
 
-    def write(self):
-        """
-        Write the session data
-        """
+    def write(self) -> None:
+        """Write the session data."""
         with open(session_file_path, "w") as f:
             yaml.safe_dump(self.model_dump(), f)

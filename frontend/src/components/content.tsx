@@ -1,3 +1,8 @@
+/*
+ * Copyright DB InfraGO AG and contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { $api } from "@/lib/api/client.ts";
 import { RenderMdx } from "@/components/render-mdx.tsx";
 import { ScrollArea } from "./ui/scroll-area";

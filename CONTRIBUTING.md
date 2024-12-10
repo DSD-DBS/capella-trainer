@@ -39,20 +39,7 @@ We additionally recommend that you set up your editor / IDE as follows.
 - _If you use Visual Studio Code_: Consider using a platform which supports
   third-party language servers more easily, and continue with the next point.
 
-  Otherwise, set up the editor to run `ruff` and `mypy` when saving. To enable
-  automatic import sorting with `isort`, add the following to your
-  `settings.json`:
-
-  ```json
-  "[python]": {
-      "editor.codeActionsOnSave": {
-          "source.organizeImports": true
-      }
-  }
-  ```
-
-  Note that the Pylance language server is not recommended, as it occasionally
-  causes false-positive errors for perfectly valid code.
+  Otherwise, set up the editor to run `ruff` and `mypy` when saving.
 
 - _If you do not use VSC_: Set up your editor to use the [python-lsp-server]
   and [ruff], and make sure that the relevant pylsp plugins are installed.
@@ -63,7 +50,7 @@ We additionally recommend that you set up your editor / IDE as follows.
   You can install everything that's needed into the virtualenv with pip:
 
   ```sh
-  pip install "python-lsp-server" pyls-isort pylsp-mypy ruff
+  pip install "python-lsp-server" pylsp-mypy ruff
   ```
 
   This will provide as-you-type linting as well as automatic formatting on
@@ -78,8 +65,7 @@ The key differences are:
 
 - **Docstrings**: The [Numpy style guide] applies here.
 
-  [numpy style guide]:
-    https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard
+  [numpy style guide]: https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard
 
   When writing docstrings for functions, use the imperative style, as per
   [PEP-257]. For example, write "Do X and Y" instead of "Does X and Y".
@@ -114,17 +100,11 @@ The key differences are:
   break up strings that are presented to the user in e.g. log messages, as that
   makes it significantly harder to grep for them.
 
-  Use [isort] for automatic sorting of imports. Its settings should
-  automatically be picked up from the `pyproject.toml` file as well.
-
-  [isort]: https://github.com/PyCQA/isort
-
 - **Typing**: We do not make an exception for `typing` imports. Instead of
   writing `from typing import SomeName`, use `import typing as t` and access
   typing related classes like `t.TypedDict`.
 
   <!-- prettier-ignore -->
-
   Use the new syntax and classes for typing introduced with Python 3.10.
 
   - Instead of `t.Tuple`, `t.List` etc. use the builtin classes `tuple`, `list`

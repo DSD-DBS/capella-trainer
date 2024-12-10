@@ -1,3 +1,8 @@
+/*
+ * Copyright DB InfraGO AG and contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { StrictMode, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 

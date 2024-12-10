@@ -1,3 +1,8 @@
+/*
+ * Copyright DB InfraGO AG and contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import Navigation from "@/components/navigation.tsx";
 import Content from "@/components/content.tsx";
 import { useParams } from "react-router-dom";

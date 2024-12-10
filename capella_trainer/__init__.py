@@ -1,22 +1,29 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
+
+import os
+import typing as t
 from enum import Enum
 
 import httpx
-from fastapi import FastAPI, APIRouter
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi import HTTPException
-from pydantic import BaseModel, Field
-import os
+import starlette.responses
+import starlette.types
 import yaml
-from starlette.staticfiles import StaticFiles
+from fastapi import APIRouter, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.staticfiles import StaticFiles
 
-from capella_trainer.constants import TRAINING_DIR, CAPELLA_ENDPOINT, ROUTE_PREFIX
+from capella_trainer.constants import (
+    CAPELLA_ENDPOINT,
+    ROUTE_PREFIX,
+    TRAINING_DIR,
+)
+from capella_trainer.exercise import TaskResult
 from capella_trainer.folder import Folder
 from capella_trainer.lesson import Lesson
 from capella_trainer.quiz import Quiz
-from capella_trainer.exercise import TaskResult
 from capella_trainer.session import Session
 
 app = FastAPI()
@@ -38,11 +45,9 @@ class Training(BaseModel):
     duration: str
     root: Folder = Field(description="Root folder of the training.")
 
-    @staticmethod
-    def from_path():
-        """
-        Read the training metadata and resolve the root folder
-        """
+    @classmethod
+    def from_path(cls) -> t.Self:
+        """Read the training metadata and resolve the root folder."""
         training_meta_file_path = os.path.join(TRAINING_DIR, "training.yaml")
         if not os.path.exists(training_meta_file_path):
             raise FileNotFoundError("training.yaml not found")
@@ -55,7 +60,7 @@ class Training(BaseModel):
             difficulty = meta["difficulty"]
             duration = meta["duration"]
             root = Folder.from_path([])
-            return Training(
+            return cls(
                 name=name,
                 description=description,
                 author=author,
@@ -86,7 +91,7 @@ async def get_training() -> Training:
 
 @router.post("/training/lesson/{lesson_path:path}/exercise")
 async def run_training_lesson_checks(lesson_path: str) -> list[TaskResult]:
-    lesson = training.root.get_child(lesson_path.split("/"))
+    lesson = training.root.get_lesson(lesson_path.split("/"))
     return lesson.run_exercise_checks()
 
 
@@ -95,7 +100,7 @@ async def get_quiz(lesson_path: str) -> Quiz:
     return Quiz.from_path(lesson_path.split("/"))
 
 
-def close_projects():
+def close_projects() -> None:
     projects = httpx.get(f"{CAPELLA_ENDPOINT}/projects").json()
     for project in projects:
         httpx.post(f"{CAPELLA_ENDPOINT}/projects/{project['name']}/close")
@@ -105,26 +110,29 @@ def close_projects():
 
 
 @router.post("/training/lesson/{lesson_path:path}/load_project")
-async def load_lesson_project(lesson_path: str):
-    lesson = training.root.get_child(lesson_path.split("/"))
+async def load_lesson_project(lesson_path: str) -> None:
+    lesson = training.root.get_lesson(lesson_path.split("/"))
     if not lesson.start_project:
         raise FileNotFoundError("Lesson does not have a start start-project")
 
     try:
         close_projects()
-    except httpx.HTTPError:
-        raise HTTPException(status_code=500, detail="Failed to close projects")
+    except httpx.HTTPError as ex:
+        raise HTTPException(
+            status_code=500, detail="Failed to close projects"
+        ) from ex
 
     lesson.create_working_project()
 
     try:
-        res = httpx.post(
+        httpx.post(
             f"{CAPELLA_ENDPOINT}/projects",
             json={"location": lesson.container_working_project_path},
         )
-    except httpx.HTTPError:
-        raise HTTPException(status_code=500, detail="Failed to load project")
-    print(res.read())
+    except httpx.HTTPError as ex:
+        raise HTTPException(
+            status_code=500, detail="Failed to load project"
+        ) from ex
 
 
 class ProjectStatus(Enum):
@@ -136,7 +144,7 @@ class ProjectStatus(Enum):
 
 @router.get("/training/lesson/{lesson_path:path}/project_status")
 async def get_project_status(lesson_path: str) -> ProjectStatus:
-    lesson = training.root.get_child(lesson_path.split("/"))
+    lesson = training.root.get_lesson(lesson_path.split("/"))
     try:
         projects = httpx.get(f"{CAPELLA_ENDPOINT}/projects").json()
     except httpx.HTTPError:
@@ -147,15 +155,16 @@ async def get_project_status(lesson_path: str) -> ProjectStatus:
     project_path = projects[0]["location"]
     if project_path == lesson.container_working_project_path:
         return ProjectStatus.WORKING
-    elif project_path.startswith("/training") and project_path.endswith("project"):
+    if project_path.startswith("/training") and project_path.endswith(
+        "project"
+    ):
         return ProjectStatus.WRONG_PROJECT
-    else:
-        return ProjectStatus.UNKNOWN
+    return ProjectStatus.UNKNOWN
 
 
 @router.get("/training/lesson/{lesson_path:path}")
 async def get_training_lesson(lesson_path: str) -> Lesson:
-    return training.root.get_child(lesson_path.split("/"))
+    return training.root.get_lesson(lesson_path.split("/"))
 
 
 @router.get("/session")
@@ -164,20 +173,21 @@ async def get_session() -> Session:
 
 
 @router.post("/session")
-async def set_session(session: Session):
+async def set_session(session: Session) -> Session:
     session.write()
     return session
 
 
 class SPAStaticFiles(StaticFiles):
-    async def get_response(self, path: str, scope):
+    async def get_response(
+        self, path: str, scope: starlette.types.Scope
+    ) -> starlette.responses.Response:
         try:
             return await super().get_response(path, scope)
         except (HTTPException, StarletteHTTPException) as ex:
             if ex.status_code == 404:
                 return await super().get_response("index.html", scope)
-            else:
-                raise ex
+            raise ex
 
 
 app.include_router(router)

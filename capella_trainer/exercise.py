@@ -1,19 +1,20 @@
-import typing as t
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
 from collections.abc import Callable
-from pydantic import Field
 
 import capellambse
 import httpx
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from capella_trainer.constants import CAPELLA_ENDPOINT
 
 
 class TaskContext:
-    model: t.Optional[capellambse.MelodyModel]
-    client: t.Optional[httpx.Client]
+    model: capellambse.MelodyModel | None
+    client: httpx.Client | None
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.model = None
         self.client = httpx.Client(base_url=CAPELLA_ENDPOINT)
 
@@ -24,7 +25,9 @@ class BaseTask(BaseModel):
 
 class TaskMeta(BaseTask):
     description: str = Field(description="Description of the task")
-    hint: t.Optional[str] = Field(default=None, description="Hint for the task in MDX")
+    hint: str | None = Field(
+        default=None, description="Hint for the task in MDX"
+    )
 
 
 class TaskDefinition(BaseTask):
@@ -39,7 +42,7 @@ class ExerciseMeta(BaseModel):
 class TaskResult(BaseTask):
     was_executed: bool
     success: bool
-    message: t.Optional[str]
+    message: str | None
 
 
 class TaskList:
@@ -47,10 +50,10 @@ class TaskList:
         self.tasks = tasks
         self.task_context = TaskContext()
 
-    def load_model_from_path(self, path: str):
+    def load_model_from_path(self, path: str) -> None:
         self.task_context.model = capellambse.MelodyModel(path)
 
-    def set_client(self, client: httpx.Client):
+    def set_client(self, client: httpx.Client) -> None:
         self.task_context.client = client
 
     def check_tasks(self) -> list[TaskResult]:

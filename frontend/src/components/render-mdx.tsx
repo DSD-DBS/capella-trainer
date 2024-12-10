@@ -1,3 +1,8 @@
+/*
+ * Copyright DB InfraGO AG and contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { useState, useEffect } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import { evaluate } from "@mdx-js/mdx";

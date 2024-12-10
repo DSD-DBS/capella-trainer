@@ -1,3 +1,8 @@
+/*
+ * Copyright DB InfraGO AG and contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import exportConfig from "~/assets/capella-icons/export-config.png";
 import importConfig from "~/assets/capella-icons/import-config.png";
 import filter from "~/assets/capella-icons/filter.png";

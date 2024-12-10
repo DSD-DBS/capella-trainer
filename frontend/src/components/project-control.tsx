@@ -1,3 +1,8 @@
+/*
+ * Copyright DB InfraGO AG and contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { $api } from "@/lib/api/client.ts";
 import { Button } from "@/components/ui/button.tsx";
 

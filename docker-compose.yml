@@ -1,6 +1,9 @@
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
 services:
   capella:
-    image: ghcr.io/dsd-dbs/capella-dockerimages/capella/remote:6.0.0-selected-dropins-338-merge
+    image: ghcr.io/dsd-dbs/capella-dockerimages/capella/remote:6.0.0-selected-dropins-main
     ports:
       - "8088:10000"
       - "5007:5007"
