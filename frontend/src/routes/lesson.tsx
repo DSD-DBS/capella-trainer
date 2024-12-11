@@ -15,6 +15,7 @@ import { Suspense, useEffect, useRef } from "react";
 import { $api } from "@/lib/api/client.ts";
 import { ImperativePanelHandle } from "react-resizable-panels";
 import { ENABLE_BUILT_IN_CAPELLA } from "@/lib/const.ts";
+import { useQueryClient } from "@tanstack/react-query";
 
 const StaticLesson = () => {
   const { "*": path } = useParams();
@@ -36,12 +37,32 @@ const StaticLesson = () => {
 const ResizeableLesson = () => {
   const { "*": path } = useParams();
   const capellaRef = useRef<ImperativePanelHandle>(null);
+  const queryClient = useQueryClient();
+
+  const { data: session } = $api.useQuery("get", "/session");
+  const sessionMutation = $api.useMutation("post", "/session", {
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ["get", "/session"] });
+    },
+  });
+
+  useEffect(() => {
+    if (!session || !path || sessionMutation.isPending) return;
+
+    if (session?.last_lesson !== path) {
+      sessionMutation.mutate({
+        body: {
+          last_lesson: path,
+          completed_lessons: session.completed_lessons,
+        },
+      });
+    }
+  }, [path, session, sessionMutation]);
 
   if (!path) {
     return null;
   }
 
-  // TODO: evil duplication, remove this
   const { data: lessonData } = $api.useSuspenseQuery(
     "get",
     "/training/lesson/{lesson_path}",

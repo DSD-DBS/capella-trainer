@@ -17,6 +17,7 @@ from starlette.staticfiles import StaticFiles
 
 from capella_trainer.constants import (
     CAPELLA_ENDPOINT,
+    HOST_FRONTEND,
     ROUTE_PREFIX,
     TRAINING_DIR,
 )
@@ -169,7 +170,7 @@ async def get_training_lesson(lesson_path: str) -> Lesson:
 
 @router.get("/session")
 async def get_session() -> Session:
-    return Session.read()
+    return Session.read("/".join(training.root.get_first_lesson().path))
 
 
 @router.post("/session")
@@ -192,8 +193,9 @@ class SPAStaticFiles(StaticFiles):
 
 app.include_router(router)
 
-app.mount(
-    f"{ROUTE_PREFIX}/",
-    SPAStaticFiles(directory="/app/frontend/dist", html=True),
-    name="spa-static-files",
-)
+if HOST_FRONTEND:
+    app.mount(
+        f"{ROUTE_PREFIX}/",
+        SPAStaticFiles(directory="/app/frontend/dist", html=True),
+        name="spa-static-files",
+    )

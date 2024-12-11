@@ -21,13 +21,16 @@ our style guidelines outlined below.
 
 ## Developing
 
-We recommend that you
-[develop inside of a virtual environment](README.md#installation). After you
-have set it up, simply run the unit tests to verify that everything is set up
-correctly:
+To set up for local development, you'll need to install node 22, python 3.12, and docker. Then run the following commands:
 
 ```sh
-pytest
+git clone https://github.com/DSD-DBS/capella-trainer
+cd capella-trainer
+
+pip install -U pip pre-commit
+pre-commit install
+
+make install
 ```
 
 We additionally recommend that you set up your editor / IDE as follows.

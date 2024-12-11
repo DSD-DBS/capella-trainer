@@ -27,9 +27,9 @@ COPY --from=build-frontend /app/dist/ ./frontend/dist/
 EXPOSE 8000
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh && \
-    chmod -R 777 /home/ # Run as non-root user per default
+RUN chmod -R 777 ./frontend/
 
+# Run as non-root user per defaults
 USER 1000
 
 ENTRYPOINT ["/entrypoint.sh"]

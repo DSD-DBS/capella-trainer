@@ -63,7 +63,7 @@ class Lesson(Element):
                     os.path.join(file_system_path, "exercise.py")
                 )
 
-                if ~(exercises_exist ^ bool(meta.exercise)):
+                if exercises_exist ^ bool(meta.exercise):
                     raise ValueError(
                         "Exercise metadata does not match the exercise file."
                     )
