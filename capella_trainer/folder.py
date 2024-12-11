@@ -71,7 +71,7 @@ class Folder(Element):
             progress_root=progress_root,
         )
 
-    def get_child(self, path: list[str]) -> "Folder" | Lesson:
+    def get_child(self, path: list[str]) -> t.Self | Lesson:
         """
         Get the child folder or lesson by path
         :param path: path to the child
@@ -83,7 +83,7 @@ class Folder(Element):
             if isinstance(child, Lesson) and child.slug == path[0]:
                 return child
             if isinstance(child, Folder) and child.path[-1] == path[0]:
-                return child.get_child(path[1:])
+                return child.get_child(path[1:])  # type: ignore # Self equals Folder but mypy doesn't know that for some reason
 
         raise FileNotFoundError(f"Child {path} not found.")
 
@@ -96,3 +96,15 @@ class Folder(Element):
         if isinstance(lesson, Lesson):
             return lesson
         raise Exception(f"{path} is not a lesson.")
+
+    def get_first_lesson(self) -> Lesson:
+        """
+        Get the first lesson
+        """
+        for child in self.children:
+            if isinstance(child, Lesson):
+                return child
+            if isinstance(child, Folder):
+                return child.get_first_lesson()
+
+        raise Exception("No lesson found in folder.")

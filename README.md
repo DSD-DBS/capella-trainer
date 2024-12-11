@@ -13,35 +13,28 @@ and interactive exercises (quizzes and model checks using [capellambse](https://
 
 # Quickstart using docker
 
+- Make sure you have docker and make installed
 - Clone the repository
 - Get or create a training
   - Put the training in the `training` folder
   - You can also edit the `docker-compose.yml` file to use a different training
 - Start the docker container: `docker-compose up`
-- View the first lesson at `http://localhost:8000/lesson/01-introduction/01-welcome`
+- Open [http://localhost:8000](http://localhost:8000) in your browser
+
+# Quickstart without docker
+
+- Make sure you have docker, make, python 3.12 and node 22 installed
+- Clone the repository
+- Get or create a training
+  - Put the training in the `training` folder
+- Install the dependencies: `make install`
+- Start the development server: `make dev`
+- Open [http://localhost:5173](http://localhost:5173) in your browser
 
 # Authoring
 
 Check the [authoring guide](AUTHORING.md) for information on how to create your
 own training materials.
-
-# Installation
-
-To set up a development environment, clone the project and install it into a
-virtual environment.
-
-```sh
-git clone https://github.com/DSD-DBS/capella-trainer
-cd capella-trainer
-python -m venv .venv
-
-source .venv/bin/activate.sh  # for Linux / Mac
-.venv\Scripts\activate  # for Windows
-
-pip install -U pip pre-commit
-pip install -e '.[dev,test]'
-pre-commit install
-```
 
 # Contributing
 

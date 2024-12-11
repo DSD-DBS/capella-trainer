@@ -9,7 +9,12 @@ declare global {
   }
 }
 
-export const API_BASE = window.env.ROUTE_PREFIX;
-export const ROUTE_PREFIX = window.env.ROUTE_PREFIX;
+export const API_BASE = import.meta.env.VITE_API_BASE || window.env.API_BASE;
+
+export const ROUTE_PREFIX =
+  import.meta.env.VITE_ROUTE_PREFIX || window.env.ROUTE_PREFIX;
+
 export const ENABLE_BUILT_IN_CAPELLA =
-  window.env.ENABLE_BUILT_IN_CAPELLA === "true";
+  import.meta.env.VITE_ENABLE_BUILT_IN_CAPELLA !== undefined
+    ? import.meta.env.VITE_ENABLE_BUILT_IN_CAPELLA === "true"
+    : window.env.ENABLE_BUILT_IN_CAPELLA === "true";

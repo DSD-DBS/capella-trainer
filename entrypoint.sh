@@ -3,6 +3,7 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+sed -i "s|__API_BASE__|${API_BASE}|g" ./frontend/dist/env.js
 sed -i "s|__ROUTE_PREFIX__|${ROUTE_PREFIX}|g" ./frontend/dist/env.js
 sed -i "s|__ENABLE_BUILT_IN_CAPELLA__|${ENABLE_BUILT_IN_CAPELLA}|g" ./frontend/dist/env.js
 sed -i "s|href=\"/|href=\"${ROUTE_PREFIX}/|g" ./frontend/dist/index.html

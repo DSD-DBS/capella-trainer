@@ -24,3 +24,4 @@ services:
     environment:
       - CAPELLA_ENDPOINT=http://capella:5007/api/v1
       - ENABLE_BUILT_IN_CAPELLA=true
+      - HOST_FRONTEND=true
