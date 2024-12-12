@@ -25,6 +25,7 @@ and interactive exercises (model checks using [capellambse](https://github.com/D
 # Quickstart without docker-compose
 
 - Make sure you have docker, make, python 3.12 and node 22 installed
+- Enable corepack using `corepack enable`
 - Clone the repository
 - Get or create a training
   - Put the training in the `training` folder

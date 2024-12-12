@@ -4,7 +4,7 @@
 version = 1
 
 [[annotations]]
-path = ["tsconfig.json", "tsconfig.app.json", "tsconfig.node.json", "package.json", "components.json", ".env.example"]
+path = ["tsconfig.json", "tsconfig.app.json", "tsconfig.node.json", "package.json", "components.json", ".env.example", "pnpm-lock.yaml"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Copyright DB InfraGO AG and contributors"
 SPDX-License-Identifier = "Apache-2.0"
