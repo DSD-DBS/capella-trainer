@@ -12,7 +12,7 @@ services:
       - XPRA_SUBPATH="/"
       - XPRA_CSP_ORIGIN_HOST=http://localhost:8000
     volumes:
-      - ./training:/training
+      - ./training:/app/training
       - ./workspace:/workspace
       - ./dropins:/opt/capella/dropins
   app:
