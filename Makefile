@@ -26,7 +26,7 @@ dev-backend:
 	else \
 		source $(VENV)/Scripts/activate; \
 	fi && \
-	uvicorn capella_trainer:app --reload --port 8001
+	CONTAINER_TRAINING_DIR=/app/training uvicorn capella_trainer:app --reload --port 8001
 
 download-capella-dropins:
 	mkdir -p dropins
@@ -41,7 +41,7 @@ dev-capella:
 		-e CONNECTION_METHOD=xpra \
 		-e XPRA_SUBPATH="/" \
 		-e XPRA_CSP_ORIGIN_HOST="http://localhost:5173" \
-		-v ./training:/training \
+		-v ./training:/app/training \
 		-v ./workspace:/workspace \
 		-v ./dropins:/opt/capella/dropins \
 		ghcr.io/dsd-dbs/capella-dockerimages/capella/remote:6.0.0-selected-dropins-main

@@ -93,7 +93,11 @@ async def get_training() -> Training:
 @router.post("/training/lesson/{lesson_path:path}/exercise")
 async def run_training_lesson_checks(lesson_path: str) -> list[TaskResult]:
     lesson = training.root.get_lesson(lesson_path.split("/"))
-    return lesson.run_exercise_checks()
+    try:
+        checks = lesson.run_exercise_checks()
+    except FileNotFoundError as ex:
+        raise HTTPException(status_code=404, detail=str(ex)) from ex
+    return checks
 
 
 @router.get("/training/lesson/{lesson_path:path}/quiz")
@@ -156,9 +160,7 @@ async def get_project_status(lesson_path: str) -> ProjectStatus:
     project_path = projects[0]["location"]
     if project_path == lesson.container_working_project_path:
         return ProjectStatus.WORKING
-    if project_path.startswith("/training") and project_path.endswith(
-        "project"
-    ):
+    if project_path.endswith("project"):
         return ProjectStatus.WRONG_PROJECT
     return ProjectStatus.UNKNOWN
 

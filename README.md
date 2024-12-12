@@ -18,6 +18,7 @@ and interactive exercises (quizzes and model checks using [capellambse](https://
 - Get or create a training
   - Put the training in the `training` folder
   - You can also edit the `docker-compose.yml` file to use a different training
+- Download the Capella Dropin using `make download-capella-dropins`
 - Start the docker container: `docker-compose up`
 - Open [http://localhost:8000](http://localhost:8000) in your browser
 

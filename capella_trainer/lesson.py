@@ -1,15 +1,15 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
-import importlib
 import os
+import runpy
 import shutil
 import typing as t
 
 import yaml
 from pydantic import BaseModel, Field
 
-from capella_trainer.constants import TRAINING_DIR
+from capella_trainer.constants import CONTAINER_TRAINING_DIR, TRAINING_DIR
 from capella_trainer.element import Element
 from capella_trainer.exercise import ExerciseMeta, TaskResult
 
@@ -102,10 +102,14 @@ class Lesson(Element):
         return os.path.join(TRAINING_DIR, self.start_project, "../project")
 
     @property
-    def container_working_project_path(self) -> str:
-        return os.path.normpath(
-            f"/training/{self.start_project}/../project"
-        ).replace("\\", "/")
+    def container_working_project_path(self) -> str | None:
+        if not self.working_project_path:
+            return None
+        relative_path = os.path.relpath(
+            self.working_project_path, TRAINING_DIR
+        )
+        container_path = os.path.join(CONTAINER_TRAINING_DIR, relative_path)
+        return container_path.replace("\\", "/")
 
     @property
     def tasks_file_path(self) -> str:
@@ -130,10 +134,12 @@ class Lesson(Element):
         if not os.path.exists(self.tasks_file_path):
             raise FileNotFoundError("Lesson not found")
 
-        tasks_module_name = f"training.{'.'.join(self.path)}.exercise"
+        if not self.working_project_path or not os.path.exists(
+            self.working_project_path
+        ):
+            raise FileNotFoundError("Working project not found")
 
-        importlib.invalidate_caches()
-        tasks_module = importlib.import_module(tasks_module_name)
-        tasks_module.setup(self.working_project_path)
+        module = runpy.run_path(self.tasks_file_path)
+        module["setup"](self.working_project_path)
 
-        return tasks_module.tasks.check_tasks()
+        return module["tasks"].check_tasks()
