@@ -9,9 +9,9 @@
 
 Capella Trainer is a tool for creating interactive training materials for the
 Capella modeling tool. It allows you to create lessons containing text, images,
-and interactive exercises (quizzes and model checks using [capellambse](https://github.com/DSD-DBS/py-capellambse).
+and interactive exercises (model checks using [capellambse](https://github.com/DSD-DBS/py-capellambse) and quizzes).
 
-# Quickstart using docker
+# Quickstart using docker-compose
 
 - Make sure you have docker and make installed
 - Clone the repository
@@ -22,7 +22,7 @@ and interactive exercises (quizzes and model checks using [capellambse](https://
 - Start the docker container: `docker-compose up`
 - Open [http://localhost:8000](http://localhost:8000) in your browser
 
-# Quickstart without docker
+# Quickstart without docker-compose
 
 - Make sure you have docker, make, python 3.12 and node 22 installed
 - Clone the repository
