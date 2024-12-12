@@ -1,10 +1,6 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
-# SPDX-FileCopyrightText: Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
-
-
 VENV = venv
 
 install-frontend:
