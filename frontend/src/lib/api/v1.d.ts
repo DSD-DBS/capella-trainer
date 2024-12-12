@@ -270,7 +270,7 @@ export interface components {
              * Questions
              * @description List of questions
              */
-            questions: (components["schemas"]["MultipleChoiceQuestion"] | components["schemas"]["SingleChoiceQuestion"])[];
+            questions: (components["schemas"]["SingleChoiceQuestion"] | components["schemas"]["MultipleChoiceQuestion"])[];
         };
         /** Session */
         Session: {
@@ -278,7 +278,7 @@ export interface components {
              * Last Lesson
              * @description Path of last seen lesson.
              */
-            last_lesson?: string | null;
+            last_lesson: string;
             /**
              * Completed Lessons
              * @description List of paths for completed lessons.
@@ -594,7 +594,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": unknown;
+                    "application/json": components["schemas"]["Session"];
                 };
             };
             /** @description Validation Error */

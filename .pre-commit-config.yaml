@@ -74,7 +74,7 @@ repos:
       - id: insert-license
         name: Insert Apache license headers (shell-style comments)
         files: '(?:^|/)(?:.*\.(?:py|sh|toml|ya?ml)|Dockerfile|Makefile)$'
-        exclude: '(?:^|/)\..+|^docs/Makefile$'
+        exclude: '(?:^|/)\..+|^docs/Makefile$|^frontend/pnpm-lock\.yaml$'
         args:
           - --detect-license-in-X-top-lines=15
           - --license-filepath

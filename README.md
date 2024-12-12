@@ -25,6 +25,7 @@ and interactive exercises (quizzes and model checks using [capellambse](https://
 # Quickstart without docker
 
 - Make sure you have docker, make, python 3.12 and node 22 installed
+- Enable corepack using `corepack enable`
 - Clone the repository
 - Get or create a training
   - Put the training in the `training` folder
