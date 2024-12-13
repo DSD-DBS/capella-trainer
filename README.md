@@ -53,8 +53,8 @@ config:
       requests: 0.4
       limits: 2
     memory:
-      requests: 1.6Gi
-      limits: 6Gi
+      requests: 0.6Gi
+      limits: 1.6Gi
   environment: {}
   connection:
     methods:
