@@ -18,3 +18,5 @@ export const ENABLE_BUILT_IN_CAPELLA =
   import.meta.env.VITE_ENABLE_BUILT_IN_CAPELLA !== undefined
     ? import.meta.env.VITE_ENABLE_BUILT_IN_CAPELLA === "true"
     : window.env.ENABLE_BUILT_IN_CAPELLA === "true";
+
+export const SESSION_ID = /([a-z]{25})/gm.exec(ROUTE_PREFIX)?.[0];
