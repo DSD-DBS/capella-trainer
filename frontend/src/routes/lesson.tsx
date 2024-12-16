@@ -14,11 +14,26 @@ import {
 import { Suspense, useEffect, useRef } from "react";
 import { $api } from "@/lib/api/client.ts";
 import { ImperativePanelHandle } from "react-resizable-panels";
-import { ENABLE_BUILT_IN_CAPELLA } from "@/lib/const.ts";
+import { ENABLE_BUILT_IN_CAPELLA, SESSION_ID } from "@/lib/const.ts";
 import { useQueryClient } from "@tanstack/react-query";
 
-const StaticLesson = () => {
+const StaticLesson = ({
+  shouldBeMaximized,
+}: {
+  shouldBeMaximized: boolean;
+}) => {
   const { "*": path } = useParams();
+
+  useEffect(() => {
+    window.parent.postMessage(
+      {
+        type: "setFullscreen",
+        fullscreen: shouldBeMaximized,
+        sessionId: SESSION_ID,
+      },
+      "*",
+    );
+  }, [shouldBeMaximized]);
 
   if (!path) {
     return null;
@@ -34,62 +49,26 @@ const StaticLesson = () => {
   );
 };
 
-const ResizeableLesson = () => {
+const ResizeableLesson = ({
+  shouldBeMaximized,
+}: {
+  shouldBeMaximized: boolean;
+}) => {
   const { "*": path } = useParams();
   const capellaRef = useRef<ImperativePanelHandle>(null);
-  const queryClient = useQueryClient();
-
-  const { data: session } = $api.useQuery("get", "/session");
-  const sessionMutation = $api.useMutation("post", "/session", {
-    onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["get", "/session"] });
-    },
-  });
 
   useEffect(() => {
-    if (!session || !path || sessionMutation.isPending) return;
-
-    if (session?.last_lesson !== path) {
-      sessionMutation.mutate({
-        body: {
-          last_lesson: path,
-          completed_lessons: session.completed_lessons,
-        },
-      });
+    if (!capellaRef.current) return;
+    if (shouldBeMaximized) {
+      capellaRef.current.collapse();
+    } else {
+      capellaRef.current.expand();
     }
-  }, [path, session, sessionMutation]);
+  }, [shouldBeMaximized]);
 
   if (!path) {
     return null;
   }
-
-  const { data: lessonData } = $api.useSuspenseQuery(
-    "get",
-    "/training/lesson/{lesson_path}",
-    {
-      params: {
-        path: {
-          lesson_path: path,
-        },
-      },
-    },
-  );
-
-  useEffect(() => {
-    console.log(lessonData);
-    if (!capellaRef.current) return;
-    if (lessonData.show_capella === null) {
-      if (lessonData.start_project) {
-        capellaRef.current.expand();
-      } else {
-        capellaRef.current.collapse();
-      }
-    } else if (lessonData.show_capella) {
-      capellaRef.current.expand();
-    } else {
-      capellaRef.current.collapse();
-    }
-  }, [lessonData]);
 
   return (
     <ResizablePanelGroup direction="horizontal">
@@ -111,10 +90,50 @@ const ResizeableLesson = () => {
 };
 
 const Lesson = () => {
+  const queryClient = useQueryClient();
+  const { "*": path } = useParams();
+
+  const { data: session } = $api.useQuery("get", "/session");
+  const sessionMutation = $api.useMutation("post", "/session", {
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ["get", "/session"] });
+    },
+  });
+
+  const { data: lessonData } = $api.useQuery(
+    "get",
+    "/training/lesson/{lesson_path}",
+    {
+      params: {
+        path: {
+          lesson_path: path!,
+        },
+      },
+    },
+  );
+
+  const shouldBeMaximized =
+    lessonData?.show_capella === null
+      ? !lessonData?.start_project
+      : !lessonData?.show_capella;
+
+  useEffect(() => {
+    if (!session || !path || sessionMutation.isPending) return;
+
+    if (session?.last_lesson !== path) {
+      sessionMutation.mutate({
+        body: {
+          last_lesson: path,
+          completed_lessons: session.completed_lessons,
+        },
+      });
+    }
+  }, [path, session, sessionMutation]);
+
   if (ENABLE_BUILT_IN_CAPELLA) {
-    return <ResizeableLesson />;
+    return <ResizeableLesson shouldBeMaximized={shouldBeMaximized} />;
   } else {
-    return <StaticLesson />;
+    return <StaticLesson shouldBeMaximized={shouldBeMaximized} />;
   }
 };
 
