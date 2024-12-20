@@ -16,6 +16,7 @@ import { $api } from "@/lib/api/client.ts";
 import { ImperativePanelHandle } from "react-resizable-panels";
 import { ENABLE_BUILT_IN_CAPELLA, SESSION_ID } from "@/lib/const.ts";
 import { useQueryClient } from "@tanstack/react-query";
+import FocusIframe from "@/components/focus-iframe.tsx";
 
 const StaticLesson = ({
   shouldBeMaximized,
@@ -80,10 +81,7 @@ const ResizeableLesson = ({
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel collapsible ref={capellaRef}>
-        <iframe
-          src="http://localhost:8088/"
-          className="h-full w-full border-0"
-        ></iframe>
+        <FocusIframe src="http://localhost:8088/" />
       </ResizablePanel>
     </ResizablePanelGroup>
   );
