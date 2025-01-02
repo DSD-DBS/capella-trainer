@@ -61,6 +61,8 @@ exercise:
         Another hint
 ```
 
+The list of available icons can be found [here](frontend/src/components/markdown/caicon.tsx).
+
 In addition to this, you need to create an `exercise.py` file. It contains the checks that will be run on the user's project to determine if the exercise was completed successfully.
 
 ```python

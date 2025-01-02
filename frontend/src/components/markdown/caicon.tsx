@@ -13,6 +13,7 @@ import domain from "~/assets/capella-icons/domain.png";
 import createDomain from "~/assets/capella-icons/create-domain.png";
 import openCurrentConfigFile from "~/assets/capella-icons/open-current-config-file.png";
 import physicalComponent from "~/assets/capella-icons/physical-component.png";
+import physicalLink from "~/assets/capella-icons/physical-link.png";
 import propertyValues from "~/assets/capella-icons/property-values.png";
 import search from "~/assets/capella-icons/search.png";
 import extension from "~/assets/capella-icons/extension.png";
@@ -40,6 +41,7 @@ const icons = {
   createDomain,
   openCurrentConfigFile,
   physicalComponent,
+  physicalLink,
   propertyValues,
   search,
   extension,
