@@ -53,7 +53,7 @@ config:
       requests: 0.4
       limits: 2
     memory:
-      requests: 1.6Gi
+      requests: 0.6Gi
       limits: 6Gi
   environment: {}
   connection:
@@ -97,9 +97,12 @@ config:
   is_deprecated: false
   sessions:
     persistent:
-      image: ghcr.io/dsd-dbs/capella-trainer/capella-trainer:main
+      image:
+        regular: ghcr.io/dsd-dbs/capella-trainer/capella-trainer:main
+        beta: null
   backups:
     image: null
+  compatible_versions: []
 ```
 
 # Contributing
