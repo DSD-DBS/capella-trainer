@@ -13,9 +13,7 @@ def get_capella_endpoint() -> str | None:
     user_id = os.getenv("CAPELLACOLLAB_SESSION_REQUESTER_USER_ID")
     username = os.getenv("CAPELLACOLLAB_SESSION_REQUESTER_USERNAME")
     session_id = os.getenv("CAPELLACOLLAB_SESSION_ID")
-
-    # this will be replaced with a var from the CCM in the future
-    personal_access_token = os.getenv("PAT_TESTING")
+    personal_access_token = os.getenv("CAPELLACOLLAB_SESSION_API_TOKEN")
 
     if (
         backend_url is None

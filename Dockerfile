@@ -3,7 +3,7 @@
 
 # Build frontend
 FROM node:22 as build-frontend
-RUN corepack enable
+RUN npm install -g corepack@latest && corepack enable
 WORKDIR /app
 COPY frontend/package*.json ./
 RUN pnpm install
