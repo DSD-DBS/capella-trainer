@@ -22,6 +22,8 @@ repos:
           - types-pyyaml
           - capellambse
           - httpx
+          - prometheus_client
+          - prometheus_fastapi_instrumentator
   - repo: local
     hooks:
       - id: tsc
