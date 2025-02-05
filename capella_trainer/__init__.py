@@ -1,16 +1,18 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
-
+import datetime
 import os
 import typing as t
 from enum import Enum
 
 import httpx
+import prometheus_client
 import starlette.responses
 import starlette.types
 import yaml
 from fastapi import APIRouter, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import BaseModel, Field
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.staticfiles import StaticFiles
@@ -28,6 +30,25 @@ from capella_trainer.quiz import Quiz
 from capella_trainer.session import Session
 
 app = FastAPI()
+
+instrumentator = Instrumentator()
+
+IDLETIME = prometheus_client.Gauge(
+    "idletime_minutes", "Idletime of the Jupyter server in minutes."
+)
+
+
+def get_idletime() -> float:
+    if not hasattr(app, "last_request"):
+        return -1.0
+    idletime = (datetime.datetime.now() - app.last_request).seconds / 60
+    return round(idletime, 2)
+
+
+IDLETIME.set_function(get_idletime)
+
+instrumentator.instrument(app).expose(app)
+
 router = APIRouter(prefix=ROUTE_PREFIX)
 app.add_middleware(
     CORSMiddleware,
@@ -149,6 +170,7 @@ class ProjectStatus(Enum):
 
 @router.get("/training/lesson/{lesson_path:path}/project_status")
 async def get_project_status(lesson_path: str) -> ProjectStatus:
+    app.last_request = datetime.datetime.now()  # type: ignore[attr-defined]
     lesson = training.root.get_lesson(lesson_path.split("/"))
     try:
         projects = httpx.get(f"{CAPELLA_ENDPOINT}/projects").json()
