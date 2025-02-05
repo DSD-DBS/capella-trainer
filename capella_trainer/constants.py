@@ -58,7 +58,7 @@ def get_capella_endpoint() -> str | None:
         logging.warning("Failed to find Capella session for own project")
         return None
 
-    return f"http://{capella_session["internal_endpoint"]}:5007/api/v1"
+    return f"http://{capella_session['internal_endpoint']}:5007/api/v1"
 
 
 TRAINING_DIR = os.path.abspath(os.environ.get("TRAINING_DIR", "./training"))
