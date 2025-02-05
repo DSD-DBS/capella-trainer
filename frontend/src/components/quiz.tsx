@@ -36,16 +36,48 @@ export default function Quiz({ path }: { path: string }) {
     },
   );
 
-  const { data: session } = $api.useQuery("get", "/session");
+  const { data: session, isLoading: sessionLoading } = $api.useQuery(
+    "get",
+    "/session",
+  );
   const sessionMutation = $api.useMutation("post", "/session", {
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: ["get", "/session"] });
     },
   });
 
+  const [userAnswers, setUserAnswers] = useState<Record<number, number[]>>({});
+  const [checkedAnswers, setCheckedAnswers] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const isCorrect = (
+    question:
+      | components["schemas"]["SingleChoiceQuestion"]
+      | components["schemas"]["MultipleChoiceQuestion"],
+  ) => {
+    if (question.question_type === "single_choice") {
+      const userAnswer = userAnswers[question.id]?.[0];
+      return userAnswer === question.correct_option;
+    } else {
+      const userAnswer = userAnswers[question.id] || [];
+      return (
+        userAnswer.length === question.correct_options.length &&
+        userAnswer.every((answer) => question.correct_options.includes(answer))
+      );
+    }
+  };
+
+  const allCorrect = quiz.questions.every((question) => isCorrect(question));
+
   useEffect(() => {
-    if (!session || !checkedAnswers || sessionMutation.isPending) return;
-    if (quiz.questions.every((question) => isCorrect(question))) {
+    if (
+      !session ||
+      !checkedAnswers ||
+      sessionMutation.isPending ||
+      sessionLoading
+    )
+      return;
+    if (allCorrect) {
       if (!session.completed_lessons.includes(path)) {
         sessionMutation.mutate({
           body: {
@@ -55,11 +87,15 @@ export default function Quiz({ path }: { path: string }) {
         });
       }
     }
-  }, [quiz, path, session, sessionMutation]);
-
-  const [userAnswers, setUserAnswers] = useState<Record<number, number[]>>({});
-  const [checkedAnswers, setCheckedAnswers] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  }, [
+    quiz,
+    path,
+    session,
+    sessionMutation,
+    checkedAnswers,
+    allCorrect,
+    sessionLoading,
+  ]);
 
   const handleSingleChoice = (questionId: number, optionIndex: number) => {
     setUserAnswers((prev) => ({ ...prev, [questionId]: [optionIndex] }));
@@ -86,23 +122,6 @@ export default function Quiz({ path }: { path: string }) {
   const resetQuiz = () => {
     setUserAnswers({});
     setCheckedAnswers(false);
-  };
-
-  const isCorrect = (
-    question:
-      | components["schemas"]["SingleChoiceQuestion"]
-      | components["schemas"]["MultipleChoiceQuestion"],
-  ) => {
-    if (question.question_type === "single_choice") {
-      const userAnswer = userAnswers[question.id]?.[0];
-      return userAnswer === question.correct_option;
-    } else {
-      const userAnswer = userAnswers[question.id] || [];
-      return (
-        userAnswer.length === question.correct_options.length &&
-        userAnswer.every((answer) => question.correct_options.includes(answer))
-      );
-    }
   };
 
   return (
@@ -184,20 +203,29 @@ export default function Quiz({ path }: { path: string }) {
         </div>
 
         <DialogFooter>
-          <Button variant="secondary" onClick={() => setIsOpen(false)}>
-            Close
-          </Button>
           {!checkedAnswers ? (
-            <Button onClick={checkAnswers}>Check Answers</Button>
+            <>
+              <Button variant="secondary" onClick={() => setIsOpen(false)}>
+                Close
+              </Button>
+              <Button onClick={checkAnswers}>Check Answers</Button>
+            </>
+          ) : allCorrect ? (
+            <Button onClick={() => setIsOpen(false)}>Done</Button>
           ) : (
-            <Button
-              onClick={() => {
-                resetQuiz();
-                setCheckedAnswers(false);
-              }}
-            >
-              Try Again
-            </Button>
+            <>
+              <Button variant="secondary" onClick={() => setIsOpen(false)}>
+                Close
+              </Button>
+              <Button
+                onClick={() => {
+                  resetQuiz();
+                  setCheckedAnswers(false);
+                }}
+              >
+                Try Again
+              </Button>
+            </>
           )}
         </DialogFooter>
       </DialogContent>
