@@ -105,6 +105,21 @@ config:
   compatible_versions: []
 ```
 
+In addition, you have to expose the REST API port of the Capella tool in the tool configuration of the Capella tool:
+
+```yml
+config:
+  [...]
+  connection:
+    methods:
+      - [...]
+        ports:
+          metrics: 9118
+          additional:
+            restapi: 5007
+          http: 10000
+```
+
 # Contributing
 
 We'd love to see your bug reports and improvement suggestions! Please take a
