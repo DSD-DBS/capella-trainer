@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import {
@@ -26,6 +25,7 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import ProjectControl from "@/components/project-control.tsx";
 import { Progress } from "@/components/ui/progress.tsx";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 function FolderNode({
   node,
@@ -79,7 +79,7 @@ function LessonNode({
   node: components["schemas"]["Lesson"];
   path: string;
 }) {
-  const navigate = useNavigate();
+  const navigate = useNavigate({ from: "/lesson/$" });
   const isActive = path === node.path.join("/");
   const { data: session } = $api.useSuspenseQuery("get", "/session");
   const isCompleted = session.completed_lessons.includes(node.path.join("/"));
@@ -90,7 +90,9 @@ function LessonNode({
         "flex cursor-pointer items-center rounded px-2 py-1",
         isActive ? "bg-primary text-primary-foreground" : "hover:bg-secondary",
       )}
-      onClick={() => navigate(`/lesson/${node.path.join("/")}`)}
+      onClick={() =>
+        navigate({ to: "/lesson/$", params: { _splat: node.path.join("/") } })
+      }
     >
       {isCompleted ? (
         <BookCheck className="mr-2 h-4 w-4 shrink-0" />
@@ -201,7 +203,9 @@ const Navigation = ({ path }: { path: string }) => {
             !previousLesson && "pointer-events-none opacity-50",
             "shrink-0",
           )}
-          to={previousLesson ? `/lesson/${previousLesson}` : "#"}
+          to="/lesson/$"
+          params={{ _splat: previousLesson! }}
+          disabled={!previousLesson}
         >
           <ArrowLeft className="size-4" />
         </Link>
@@ -211,7 +215,9 @@ const Navigation = ({ path }: { path: string }) => {
             !nextLesson && "pointer-events-none opacity-50",
             "shrink-0",
           )}
-          to={nextLesson ? `/lesson/${nextLesson}` : "#"}
+          to="/lesson/$"
+          params={{ _splat: nextLesson! }}
+          disabled={!nextLesson}
         >
           <ArrowRight className="size-4" />
         </Link>

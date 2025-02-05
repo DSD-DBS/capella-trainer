@@ -5,25 +5,39 @@
 
 import Navigation from "@/components/navigation.tsx";
 import Content from "@/components/content.tsx";
-import { useParams } from "react-router-dom";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable.tsx";
-import { Suspense, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { $api } from "@/lib/api/client.ts";
 import { ImperativePanelHandle } from "react-resizable-panels";
 import { ENABLE_BUILT_IN_CAPELLA, SESSION_ID } from "@/lib/const.ts";
 import { useQueryClient } from "@tanstack/react-query";
 import FocusIframe from "@/components/focus-iframe.tsx";
+import { createFileRoute } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/lesson/$")({
+  component: Lesson,
+  loader: ({ context, params }) =>
+    context.queryClient.ensureQueryData(
+      $api.queryOptions("get", "/training/lesson/{lesson_path}", {
+        params: {
+          path: {
+            lesson_path: params._splat!,
+          },
+        },
+      }),
+    ),
+});
 
 const StaticLesson = ({
   shouldBeMaximized,
 }: {
   shouldBeMaximized: boolean;
 }) => {
-  const { "*": path } = useParams();
+  const { _splat: path } = Route.useParams();
 
   useEffect(() => {
     window.parent.postMessage(
@@ -42,10 +56,8 @@ const StaticLesson = ({
 
   return (
     <div className="flex h-screen flex-col justify-between gap-2 py-2">
-      <Suspense>
-        <Navigation path={path} />
-        <Content path={path} />
-      </Suspense>
+      <Navigation path={path} />
+      <Content path={path} />
     </div>
   );
 };
@@ -55,7 +67,7 @@ const ResizeableLesson = ({
 }: {
   shouldBeMaximized: boolean;
 }) => {
-  const { "*": path } = useParams();
+  const { _splat: path } = Route.useParams();
   const capellaRef = useRef<ImperativePanelHandle>(null);
 
   useEffect(() => {
@@ -74,10 +86,8 @@ const ResizeableLesson = ({
   return (
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel className="flex h-screen flex-col justify-between gap-2 py-2">
-        <Suspense>
-          <Navigation path={path} />
-          <Content path={path} />
-        </Suspense>
+        <Navigation path={path} />
+        <Content path={path} />
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel collapsible ref={capellaRef}>
@@ -87,9 +97,9 @@ const ResizeableLesson = ({
   );
 };
 
-const Lesson = () => {
+function Lesson() {
   const queryClient = useQueryClient();
-  const { "*": path } = useParams();
+  const { _splat: path } = Route.useParams();
 
   const { data: session } = $api.useQuery("get", "/session");
   const sessionMutation = $api.useMutation("post", "/session", {
@@ -98,7 +108,7 @@ const Lesson = () => {
     },
   });
 
-  const { data: lessonData } = $api.useQuery(
+  const { data: lessonData } = $api.useSuspenseQuery(
     "get",
     "/training/lesson/{lesson_path}",
     {
@@ -133,6 +143,4 @@ const Lesson = () => {
   } else {
     return <StaticLesson shouldBeMaximized={shouldBeMaximized} />;
   }
-};
-
-export default Lesson;
+}

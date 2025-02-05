@@ -105,7 +105,7 @@ repos:
       - id: insert-license
         name: Insert Apache license headers (C-style comments)
         files: '\.(?:s?css|js|jsx|ts|tsx)$'
-        exclude: '(?:^|/)\..+|frontend/src/lib/api/v1\.d\.ts$'
+        exclude: '(?:^|/)\..+|frontend/src/lib/api/v1\.d\.ts$|frontend/src/routeTree\.gen\.ts$'
         args:
           - --detect-license-in-X-top-lines=15
           - --license-filepath

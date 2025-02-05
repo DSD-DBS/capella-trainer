@@ -4,18 +4,22 @@
  */
 
 import { $api } from "@/lib/api/client.ts";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { LoaderCircle } from "lucide-react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
-const Index = () => {
+export const Route = createFileRoute("/")({
+  component: Index,
+});
+
+function Index() {
   const { data: session } = $api.useQuery("get", "/session");
 
-  const navigate = useNavigate();
+  const navigate = useNavigate({ from: "/" });
 
   useEffect(() => {
     if (session?.last_lesson) {
-      navigate(`/lesson/${session.last_lesson}`);
+      navigate({ to: "/lesson/$", params: { _splat: session.last_lesson } });
     }
   }, [session, navigate]);
 
@@ -24,6 +28,4 @@ const Index = () => {
       <LoaderCircle className="h-16 w-16 animate-spin" />
     </div>
   );
-};
-
-export default Index;
+}
