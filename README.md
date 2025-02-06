@@ -62,7 +62,7 @@ config:
         type: http
         name: Browser Connection
         ports:
-          metrics: 9118
+          metrics: 8000
           http: 8000
         environment:
           API_BASE: "{CAPELLACOLLAB_SESSIONS_BASE_PATH}"
@@ -77,7 +77,7 @@ config:
         cookies: {}
   monitoring:
     prometheus:
-      path: /prometheus
+      path: /metrics
   provisioning:
     directory: /models
     max_number_of_models: 1
@@ -114,10 +114,8 @@ config:
     methods:
       - [...]
         ports:
-          metrics: 9118
           additional:
             restapi: 5007
-          http: 10000
 ```
 
 # Contributing
