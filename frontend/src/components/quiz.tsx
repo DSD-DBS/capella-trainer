@@ -21,6 +21,7 @@ import {
 import { $api } from "@/lib/api/client.ts";
 import { components } from "@/lib/api/v1";
 import { useQueryClient } from "@tanstack/react-query";
+import { ScrollArea } from "@/components/ui/scroll-area.tsx";
 
 export default function Quiz({ path }: { path: string }) {
   const queryClient = useQueryClient();
@@ -137,70 +138,72 @@ export default function Quiz({ path }: { path: string }) {
             questions.
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-6">
-          {quiz.questions.map((question) => (
-            <div key={question.id} className="space-y-4">
-              <h3 className="text-lg font-semibold">{question.text}</h3>
-              {question.question_type === "single_choice" ? (
-                <RadioGroup
-                  onValueChange={(value) =>
-                    handleSingleChoice(question.id, parseInt(value))
-                  }
-                  disabled={checkedAnswers}
-                >
-                  {question.options.map((option, index) => (
-                    <div key={index} className="flex items-center space-x-2">
-                      <RadioGroupItem
-                        value={index.toString()}
-                        id={`q${question.id}-option${index}`}
-                        checked={userAnswers[question.id]?.includes(index)}
-                      />
-                      <Label htmlFor={`q${question.id}-option${index}`}>
-                        {option}
-                      </Label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              ) : (
-                <div className="space-y-2">
-                  {question.options.map((option, index) => (
-                    <div key={index} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`q${question.id}-option${index}`}
-                        checked={userAnswers[question.id]?.includes(index)}
-                        onCheckedChange={() =>
-                          handleMultipleChoice(question.id, index)
-                        }
-                        disabled={checkedAnswers}
-                      />
-                      <Label htmlFor={`q${question.id}-option${index}`}>
-                        {option}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-              )}
-              {checkedAnswers && (
-                <div className="mt-2">
-                  {isCorrect(question) ? (
-                    <div className="flex items-center text-green-600">
-                      <CheckCircle2 className="mr-2 h-5 w-5" />
-                      <span>Correct!</span>
-                    </div>
-                  ) : (
-                    <div className="text-red-600">
-                      <div className="flex items-center">
-                        <AlertCircle className="mr-2 h-5 w-5" />
-                        <span>Incorrect</span>
+        <ScrollArea className="max-h-[70vh]">
+          <div className="space-y-6">
+            {quiz.questions.map((question) => (
+              <div key={question.id} className="space-y-2">
+                <h3 className="text-lg font-semibold">{question.text}</h3>
+                {question.question_type === "single_choice" ? (
+                  <RadioGroup
+                    onValueChange={(value) =>
+                      handleSingleChoice(question.id, parseInt(value))
+                    }
+                    disabled={checkedAnswers}
+                  >
+                    {question.options.map((option, index) => (
+                      <div key={index} className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value={index.toString()}
+                          id={`q${question.id}-option${index}`}
+                          checked={userAnswers[question.id]?.includes(index)}
+                        />
+                        <Label htmlFor={`q${question.id}-option${index}`}>
+                          {option}
+                        </Label>
                       </div>
-                      <p className="mt-1">{question.explanation}</p>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+                    ))}
+                  </RadioGroup>
+                ) : (
+                  <div className="space-y-2">
+                    {question.options.map((option, index) => (
+                      <div key={index} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`q${question.id}-option${index}`}
+                          checked={userAnswers[question.id]?.includes(index)}
+                          onCheckedChange={() =>
+                            handleMultipleChoice(question.id, index)
+                          }
+                          disabled={checkedAnswers}
+                        />
+                        <Label htmlFor={`q${question.id}-option${index}`}>
+                          {option}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {checkedAnswers && (
+                  <div className="mt-2">
+                    {isCorrect(question) ? (
+                      <div className="flex items-center text-green-600">
+                        <CheckCircle2 className="mr-2 h-5 w-5" />
+                        <span>Correct!</span>
+                      </div>
+                    ) : (
+                      <div className="text-red-600">
+                        <div className="flex items-center">
+                          <AlertCircle className="mr-2 h-5 w-5" />
+                          <span>Incorrect</span>
+                        </div>
+                        <p className="mt-1">{question.explanation}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
 
         <DialogFooter>
           {!checkedAnswers ? (

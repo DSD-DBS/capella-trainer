@@ -43,7 +43,7 @@ repos:
         types_or: [ts, tsx, css, html, markdown]
         additional_dependencies:
           - 'prettier-plugin-tailwindcss@^0.6.11'
-          - 'prettier@^3.4.2'
+          - 'prettier@^3.5.0'
           - 'tailwindcss@^3.4.17'
   - repo: https://github.com/gitleaks/gitleaks.git
     rev: v8.23.3
