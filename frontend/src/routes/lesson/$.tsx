@@ -17,6 +17,7 @@ import { ENABLE_BUILT_IN_CAPELLA, SESSION_ID } from "@/lib/const.ts";
 import { useQueryClient } from "@tanstack/react-query";
 import FocusIframe from "@/components/focus-iframe.tsx";
 import { createFileRoute } from "@tanstack/react-router";
+import { LoaderCircle } from "lucide-react";
 
 export const Route = createFileRoute("/lesson/$")({
   component: Lesson,
@@ -30,6 +31,11 @@ export const Route = createFileRoute("/lesson/$")({
         },
       }),
     ),
+  pendingComponent: () => (
+    <div className="grid h-screen w-screen place-items-center">
+      <LoaderCircle className="h-16 w-16 animate-spin" />
+    </div>
+  ),
 });
 
 const StaticLesson = ({
