@@ -4,6 +4,26 @@
  */
 
 export interface paths {
+    "/metrics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Metrics
+         * @description Endpoint that serves Prometheus metrics.
+         */
+        get: operations["metrics_metrics_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/training": {
         parameters: {
             query?: never;
@@ -223,6 +243,16 @@ export interface components {
              * @description Whether to show Capella or exclusively the lesson.
              */
             show_capella?: boolean | null;
+            /**
+             * Confetti
+             * @description Whether to show confetti at the end of the lesson.
+             */
+            confetti?: boolean | null;
+            /**
+             * Hide From Menu
+             * @description Whether to hide the lesson from the menu.
+             */
+            hide_from_menu?: boolean | null;
         };
         /** MultipleChoiceQuestion */
         MultipleChoiceQuestion: {
@@ -380,6 +410,26 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    metrics_metrics_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
     get_training_training_get: {
         parameters: {
             query?: never;
