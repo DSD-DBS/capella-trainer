@@ -39,7 +39,12 @@ def get_capella_endpoint() -> str | None:
         return None
 
     project_id = next(
-        (s["project"]["id"] for s in sessions if s["id"] == session_id), None
+        (
+            s.get("project", {}).get("id")
+            for s in sessions
+            if s["id"] == session_id
+        ),
+        None,
     )
     if project_id is None:
         logging.warning("Failed to find own project_id")
@@ -49,7 +54,7 @@ def get_capella_endpoint() -> str | None:
         (
             s
             for s in sessions
-            if s["project"]["id"] == project_id
+            if s.get("project", {}).get("id") == project_id
             and s["version"]["tool"]["name"] == "Capella"
         ),
         None,
