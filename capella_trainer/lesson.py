@@ -19,6 +19,8 @@ class LessonMeta(BaseModel):
     show_capella: bool | None = Field(default=None)
     start_project: str | None = Field(default=None)
     exercise: ExerciseMeta | None = Field(default=None)
+    confetti: bool | None = Field(default=None)
+    hide_from_menu: bool | None = Field(default=None)
 
 
 class Lesson(Element):
@@ -38,6 +40,13 @@ class Lesson(Element):
         description="Whether to show Capella or exclusively the lesson.",
     )
     type: str = Field(default="lesson", description="Type of the element.")
+    confetti: bool | None = Field(
+        default=None,
+        description="Whether to show confetti at the end of the lesson.",
+    )
+    hide_from_menu: bool | None = Field(
+        default=None, description="Whether to hide the lesson from the menu."
+    )
 
     @classmethod
     def from_path(cls, path_name: list[str]) -> t.Self:
@@ -85,6 +94,8 @@ class Lesson(Element):
                     has_quiz=has_quiz,
                     start_project=meta.start_project,
                     show_capella=meta.show_capella,
+                    confetti=meta.confetti,
+                    hide_from_menu=meta.hide_from_menu,
                 )
         else:
             raise FileNotFoundError(f"content.mdx not found in {path_name}")

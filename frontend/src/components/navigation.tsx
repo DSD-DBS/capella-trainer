@@ -84,6 +84,7 @@ function LessonNode({
   const { data: session } = $api.useSuspenseQuery("get", "/session");
   const isCompleted = session.completed_lessons.includes(node.path.join("/"));
 
+  if (node.hide_from_menu) return null;
   return (
     <li
       className={cn(

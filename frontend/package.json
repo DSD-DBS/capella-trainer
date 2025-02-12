@@ -41,6 +41,7 @@
     "openapi-fetch": "^0.13.4",
     "openapi-react-query": "^0.2.10",
     "react": "^19.0.0",
+    "react-confetti": "^6.2.2",
     "react-dom": "^19.0.0",
     "react-resizable-panels": "^2.1.7",
     "rehype-mdx-import-media": "^1.2.0",
