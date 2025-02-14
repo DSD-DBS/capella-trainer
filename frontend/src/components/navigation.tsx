@@ -134,10 +134,13 @@ function getAllLessons(root: components["schemas"]["Folder"]): {
   return { lessons, progressRoot };
 }
 
-const Navigation = ({ path }: { path: string }) => {
-  const { data } = $api.useSuspenseQuery("get", "/training");
-
-  const { lessons: flattenedLessons, progressRoot } = getAllLessons(data.root);
+export function getNavigationData(
+  training: components["schemas"]["Training"],
+  path: string,
+) {
+  const { lessons: flattenedLessons, progressRoot } = getAllLessons(
+    training.root,
+  );
 
   const lessonIndex = flattenedLessons.findIndex(
     (lesson) => lesson.path.join("/") === path,
@@ -150,6 +153,26 @@ const Navigation = ({ path }: { path: string }) => {
     lessonIndex < flattenedLessons.length - 1
       ? flattenedLessons[lessonIndex + 1].path.join("/")
       : null;
+
+  return {
+    flattenedLessons,
+    previousLesson,
+    nextLesson,
+    progressRoot,
+    lessonIndex,
+  };
+}
+
+const Navigation = ({ path }: { path: string }) => {
+  const { data } = $api.useSuspenseQuery("get", "/training");
+
+  const {
+    flattenedLessons,
+    previousLesson,
+    nextLesson,
+    progressRoot,
+    lessonIndex,
+  } = getNavigationData(data, path);
 
   let progress = 0;
   if (progressRoot) {
