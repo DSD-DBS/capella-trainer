@@ -22,6 +22,8 @@ import { $api } from "@/lib/api/client.ts";
 import { components } from "@/lib/api/v1";
 import { useQueryClient } from "@tanstack/react-query";
 import { ScrollArea } from "@/components/ui/scroll-area.tsx";
+import { getNavigationData } from "./navigation";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function Quiz({ path }: { path: string }) {
   const queryClient = useQueryClient();
@@ -37,6 +39,8 @@ export default function Quiz({ path }: { path: string }) {
     },
   );
 
+  const { data: training } = $api.useSuspenseQuery("get", "/training");
+
   const { data: session, isLoading: sessionLoading } = $api.useQuery(
     "get",
     "/session",
@@ -47,9 +51,18 @@ export default function Quiz({ path }: { path: string }) {
     },
   });
 
+  const navigate = useNavigate({ from: "/lesson/$" });
+
   const [userAnswers, setUserAnswers] = useState<Record<number, number[]>>({});
   const [checkedAnswers, setCheckedAnswers] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  const { nextLesson } = getNavigationData(training, path);
+
+  async function navigateToNext() {
+    setIsOpen(false);
+    await navigate({ to: "/lesson/$", params: { _splat: nextLesson! } });
+  }
 
   const isCorrect = (
     question:
@@ -214,7 +227,12 @@ export default function Quiz({ path }: { path: string }) {
               <Button onClick={checkAnswers}>Check Answers</Button>
             </>
           ) : allCorrect ? (
-            <Button onClick={() => setIsOpen(false)}>Done</Button>
+            <>
+              <Button onClick={() => setIsOpen(false)} variant="secondary">
+                Done
+              </Button>
+              {nextLesson && <Button onClick={navigateToNext}>Next</Button>}
+            </>
           ) : (
             <>
               <Button variant="secondary" onClick={() => setIsOpen(false)}>
