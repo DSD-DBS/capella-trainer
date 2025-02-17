@@ -186,7 +186,7 @@ const Navigation = ({ path }: { path: string }) => {
   }
 
   return (
-    <div className="flex flex-col gap-1 px-4">
+    <div className="flex w-full flex-col gap-1 px-4">
       <div className="flex gap-1">
         <Popover>
           <PopoverTrigger asChild>
