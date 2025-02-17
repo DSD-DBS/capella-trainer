@@ -32,7 +32,7 @@ export const Route = createFileRoute("/lesson/$")({
       }),
     ),
   pendingComponent: () => (
-    <div className="grid h-screen w-screen place-items-center">
+    <div className="grid h-dvh w-screen place-items-center">
       <LoaderCircle className="h-16 w-16 animate-spin" />
     </div>
   ),
@@ -61,7 +61,7 @@ const StaticLesson = ({
   }
 
   return (
-    <div className="flex h-screen flex-col justify-between gap-2 py-2">
+    <div className="flex h-dvh flex-col justify-between gap-2 py-2">
       <Navigation path={path} />
       <Content path={path} />
     </div>
@@ -91,7 +91,7 @@ const ResizeableLesson = ({
 
   return (
     <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel className="flex h-screen flex-col justify-between gap-2 py-2">
+      <ResizablePanel className="flex h-dvh flex-col items-center gap-2 py-2">
         <Navigation path={path} />
         <Content path={path} />
       </ResizablePanel>
