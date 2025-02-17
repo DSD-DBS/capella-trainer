@@ -12,4 +12,4 @@ sed -i "s|src=\"/|src=\"${ROUTE_PREFIX}/|g" ./frontend/dist/index.html
 uvicorn capella_trainer:app --host 0.0.0.0 --port 8000 --reload \
   --reload-dir ${TRAINING_DIR:-/app/training} --reload-include '**' \
   --reload-exclude 'project/**' --reload-exclude 'project' \
-  --reload-exclude 'session.yaml'
+  --reload-exclude 'session.yaml' --log-level debug

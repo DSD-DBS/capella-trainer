@@ -62,6 +62,11 @@ const ProjectControl = ({ path }: { path: string }) => {
     projectStatus,
   ]);
 
+  useEffect(() => {
+    // Reset autoloaded project state when path changes
+    setHasAutoloadedProject(false);
+  }, [path]);
+
   if (!lessonData.start_project || lessonData.show_capella === false) {
     return null;
   }

@@ -1,7 +1,9 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 import datetime
+import logging
 import os
+import time
 import typing as t
 from enum import Enum
 
@@ -29,6 +31,7 @@ from capella_trainer.lesson import Lesson
 from capella_trainer.quiz import Quiz
 from capella_trainer.session import Session
 
+logger = logging.getLogger("uvicorn.error")
 app = FastAPI()
 
 instrumentator = Instrumentator()
@@ -127,12 +130,49 @@ async def get_quiz(lesson_path: str) -> Quiz:
 
 
 def close_projects() -> None:
-    projects = httpx.get(f"{CAPELLA_ENDPOINT}/projects").json()
+    try:
+        logger.debug("Getting all projects to close")
+        res = httpx.get(f"{CAPELLA_ENDPOINT}/projects")
+        res.raise_for_status()
+        projects = res.json()
+        logger.debug("Found %s projects to close", projects)
+    except httpx.HTTPError as ex:
+        logger.exception("Failed to get all projects")
+        raise HTTPException(
+            status_code=500, detail="Failed to get all projects"
+        ) from ex
+
     for project in projects:
-        httpx.post(f"{CAPELLA_ENDPOINT}/projects/{project['name']}/close")
-        httpx.delete(
-            f"{CAPELLA_ENDPOINT}/projects/{project['name']}?deleteContents=false"
-        )
+        try:
+            logger.debug("Closing project %s", project["name"])
+            res = httpx.post(
+                f"{CAPELLA_ENDPOINT}/projects/{project['name']}/close"
+            )
+            res.raise_for_status()
+        except httpx.HTTPError as ex:
+            logger.exception("Failed to close project %s", project["name"])
+            raise HTTPException(
+                status_code=500, detail="Failed to close project"
+            ) from ex
+        else:
+            logger.debug("Closed project %s", project["name"])
+
+        try:
+            logger.debug("Deleting project %s from workspace", project["name"])
+            res = httpx.delete(
+                f"{CAPELLA_ENDPOINT}/projects/{project['name']}?deleteContents=false"
+            )
+            res.raise_for_status()
+        except httpx.HTTPError as ex:
+            logger.exception(
+                "Failed to delete project %s from workspace", project["name"]
+            )
+            raise HTTPException(
+                status_code=500,
+                detail="Failed to delete project from workspace",
+            ) from ex
+        else:
+            logger.debug("Deleted project %s from workspace", project["name"])
 
 
 @router.post("/training/lesson/{lesson_path:path}/load_project")
@@ -141,20 +181,21 @@ async def load_lesson_project(lesson_path: str) -> None:
     if not lesson.start_project:
         raise FileNotFoundError("Lesson does not have a start start-project")
 
-    try:
-        close_projects()
-    except httpx.HTTPError as ex:
-        raise HTTPException(
-            status_code=500, detail="Failed to close projects"
-        ) from ex
+    logger.info("Closing all projects")
+    close_projects()
 
+    logger.info("Creating working project")
     lesson.create_working_project()
 
+    time.sleep(1)  # Wait for the project to be created
+
     try:
-        httpx.post(
+        logger.info("Loading project")
+        res = httpx.post(
             f"{CAPELLA_ENDPOINT}/projects",
             json={"location": lesson.container_working_project_path},
         )
+        res.raise_for_status()
     except httpx.HTTPError as ex:
         raise HTTPException(
             status_code=500, detail="Failed to load project"
