@@ -22,7 +22,7 @@ dev-backend:
 	else \
 		source $(VENV)/Scripts/activate; \
 	fi && \
-	CONTAINER_TRAINING_DIR=/app/training uvicorn capella_trainer:app --reload --port 8001
+	CONTAINER_TRAINING_DIR=/app/training uvicorn capella_trainer:app --reload --port 8001 --log-level debug
 
 download-capella-dropins:
 	mkdir -p dropins

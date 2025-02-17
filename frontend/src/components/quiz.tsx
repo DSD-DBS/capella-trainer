@@ -22,8 +22,8 @@ import { $api } from "@/lib/api/client.ts";
 import { components } from "@/lib/api/v1";
 import { useQueryClient } from "@tanstack/react-query";
 import { ScrollArea } from "@/components/ui/scroll-area.tsx";
-import { getNavigationData } from "./navigation";
 import { useNavigate } from "@tanstack/react-router";
+import { getNavigationData } from "@/lib/utils.ts";
 
 export default function Quiz({ path }: { path: string }) {
   const queryClient = useQueryClient();
