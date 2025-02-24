@@ -23,7 +23,7 @@ import { components } from "@/lib/api/v1";
 import { useQueryClient } from "@tanstack/react-query";
 import { ScrollArea } from "@/components/ui/scroll-area.tsx";
 import { useNavigate } from "@tanstack/react-router";
-import { getNavigationData } from "@/lib/utils.ts";
+import { getLessonMeta } from "@/lib/utils.ts";
 
 export default function Quiz({ path }: { path: string }) {
   const queryClient = useQueryClient();
@@ -57,11 +57,14 @@ export default function Quiz({ path }: { path: string }) {
   const [checkedAnswers, setCheckedAnswers] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { nextLesson } = getNavigationData(training, path);
+  const { nextLesson } = getLessonMeta(training, path);
 
   async function navigateToNext() {
     setIsOpen(false);
-    await navigate({ to: "/lesson/$", params: { _splat: nextLesson! } });
+    await navigate({
+      to: "/lesson/$",
+      params: { _splat: nextLesson!.path.join("/") },
+    });
   }
 
   const isCorrect = (

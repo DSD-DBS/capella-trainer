@@ -14,7 +14,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { $api } from "@/lib/api/client.ts";
-import { cn, getAllLessons, getNavigationData } from "@/lib/utils.ts";
+import { cn, getLessonMeta } from "@/lib/utils.ts";
 import { components } from "@/lib/api/v1";
 
 import {
@@ -109,24 +109,10 @@ function LessonNode({
 const Navigation = ({ path }: { path: string }) => {
   const { data } = $api.useSuspenseQuery("get", "/training");
 
-  const {
-    flattenedLessons,
-    previousLesson,
-    nextLesson,
-    progressRoot,
-    lessonIndex,
-  } = getNavigationData(data, path);
-
-  let progress = 0;
-  if (progressRoot) {
-    const progressLessons = getAllLessons(progressRoot).lessons;
-    const currentLessonIndex = progressLessons.findIndex(
-      (lesson) => lesson.path.join("/") === path,
-    );
-    if (currentLessonIndex !== -1) {
-      progress = ((currentLessonIndex + 1) / progressLessons.length) * 100;
-    }
-  }
+  const { previousLesson, lesson, nextLesson, progress } = getLessonMeta(
+    data,
+    path,
+  );
 
   return (
     <div className="flex w-full flex-col gap-1 px-4">
@@ -137,7 +123,7 @@ const Navigation = ({ path }: { path: string }) => {
               className="block grow overflow-hidden overflow-ellipsis whitespace-nowrap text-left"
               variant="outline"
             >
-              {flattenedLessons[lessonIndex]?.name}
+              {lesson.name}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="p-0">
@@ -171,7 +157,7 @@ const Navigation = ({ path }: { path: string }) => {
             "shrink-0",
           )}
           to="/lesson/$"
-          params={{ _splat: previousLesson! }}
+          params={{ _splat: previousLesson?.path?.join("/") }}
           disabled={!previousLesson}
         >
           <ArrowLeft className="size-4" />
@@ -183,13 +169,13 @@ const Navigation = ({ path }: { path: string }) => {
             "shrink-0",
           )}
           to="/lesson/$"
-          params={{ _splat: nextLesson! }}
+          params={{ _splat: nextLesson?.path?.join("/") }}
           disabled={!nextLesson}
         >
           <ArrowRight className="size-4" />
         </Link>
       </div>
-      <Progress value={progress} />
+      {progress !== null ? <Progress value={progress} /> : null}
     </div>
   );
 };

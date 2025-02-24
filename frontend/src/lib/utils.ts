@@ -11,11 +11,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function getAllLessons(root: components["schemas"]["Folder"]): {
-  lessons: components["schemas"]["Lesson"][];
-  progressRoot: components["schemas"]["Folder"] | null;
-} {
-  const lessons: components["schemas"]["Lesson"][] = [];
+type Lesson = components["schemas"]["Lesson"];
+
+interface LessonWithProgressRoot extends Lesson {
+  progress_root: components["schemas"]["Folder"] | null;
+}
+
+export function getFlatLessons(
+  root: components["schemas"]["Folder"],
+): LessonWithProgressRoot[] {
+  const lessons: LessonWithProgressRoot[] = [];
   let progressRoot: components["schemas"]["Folder"] | null = null;
 
   function traverse(
@@ -23,7 +28,10 @@ export function getAllLessons(root: components["schemas"]["Folder"]): {
     currentPath: string[] = [],
   ) {
     if (element?.type === "lesson") {
-      lessons.push(element as components["schemas"]["Lesson"]);
+      lessons.push({
+        ...element,
+        progress_root: progressRoot,
+      } as LessonWithProgressRoot);
     } else if (element?.type === "folder") {
       const folder = element as components["schemas"]["Folder"];
       if (folder.progress_root) {
@@ -36,34 +44,36 @@ export function getAllLessons(root: components["schemas"]["Folder"]): {
   }
 
   traverse(root);
-  return { lessons, progressRoot };
+  return lessons;
 }
 
-export function getNavigationData(
+interface LessonMeta {
+  previousLesson: components["schemas"]["Lesson"] | null;
+  lesson: components["schemas"]["Lesson"];
+  nextLesson: components["schemas"]["Lesson"] | null;
+  progress: number | null;
+}
+
+export function getLessonMeta(
   training: components["schemas"]["Training"],
   path: string,
-) {
-  const { lessons: flattenedLessons, progressRoot } = getAllLessons(
-    training.root,
-  );
+): LessonMeta {
+  const lessons = getFlatLessons(training.root);
+  const index = lessons.findIndex((l) => l.path.join("/") === path);
+  const lesson = lessons[index];
+  const previousLesson = lessons[index - 1] || null;
+  const nextLesson = lessons[index + 1] || null;
 
-  const lessonIndex = flattenedLessons.findIndex(
-    (lesson) => lesson.path.join("/") === path,
-  );
+  const progressRootForLesson = lessons[index].progress_root;
 
-  const previousLesson =
-    lessonIndex > 0 ? flattenedLessons[lessonIndex - 1].path.join("/") : null;
+  if (progressRootForLesson) {
+    const lessonsInRoot = getFlatLessons(progressRootForLesson);
+    const currentLessonIndex = lessonsInRoot.findIndex(
+      (l) => l.path.join("/") === path,
+    );
+    const progress = ((currentLessonIndex + 1) / lessonsInRoot.length) * 100;
+    return { previousLesson, lesson, nextLesson, progress };
+  }
 
-  const nextLesson =
-    lessonIndex < flattenedLessons.length - 1
-      ? flattenedLessons[lessonIndex + 1].path.join("/")
-      : null;
-
-  return {
-    flattenedLessons,
-    previousLesson,
-    nextLesson,
-    progressRoot,
-    lessonIndex,
-  };
+  return { previousLesson, lesson, nextLesson, progress: null };
 }
