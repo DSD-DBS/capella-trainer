@@ -214,13 +214,19 @@ async def get_project_status(lesson_path: str) -> ProjectStatus:
     app.last_request = datetime.datetime.now()  # type: ignore[attr-defined]
     lesson = training.root.get_lesson(lesson_path.split("/"))
     try:
-        projects = httpx.get(f"{CAPELLA_ENDPOINT}/projects").json()
+        res = httpx.get(f"{CAPELLA_ENDPOINT}/projects")
+        res.raise_for_status()
+        projects = res.json()
+        logger.debug("Got projects: %s", projects)
     except httpx.HTTPError:
+        logger.exception("Failed to get projects")
         return ProjectStatus.UNKNOWN
     if len(projects) == 0:
         return ProjectStatus.UNLOADED
 
     project_path = projects[0]["location"]
+    logger.debug("Open project path is %s", project_path)
+    logger.debug("Target path is %s", lesson.container_working_project_path)
     if project_path == lesson.container_working_project_path:
         return ProjectStatus.WORKING
     if project_path.endswith("project"):
