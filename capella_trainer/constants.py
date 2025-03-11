@@ -54,7 +54,8 @@ def get_capella_endpoint() -> str | None:
         (
             s
             for s in sessions
-            if s.get("project", {}).get("id") == project_id
+            if s["project"] is not None
+            and s["project"]["id"] == project_id
             and s["version"]["tool"]["name"] == "Capella"
         ),
         None,
